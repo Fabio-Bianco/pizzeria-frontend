@@ -17,8 +17,9 @@ export function PizzeriaProvider({ children }) {
   const [appetizers, setAppetizers] = useState([])
   const [beverages, setBeverages] = useState([])
 
-  const [loading, setLoading] = useState({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false })
+  const [loading, setLoading] = useState({ categories: true, pizzas: true, ingredients: true, allergens: true, appetizers: true, beverages: true })
   const [error, setError] = useState({ categories: null, pizzas: null, ingredients: null, allergens: null, appetizers: null, beverages: null })
+  const [initialized, setInitialized] = useState({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false })
 
   // Tenta di estrarre una lista da varie forme di risposta comuni in Laravel (paginata/non paginata)
   const extractList = (payload) => {
@@ -43,18 +44,23 @@ export function PizzeriaProvider({ children }) {
     }
   }, [])
 
-  const fetchPizzas = useCallback(async (params = {}) => {
-    setLoading((s) => ({ ...s, pizzas: true }))
+  const fetchPizzas = useCallback(async (params = {}, force = false) => {
+    // Non mostrare loader se abbiamo già dei dati e non è forzato
+    const shouldShowLoader = force || !initialized.pizzas
+    if (shouldShowLoader) {
+      setLoading((s) => ({ ...s, pizzas: true }))
+    }
     setError((e) => ({ ...e, pizzas: null }))
     try {
-  const data = await listPizzas(params)
-  setPizzas(extractList(data))
+      const data = await listPizzas(params)
+      setPizzas(extractList(data))
+      setInitialized((s) => ({ ...s, pizzas: true }))
     } catch (e) {
       setError((err) => ({ ...err, pizzas: e }))
     } finally {
       setLoading((s) => ({ ...s, pizzas: false }))
     }
-  }, [])
+  }, [initialized.pizzas])
 
   const fetchIngredients = useCallback(async () => {
     setLoading((s) => ({ ...s, ingredients: true }))
@@ -82,31 +88,39 @@ export function PizzeriaProvider({ children }) {
     }
   }, [])
 
-  const fetchAppetizers = useCallback(async () => {
-    setLoading((s) => ({ ...s, appetizers: true }))
+  const fetchAppetizers = useCallback(async (force = false) => {
+    const shouldShowLoader = force || !initialized.appetizers
+    if (shouldShowLoader) {
+      setLoading((s) => ({ ...s, appetizers: true }))
+    }
     setError((e) => ({ ...e, appetizers: null }))
     try {
       const data = await listAppetizers()
       setAppetizers(extractList(data))
+      setInitialized((s) => ({ ...s, appetizers: true }))
     } catch (e) {
       setError((err) => ({ ...err, appetizers: e }))
     } finally {
       setLoading((s) => ({ ...s, appetizers: false }))
     }
-  }, [])
+  }, [initialized.appetizers])
 
-  const fetchBeverages = useCallback(async () => {
-    setLoading((s) => ({ ...s, beverages: true }))
+  const fetchBeverages = useCallback(async (force = false) => {
+    const shouldShowLoader = force || !initialized.beverages
+    if (shouldShowLoader) {
+      setLoading((s) => ({ ...s, beverages: true }))
+    }
     setError((e) => ({ ...e, beverages: null }))
     try {
       const data = await listBeverages()
       setBeverages(extractList(data))
+      setInitialized((s) => ({ ...s, beverages: true }))
     } catch (e) {
       setError((err) => ({ ...err, beverages: e }))
     } finally {
       setLoading((s) => ({ ...s, beverages: false }))
     }
-  }, [])
+  }, [initialized.beverages])
 
   useEffect(() => {
     // fetch iniziale in parallelo
@@ -143,6 +157,7 @@ export function PizzeriaProvider({ children }) {
       beverages,
       loading,
       error,
+      initialized,
       refetch: {
         categories: fetchCategories,
         pizzas: fetchPizzas,
@@ -152,7 +167,7 @@ export function PizzeriaProvider({ children }) {
         beverages: fetchBeverages,
       },
     }),
-    [categories, pizzas, ingredients, allergens, loading, error, fetchCategories, fetchPizzas, fetchIngredients, fetchAllergens]
+    [categories, pizzas, ingredients, allergens, appetizers, beverages, loading, error, initialized, fetchCategories, fetchPizzas, fetchIngredients, fetchAllergens, fetchAppetizers, fetchBeverages]
   )
 
   return <PizzeriaContext.Provider value={value}>{children}</PizzeriaContext.Provider>

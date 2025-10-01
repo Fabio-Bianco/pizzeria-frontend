@@ -1,11 +1,13 @@
 import { useMemo, useCallback, useEffect, useState } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import PizzaCard from '../components/PizzaCard'
+import AppetizerCard from '../components/AppetizerCard'
+import BeverageCard from '../components/BeverageCard'
 import { listPizzas } from '../services/pizzas'
 import { getCategory } from '../services/categories'
 
 export default function HomePage() {
-    const { pizzasEnriched: pizzas, categories, appetizers, beverages } = usePizzeria()
+    const { pizzasEnriched: pizzas, categories, appetizers, beverages, loading, initialized } = usePizzeria()
     const [antipastiExtra, setAntipastiExtra] = useState([])
     const [bevandeExtra, setBevandeExtra] = useState([])
     // no explicit loading UI for sections; keep UX simple
@@ -160,12 +162,32 @@ export default function HomePage() {
                         <span className="ms-2 badge text-bg-secondary">{sec.items.length}</span>
                     </div>
                     <div className="row g-3">
-                        {sec.items.map((pizza) => (
+                        {sec.key === 'pizze' && sec.items.map((pizza) => (
                             <div key={pizza.id} className="col-12 col-md-6 col-lg-4">
                                 <PizzaCard pizza={pizza} />
                             </div>
                         ))}
-                        {!sec.items.length && (
+                        {sec.key === 'antipasti' && sec.items.map((appetizer) => (
+                            <div key={appetizer.id} className="col-12 col-md-6 col-lg-4">
+                                <AppetizerCard appetizer={appetizer} />
+                            </div>
+                        ))}
+                        {sec.key === 'bevande' && sec.items.map((beverage) => (
+                            <div key={beverage.id} className="col-12 col-md-6 col-lg-4">
+                                <BeverageCard beverage={beverage} />
+                            </div>
+                        ))}
+                        {/* Mostra loading solo se non inizializzato e nessun elemento */}
+                        {!sec.items.length && !initialized[sec.key] && loading[sec.key] && (
+                            <div className="col-12">
+                                <div className="d-flex align-items-center text-muted">
+                                    <div className="spinner-border spinner-border-sm me-2" role="status"></div>
+                                    Caricamento {sec.title.toLowerCase()}...
+                                </div>
+                            </div>
+                        )}
+                        {/* Mostra messaggio vuoto solo se inizializzato */}
+                        {!sec.items.length && initialized[sec.key] && !loading[sec.key] && (
                             <div className="col-12">
                                 <div className="alert alert-light border">Nessun elemento in questa sezione.</div>
                             </div>

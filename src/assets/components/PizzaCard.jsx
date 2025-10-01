@@ -1,10 +1,9 @@
 /*
   Props: {
     pizza: {
-      id, name, price, description, image_url,
-      categories?: Array<{ id, name }>,
-      ingredients?: Array<{ id, name }>,
-      allergens?: Array<{ id, name }>,
+      id, name, price, description, notes, image_url,
+      category?: { id, name },
+      ingredients?: Array<{ id, name, allergens?: Array<{ id, name }> }>,
     }
   }
 */
@@ -12,15 +11,23 @@ import { Link } from 'react-router-dom'
 
 export default function PizzaCard({ pizza }) {
   if (!pizza) return null
+  
   const {
     name,
     price,
-    description,
     image_url,
-    categories = [],
+    category,
     ingredients = [],
-    allergens = [],
   } = pizza
+  
+  const description = pizza?.description ?? pizza?.notes ?? ''
+  
+  // Estrai tutti gli allergeni unici dagli ingredienti
+  const allergens = [...new Set(
+    ingredients
+      .flatMap(ingredient => ingredient.allergens || [])
+      .map(allergen => allergen.name)
+  )].sort()
 
   return (
     <div className="card shadow-sm h-100">
@@ -45,15 +52,22 @@ export default function PizzaCard({ pizza }) {
           </div>
         )}
         {!!allergens.length && (
-          <div className="small text-danger mb-2">
-            <strong>Allergeni:</strong> {allergens.map((a) => a.name).join(', ')}
+          <div className="mb-2">
+            <div className="small text-danger mb-1">
+              <strong>⚠️ Allergeni:</strong>
+            </div>
+            <div className="d-flex flex-wrap gap-1">
+              {allergens.map((allergen, index) => (
+                <span key={index} className="badge bg-danger-subtle text-danger-emphasis">
+                  {allergen}
+                </span>
+              ))}
+            </div>
           </div>
         )}
-        {!!categories.length && (
+        {category && (
           <div className="mt-auto">
-            {categories.map((c) => (
-              <span key={c.id} className="badge text-bg-light me-1">{c.name}</span>
-            ))}
+            <span className="badge text-bg-light">{category.name}</span>
           </div>
         )}
       </div>
