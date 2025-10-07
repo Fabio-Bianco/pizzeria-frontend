@@ -1,22 +1,23 @@
 import { useState } from 'react'
+import { AllergenIcon } from './Icons'
 import './AllergenModal.css'
 
-// Mapping degli allergeni con icone specifiche come nello screenshot
+// Mapping degli allergeni con l'icona AllergenIcon unificata nel colore #e5ad3e
 const ALLERGEN_CONFIG = [
-  { id: 1, name: 'GLUTINE', icon: '🌾' },
-  { id: 2, name: 'LATTOSIO', icon: '🥛' },
-  { id: 3, name: 'FRUTTA A GUSCIO', icon: '🌰' },
-  { id: 4, name: 'UOVA', icon: '🥚' },
-  { id: 5, name: 'PESCE', icon: '🐟' },
-  { id: 6, name: 'ARACHIDI', icon: '🥜' },
-  { id: 7, name: 'SOIA', icon: '🫘' },
-  { id: 8, name: 'CROSTACEI', icon: '🦐' },
-  { id: 9, name: 'SEDANO', icon: '🌿' },
-  { id: 10, name: 'SENAPE', icon: '🌻' },
-  { id: 11, name: 'SESAMO', icon: '🫰' },
-  { id: 12, name: 'SOLFITI', icon: '⚗️' },
-  { id: 13, name: 'LUPINI', icon: '🫘' },
-  { id: 14, name: 'MOLLUSCHI', icon: '🦪' }
+  { id: 1, name: 'GLUTINE' },
+  { id: 2, name: 'LATTOSIO' },
+  { id: 3, name: 'FRUTTA A GUSCIO' },
+  { id: 4, name: 'UOVA' },
+  { id: 5, name: 'PESCE' },
+  { id: 6, name: 'ARACHIDI' },
+  { id: 7, name: 'SOIA' },
+  { id: 8, name: 'CROSTACEI' },
+  { id: 9, name: 'SEDANO' },
+  { id: 10, name: 'SENAPE' },
+  { id: 11, name: 'SESAMO' },
+  { id: 12, name: 'SOLFITI' },
+  { id: 13, name: 'LUPINI' },
+  { id: 14, name: 'MOLLUSCHI' }
 ]
 
 /**
@@ -92,7 +93,7 @@ export default function AllergenModal({
                 disabled={!isAvailable}
               >
                 <div className="allergen-modal-item-icon">
-                  {allergen.icon}
+                  <AllergenIcon size={32} color="#e5ad3e" />
                 </div>
                 <div className="allergen-modal-item-name">
                   {allergen.name}

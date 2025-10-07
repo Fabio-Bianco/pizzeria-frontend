@@ -2,8 +2,8 @@ import { useEffect, useMemo } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
 import AllergenModal from '../components/AllergenModal'
-import AllergenDebugPanel from '../components/AllergenDebugPanel'
 import { GridSkeleton } from '../components/SkeletonLoaders'
+import { VeganBadgeIcon, AllergenIcon } from '../components/Icons'
 import { useMenuSections } from '../../hooks/useMenuSections'
 import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
@@ -19,7 +19,8 @@ export default function MenuPage() {
 		updateSelection,
 		resetSelection,
 		filterItems,
-		filterStats
+		filterStats,
+		getSelectedAllergensDetails
 	} = useAllergenFilter()
 
 	useEffect(() => {
@@ -73,20 +74,106 @@ export default function MenuPage() {
 		updateSelection(newSelection)
 	}
 
+	// Ottieni dettagli degli allergeni selezionati per mostrare nel reset
+	const selectedAllergensDetails = useMemo(() => {
+		return allergens.filter(allergen => selectedAllergens.includes(allergen.id))
+	}, [allergens, selectedAllergens])
+
 	return (
 		<div className="qodeup-layout">
-			{/* Sezione richiami rapidi */}
+			{/* Header principale con logo e icone */}
+			<header className="qodeup-header-main">
+				<div className="qodeup-header-container">
+					{/* Logo Qodeup a sinistra */}
+					<div className="qodeup-header-logo">
+						<span className="qodeup-logo-text">qodeup</span>
+					</div>
+					
+					{/* Icone a destra */}
+					<div className="qodeup-header-icons">
+						{/* Icona Veggie */}
+						<button className="qodeup-header-icon-btn" title="Veggie">
+							<VeganBadgeIcon size={28} color="#777777" withLabel={false} />
+						</button>
+						
+						{/* Icona Allergeni */}
+						<button className="qodeup-header-icon-btn" onClick={handleAllergensClick} title="Allergeni">
+							<AllergenIcon size={28} color="#e5ad3e" />
+							{filterStats.hasActiveFilters && (
+								<span className="qodeup-header-badge">{filterStats.activeFilterCount}</span>
+							)}
+						</button>
+						
+						{/* Icona Ordina (carrello) */}
+						<button className="qodeup-header-icon-btn" title="Ordina">
+							<span className="material-symbols-outlined">shopping_cart</span>
+						</button>
+						
+						{/* Icona Lingua */}
+						<button className="qodeup-header-icon-btn" onClick={handleLanguageClick} title="Language">
+							<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
+						</button>
+					</div>
+				</div>
+			</header>
+
+			{/* Sezione icone intermedie come nell'immagine */}
 			<div className="qodeup-quick-access">
-				<button className="qodeup-quick-btn" onClick={handleAllergensClick}>
-					<div className="qodeup-quick-icon">⚠️</div>
-					<span className="qodeup-quick-label">Allergeni</span>
+				<button className="qodeup-quick-btn" title="Veggie">
+					<div className="qodeup-quick-icon">
+						<VeganBadgeIcon size={40} color="#777777" withLabel={false} />
+					</div>
+					<span className="qodeup-quick-label">VEGGIE</span>
 				</button>
 				
-				<button className="qodeup-quick-btn" onClick={handleLanguageClick}>
-					<div className="qodeup-quick-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</div>
-					<span className="qodeup-quick-label">Language</span>
+				<button className="qodeup-quick-btn" onClick={handleAllergensClick} title="Allergeni">
+					<div className="qodeup-quick-icon">
+						<AllergenIcon size={40} color="#e5ad3e" />
+					</div>
+					<span className="qodeup-quick-label">ALLERGENI</span>
+					{filterStats.hasActiveFilters && (
+						<span className="qodeup-quick-badge">{filterStats.activeFilterCount}</span>
+					)}
+				</button>
+				
+				<button className="qodeup-quick-btn" title="Ordina">
+					<div className="qodeup-quick-icon">
+						<span className="material-symbols-outlined">shopping_cart</span>
+					</div>
+					<span className="qodeup-quick-label">ORDINA</span>
+				</button>
+				
+				<button className="qodeup-quick-btn" onClick={handleLanguageClick} title="Language">
+					<div className="qodeup-quick-icon">
+						<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
+					</div>
+					<span className="qodeup-quick-label">LANGUAGE</span>
 				</button>
 			</div>
+
+			{/* Barra di reset filtri - visibile solo quando ci sono filtri attivi */}
+			{filterStats.hasActiveFilters && (
+				<div className="qodeup-filter-reset-bar">
+					<div className="qodeup-filter-info">
+						<span className="qodeup-filter-icon">
+							<span className="material-symbols-outlined">filter_alt</span>
+						</span>
+						<span className="qodeup-filter-text">
+							Filtri attivi: {selectedAllergensDetails.map(a => a.name).join(', ')}
+						</span>
+					</div>
+					<button 
+						className="qodeup-filter-reset-btn"
+						onClick={handleResetFilters}
+						title="Rimuovi tutti i filtri"
+					>
+						<span className="qodeup-reset-icon">
+							<span className="material-symbols-outlined">close</span>
+						</span>
+						<span className="qodeup-reset-text">Rimuovi filtri</span>
+					</button>
+				</div>
+			)}
 
 			{/* Header FOOD */}
 			<div className="qodeup-food-header">
@@ -106,7 +193,7 @@ export default function MenuPage() {
 								icon={section.icon}
 								count={section.count}
 								originalCount={section.originalCount}
-								isExpanded={section.id === 'appetizers'} // Prima sezione espansa di default
+								isExpanded={false} // Tutte le sezioni chiuse di default
 							/>
 						)}
 					</div>
@@ -120,13 +207,6 @@ export default function MenuPage() {
 				selectedAllergens={selectedAllergens}
 				onSelectionChange={handleAllergenSelection}
 				availableAllergens={allergens}
-			/>
-
-			{/* Debug Panel (solo in sviluppo) */}
-			<AllergenDebugPanel
-				selectedAllergens={selectedAllergens}
-				filterStats={filterStats}
-				menuStats={menuStats}
 			/>
 		</div>
 	)

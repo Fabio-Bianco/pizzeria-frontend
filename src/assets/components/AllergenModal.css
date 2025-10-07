@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Allergen Modal - Exact design from screenshot
+   Allergen Modal - Design elegante con colori Qodeup e Material Symbols
    ========================================================================== */
 
 .allergen-modal-overlay {
@@ -14,16 +14,18 @@
   justify-content: center;
   z-index: 9999;
   padding: 1rem;
+  font-family: 'Roboto', sans-serif;
 }
 
 .allergen-modal-content {
   background: #ffffff;
+  border: 2px solid #efca1a;
   border-radius: 12px;
   width: 100%;
   max-width: 480px;
   max-height: 90vh;
   overflow-y: auto;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 60px rgba(239, 202, 26, 0.3);
   animation: slideInModal 0.3s ease;
 }
 
@@ -46,10 +48,11 @@
 
 .allergen-modal-title {
   font-size: 1.8rem;
-  font-weight: 700;
-  color: #333333;
+  font-weight: 700; /* Roboto Bold per titoli */
+  color: #777777;
   margin: 0;
   letter-spacing: 1px;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Disclaimer */
@@ -60,9 +63,11 @@
 
 .allergen-modal-disclaimer p {
   font-size: 1rem;
-  color: #666666;
+  font-weight: 400; /* Roboto Regular per testo */
+  color: #777777;
   margin: 0;
   line-height: 1.5;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Grid degli allergeni */
@@ -86,20 +91,20 @@
   transition: all 0.2s ease;
   position: relative;
   min-height: 80px;
-  font-family: inherit;
+  font-family: 'Roboto', sans-serif;
 }
 
 .allergen-modal-item:hover:not(.disabled) {
-  border-color: #ffa500;
-  background: #fffbf5;
+  border-color: #efca1a;
+  background: #fffdf5;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.3);
 }
 
 .allergen-modal-item.selected {
-  border-color: #ffa500;
-  background: #fff8e1;
-  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.3);
+  border-color: #efca1a;
+  background: #fffdf5;
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.4);
 }
 
 .allergen-modal-item.disabled {
@@ -110,24 +115,34 @@
 .allergen-modal-item-icon {
   font-size: 2rem;
   line-height: 1;
-  color: #ffa500;
+  color: #e5ad3e;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.allergen-modal-item-icon .material-symbols-outlined {
+  font-size: 2rem;
+  color: #e5ad3e;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .allergen-modal-item-name {
   font-size: 0.85rem;
-  font-weight: 600;
-  color: #333333;
+  font-weight: 500; /* Roboto Medium per etichette */
+  color: #777777;
   text-align: center;
   line-height: 1.2;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif;
 }
 
 .allergen-modal-item-check {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  background: #ffa500;
+  background: #efca1a;
   color: white;
   border-radius: 50%;
   width: 20px;
@@ -137,6 +152,7 @@
   justify-content: center;
   font-size: 0.8rem;
   font-weight: bold;
+  font-family: 'Roboto', sans-serif;
 }
 
 /* Actions */
@@ -146,24 +162,24 @@
 
 .allergen-modal-ok-btn {
   width: 100%;
-  background: #f1c40f;
-  color: #333333;
+  background: #efca1a;
+  color: white;
   border: none;
   border-radius: 8px;
   padding: 1rem 2rem;
   font-size: 1.1rem;
-  font-weight: 700;
+  font-weight: 500; /* Roboto Medium */
   text-transform: uppercase;
   letter-spacing: 1px;
   cursor: pointer;
   transition: all 0.2s ease;
-  font-family: inherit;
+  font-family: 'Roboto', sans-serif;
 }
 
 .allergen-modal-ok-btn:hover {
-  background: #f39c12;
+  background: #e6b800;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(241, 196, 15, 0.4);
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.4);
 }
 
 .allergen-modal-ok-btn:active {
@@ -207,7 +223,8 @@
     min-height: 70px;
   }
 
-  .allergen-modal-item-icon {
+  .allergen-modal-item-icon,
+  .allergen-modal-item-icon .material-symbols-outlined {
     font-size: 1.5rem;
   }
 
@@ -236,45 +253,12 @@
     min-height: 60px;
   }
 
-  .allergen-modal-item-icon {
+  .allergen-modal-item-icon,
+  .allergen-modal-item-icon .material-symbols-outlined {
     font-size: 1.2rem;
   }
 
   .allergen-modal-item-name {
     font-size: 0.7rem;
-  }
-}
-
-/* Dark mode compatibility */
-@media (prefers-color-scheme: dark) {
-  .allergen-modal-content {
-    background: #1f2937;
-  }
-
-  .allergen-modal-title {
-    color: #f9fafb;
-  }
-
-  .allergen-modal-disclaimer p {
-    color: #d1d5db;
-  }
-
-  .allergen-modal-item {
-    background: #374151;
-    border-color: #4b5563;
-  }
-
-  .allergen-modal-item:hover:not(.disabled) {
-    background: #4b5563;
-    border-color: #ffa500;
-  }
-
-  .allergen-modal-item.selected {
-    background: #451a03;
-    border-color: #ffa500;
-  }
-
-  .allergen-modal-item-name {
-    color: #f9fafb;
   }
 }

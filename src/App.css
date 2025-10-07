@@ -6,10 +6,16 @@
 /* ===== CSS VARIABLES ===== */
 :root {
   --pizzeria-primary: #d73527;
-  --pizzeria-secondary: #2d5016;
-  --pizzeria-accent: #f39c12;
+  --pizzeria-secondary: #0b4d27;
+  --pizzeria-accent: #efca1a;
   --pizzeria-warning: #e74c3c;
   --pizzeria-light: #faf5f0;
   --pizzeria-dark: #2c3e50;
   --pizzeria-shadow: rgba(215, 53, 39, 0.1);
+}
+
+/* ===== APP CONTAINER ===== */
+.app-container {
+  min-height: 100vh;
+  background: #ffffff;
 }

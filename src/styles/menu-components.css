@@ -4,7 +4,7 @@
 }
 
 .qodeup-section-header {
-  background: #2d5016;
+  background: #0b4d27;
   color: white;
   padding: 1rem 2rem;
   border-radius: 25px;
@@ -20,7 +20,7 @@
 }
 
 .qodeup-section-header:hover {
-  background: #3a6b1e;
+  background: #0f5a2e;
   transform: translateY(-2px);
 }
 

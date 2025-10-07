@@ -7,6 +7,143 @@
   border-bottom: 1px solid #e9ecef;
 }
 
+/* ===== NEW MAIN HEADER STYLES ===== */
+.qodeup-header-main {
+  background: #ffffff;
+  border-bottom: 3px solid rgba(119, 119, 119, 0.3);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Roboto', sans-serif;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+
+.qodeup-header-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.qodeup-header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.qodeup-logo-text {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #777777;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.qodeup-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.qodeup-header-icon-btn {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #e9ecef;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #777777;
+  font-size: 1.3rem;
+}
+
+.qodeup-header-icon-btn:hover {
+  border-color: #efca1a;
+  background: #fffdf5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.3);
+}
+
+.qodeup-header-icon-btn svg {
+  flex-shrink: 0;
+}
+
+.qodeup-header-icon-btn .material-symbols-outlined {
+  font-size: 1.3rem;
+  color: #777777;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.qodeup-header-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: linear-gradient(135deg, #efca1a 0%, #e5ad3e 100%);
+  color: white;
+  font-size: 0.65rem;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(239, 202, 26, 0.4);
+  animation: badgeBounce 0.5s ease-out;
+  font-family: 'Roboto', sans-serif;
+}
+
+.qodeup-flag-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Responsive per header principale */
+@media (max-width: 768px) {
+  .qodeup-header-main {
+    padding: 0.75rem 0;
+  }
+  
+  .qodeup-header-container {
+    padding: 0 0.75rem;
+  }
+  
+  .qodeup-logo-text {
+    font-size: 1.5rem;
+  }
+  
+  .qodeup-header-icons {
+    gap: 0.5rem;
+  }
+  
+  .qodeup-header-icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .qodeup-header-icon-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .qodeup-header-icon-btn .material-symbols-outlined {
+    font-size: 1.2rem;
+  }
+  
+  .qodeup-flag-icon {
+    font-size: 1.1rem;
+  }
+}
+
 .qodeup-logo {
   font-size: 1.5rem;
   font-weight: 700;
@@ -49,7 +186,19 @@
 /* ===== QODEUP LAYOUT SECTIONS ===== */
 .qodeup-layout {
   max-width: 100%;
-  padding: 0 1rem;
+  padding: 0;
+  background: #ffffff;
+  min-height: 100vh;
+}
+
+/* Quick Access Section - aggiunto padding e spacing corretto */
+.qodeup-quick-access {
+  padding: 2rem 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  background: #ffffff;
 }
 
 /* Filter Section */
@@ -119,40 +268,95 @@
 }
 
 .qodeup-quick-btn {
-  padding: 1rem 2rem;
+  position: relative;
+  padding: 1.5rem 1rem;
   border: 2px dashed #e9ecef;
   border-radius: 12px;
   background: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 120px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .qodeup-quick-btn:hover {
-  border-color: #d73527;
-  background: #fff5f5;
+  border-color: #efca1a;
+  background: #fffdf5;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.15);
 }
 
 .qodeup-quick-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
   background: #f8f9fa;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
+  color: #777777;
+  transition: all 0.3s ease;
+  border: 2px solid #e9ecef;
+}
+
+.qodeup-quick-icon svg {
+  flex-shrink: 0;
+}
+
+.qodeup-quick-icon .material-symbols-outlined {
+  font-size: 1.8rem;
+  color: #777777;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
 
 .qodeup-quick-label {
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
-  color: #666;
+  color: #777777;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.qodeup-quick-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #efca1a 0%, #e5ad3e 100%);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 12px;
+  min-width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(239, 202, 26, 0.4);
+  animation: badgeBounce 0.5s ease-out;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+@keyframes badgeBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 /* Food Section Header */
@@ -168,6 +372,227 @@
   color: #666;
   text-transform: uppercase;
   letter-spacing: 2px;
+}
+
+.qodeup-food-title::before,
+.qodeup-food-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    #ccc 0,
+    #ccc 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+.qodeup-food-title::before {
+  left: calc(50% - 200px);
+}
+
+.qodeup-food-title::after {
+  right: calc(50% - 200px);
+}
+
+/* ===== FILTER RESET BAR STYLES - Elegant Design ===== */
+.qodeup-filter-reset-bar {
+  background: #ffffff;
+  border: 2px solid #efca1a;
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 20px rgba(239, 202, 26, 0.15);
+  animation: slideInDown 0.4s ease-out;
+  font-family: 'Roboto', sans-serif;
+  backdrop-filter: blur(10px);
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.qodeup-filter-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.qodeup-filter-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #efca1a 0%, #e5ad3e 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  color: white;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+.qodeup-filter-icon .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: white;
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+@keyframes glow {
+  from {
+    box-shadow: 0 0 5px rgba(239, 202, 26, 0.5);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(239, 202, 26, 0.8);
+  }
+}
+
+.qodeup-filter-text {
+  color: #777777;
+  font-weight: 500; /* Roboto Medium */
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.qodeup-filter-reset-btn {
+  background: linear-gradient(135deg, #efca1a 0%, #e5ad3e 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+  font-weight: 500; /* Roboto Medium */
+  font-family: 'Roboto', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(239, 202, 26, 0.3);
+}
+
+.qodeup-filter-reset-btn:hover {
+  background: linear-gradient(135deg, #e6b800 0%, #d49a35 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 202, 26, 0.4);
+}
+
+.qodeup-filter-reset-btn:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 202, 26, 0.3);
+}
+
+.qodeup-reset-icon {
+  font-size: 1.1rem;
+  font-weight: bold;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qodeup-reset-icon .material-symbols-outlined {
+  font-size: 1.1rem;
+  color: white;
+  font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 24;
+}
+
+.qodeup-filter-reset-btn:hover .qodeup-reset-icon {
+  transform: rotate(90deg);
+}
+
+.qodeup-reset-text {
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+/* Responsive per la barra di reset */
+@media (max-width: 768px) {
+  .qodeup-filter-reset-bar {
+    padding: 14px 16px;
+    margin: 16px 0;
+  }
+  
+  .qodeup-filter-icon {
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+  
+  .qodeup-filter-text {
+    font-size: 0.85rem;
+  }
+  
+  .qodeup-filter-reset-btn {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .qodeup-reset-text {
+    display: none; /* Nasconde il testo su mobile, mantiene solo l'icona */
+  }
+  
+  .qodeup-reset-icon {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .qodeup-filter-reset-bar {
+    padding: 12px 14px;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+  
+  .qodeup-filter-info {
+    justify-content: center;
+  }
+  
+  .qodeup-filter-text {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+}
+
+/* ===== MENU SECTIONS SPACING ===== */
+.qodeup-menu-sections {
+  padding: 0 1rem 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.qodeup-food-header {
+  text-align: center;
+  padding: 2rem 1rem;
+  margin: 0;
+}
+
+.qodeup-food-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #777777;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  position: relative;
+  font-family: 'Roboto', sans-serif;
 }
 
 .qodeup-food-title::before,
