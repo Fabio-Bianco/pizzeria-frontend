@@ -1,22 +1,61 @@
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
+import AllergenFilter from '../components/AllergenFilter'
+import FilterStats from '../components/FilterStats'
 import { GridSkeleton } from '../components/SkeletonLoaders'
 import { useMenuSections } from '../../hooks/useMenuSections'
 import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
+import { useAllergenFilter } from '../../hooks/useAllergenFilter'
 
 export default function MenuPage() {
 	const { categories, pizzas, appetizers, beverages, desserts, loading, error, initialized, refetch } = usePizzeria()
 	const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
 	const { currentLanguage, toggleLanguage } = useLanguage()
 
+	// Hook per la gestione del filtro allergeni
+	const {
+		selectedAllergens,
+		updateSelection,
+		resetSelection,
+		filterItems,
+		filterStats
+	} = useAllergenFilter()
+
 	useEffect(() => {
 		// Il caricamento è già gestito automaticamente dal PizzeriaContext
 		// I dati vengono caricati automaticamente dal context al mount
 	}, [])
 
-	// Prepara le sezioni del menu usando il hook
-	const menuSections = useMenuSections(pizzas, appetizers, beverages, desserts, loading, initialized)
+	// Prepara le sezioni del menu usando il hook con filtro
+	const menuSections = useMenuSections(
+		pizzas, 
+		appetizers, 
+		beverages, 
+		desserts, 
+		loading, 
+		initialized,
+		filterItems // Passa la funzione di filtro
+	)
+
+	// Calcola i conteggi per le statistiche
+	const menuStats = useMemo(() => {
+		const originalCounts = {
+			pizzas: pizzas?.length || 0,
+			appetizers: appetizers?.length || 0,
+			beverages: beverages?.length || 0,
+			desserts: desserts?.length || 0
+		}
+
+		const filteredCounts = {
+			pizzas: menuSections.find(s => s.id === 'pizzas')?.items?.length || 0,
+			appetizers: menuSections.find(s => s.id === 'appetizers')?.items?.length || 0,
+			beverages: menuSections.find(s => s.id === 'beverages')?.items?.length || 0,
+			desserts: menuSections.find(s => s.id === 'desserts')?.items?.length || 0
+		}
+
+		return { originalCounts, filteredCounts }
+	}, [pizzas, appetizers, beverages, desserts, menuSections])
 
 	const handleAllergensClick = () => {
 		openAllergensModal()
@@ -26,8 +65,13 @@ export default function MenuPage() {
 		toggleLanguage()
 	}
 
+	const handleResetFilters = () => {
+		resetSelection()
+	}
+
 	return (
-		<div className="qodeup-layout">{/* Sezione richiami rapidi */}
+		<div className="qodeup-layout">
+			{/* Sezione richiami rapidi */}
 			<div className="qodeup-quick-access">
 				<button className="qodeup-quick-btn" onClick={handleAllergensClick}>
 					<div className="qodeup-quick-icon">⚠️</div>
@@ -38,6 +82,34 @@ export default function MenuPage() {
 					<div className="qodeup-quick-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</div>
 					<span className="qodeup-quick-label">Language</span>
 				</button>
+			</div>
+
+			{/* Filtro Allergeni */}
+			<div className="qodeup-filter-section">
+				<AllergenFilter
+					selectedAllergens={selectedAllergens}
+					onSelectionChange={updateSelection}
+					className="qodeup-allergen-filter"
+				/>
+				
+				{filterStats.hasActiveFilters && (
+					<>
+						<FilterStats
+							originalCounts={menuStats.originalCounts}
+							filteredCounts={menuStats.filteredCounts}
+							selectedAllergensCount={filterStats.activeFilterCount}
+							className="qodeup-filter-stats"
+						/>
+						<div className="qodeup-filter-actions">
+							<button 
+								className="qodeup-reset-filters-btn"
+								onClick={handleResetFilters}
+							>
+								🗑️ Cancella tutti i filtri
+							</button>
+						</div>
+					</>
+				)}
 			</div>
 
 			{/* Header FOOD */}

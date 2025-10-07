@@ -49,6 +49,64 @@
 /* ===== QODEUP LAYOUT SECTIONS ===== */
 .qodeup-layout {
   max-width: 100%;
+  padding: 0 1rem;
+}
+
+/* Filter Section */
+.qodeup-filter-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.qodeup-allergen-filter {
+  margin-bottom: 0.75rem;
+}
+
+.qodeup-filter-stats {
+  margin: 0.75rem 0;
+}
+
+.qodeup-filter-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.5rem;
+}
+
+.qodeup-reset-filters-btn {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qodeup-reset-filters-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.qodeup-reset-filters-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.3);
+}
+
+/* Product allergens styling integration */
+.qodeup-product-allergens.allergen-badges {
+  margin-top: 0.5rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #f3f4f6;
 }
 
 /* Quick Access Section */

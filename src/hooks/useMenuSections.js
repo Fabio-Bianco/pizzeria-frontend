@@ -1,16 +1,23 @@
 import { useMemo, useState, useCallback } from 'react'
 
 /**
- * Hook per preparare e organizzare le sezioni del menu
+ * Hook per preparare e organizzare le sezioni del menu con supporto per filtri allergeni
  */
-export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading, initialized) => {
+export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading, initialized, filterFunction = null) => {
   const menuSections = useMemo(() => {
+    // Funzione per applicare il filtro se fornito
+    const applyFilter = (items) => {
+      if (!filterFunction || !Array.isArray(items)) return items || []
+      return filterFunction(items)
+    }
+
     return [
       {
         id: 'appetizers',
         title: 'ANTIPASTI',
         icon: '🍤',
-        items: appetizers || [],
+        items: applyFilter(appetizers),
+        originalItems: appetizers || [],
         loading: loading.appetizers,
         initialized: initialized.appetizers
       },
@@ -18,7 +25,8 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'pizzas',
         title: 'PIZZE',
         icon: '🍕', 
-        items: pizzas || [],
+        items: applyFilter(pizzas),
+        originalItems: pizzas || [],
         loading: loading.pizzas,
         initialized: initialized.pizzas
       },
@@ -26,7 +34,8 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'desserts',
         title: 'DESSERT',
         icon: '🍰',
-        items: desserts || [],
+        items: applyFilter(desserts),
+        originalItems: desserts || [],
         loading: loading.desserts,
         initialized: initialized.desserts
       },
@@ -34,12 +43,13 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'beverages', 
         title: 'BEVANDE',
         icon: '🥤',
-        items: beverages || [],
+        items: applyFilter(beverages),
+        originalItems: beverages || [],
         loading: loading.beverages,
         initialized: initialized.beverages
       }
     ]
-  }, [pizzas, appetizers, beverages, desserts, loading, initialized])
+  }, [pizzas, appetizers, beverages, desserts, loading, initialized, filterFunction])
 
   return menuSections
 }

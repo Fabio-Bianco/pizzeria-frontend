@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import LazyImage from './LazyImage'
+import { AllergenBadgesCompact } from './AllergenBadges'
 
 export default function CollapsibleMenuSection({ title, items = [], icon = '🍕', isExpanded = false }) {
   const [expanded, setExpanded] = useState(isExpanded)
@@ -17,38 +18,31 @@ export default function CollapsibleMenuSection({ title, items = [], icon = '🍕
     return '🍽️'
   }
 
+  // Funzione per estrarre allergeni, semplificata per usare direttamente quelli dal backend
   const extractAllergens = (item) => {
-    if (item.allergens) {
-      return item.allergens.map(a => a.name)
-    }
-    if (item.ingredients) {
-      return item.ingredients.flatMap(ingredient => 
-        ingredient.allergens ? ingredient.allergens.map(a => a.name) : []
-      )
-    }
-    return []
-  }
-
-  const getAllergenIcon = (allergen) => {
-    const allergenMap = {
-      'glutine': '🌾',
-      'lattosio': '🥛', 
-      'uova': '🥚',
-      'frutta a guscio': '🥜',
-      'pesce': '🐟',
-      'soia': '🌱',
-      'sedano': '🌿',
-      'senape': '🌻',
-      'sesamo': '🌰',
-      'lupini': '🫘',
-      'molluschi': '🦪',
-      'crostacei': '🦐',
-      'arachidi': '🥜',
-      'solfiti': '⚗️'
+    // Se il piatto ha già una proprietà allergens, usala
+    if (item.allergens && Array.isArray(item.allergens)) {
+      return item.allergens
     }
     
-    const key = allergen.toLowerCase()
-    return allergenMap[key] || '⚠️'
+    // Altrimenti estrai dagli ingredienti se disponibili
+    if (item.ingredients && Array.isArray(item.ingredients)) {
+      const allergens = []
+      item.ingredients.forEach(ingredient => {
+        if (ingredient.allergens && Array.isArray(ingredient.allergens)) {
+          allergens.push(...ingredient.allergens)
+        }
+      })
+      
+      // Rimuovi duplicati
+      const uniqueAllergens = allergens.filter((allergen, index, self) =>
+        index === self.findIndex(a => a.id === allergen.id)
+      )
+      
+      return uniqueAllergens
+    }
+    
+    return []
   }
 
   return (
@@ -111,19 +105,11 @@ export default function CollapsibleMenuSection({ title, items = [], icon = '🍕
                   </p>
                 )}
                 
-                {allergens.length > 0 && (
-                  <div className="qodeup-product-allergens">
-                    {allergens.map((allergen, index) => (
-                      <span 
-                        key={index} 
-                        className="qodeup-allergen-icon"
-                        title={allergen}
-                      >
-                        {getAllergenIcon(allergen)}
-                      </span>
-                    ))}
-                  </div>
-                )}
+                {/* Usa il nuovo componente AllergenBadges */}
+                <AllergenBadgesCompact 
+                  allergens={allergens}
+                  className="qodeup-product-allergens"
+                />
               </div>
             </div>
           )

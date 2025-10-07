@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Allergen Badges Component
+   ========================================================================== */
+
+.allergen-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  align-items: center;
+}
+
+/* Badge Base */
+.allergen-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.15s ease;
+  white-space: nowrap;
+}
+
+.allergen-badge:hover {
+  background: #e5e7eb;
+  transform: translateY(-1px);
+}
+
+/* Size Variants */
+.allergen-badges.size-xsmall .allergen-badge {
+  padding: 0.125rem 0.375rem;
+  font-size: 0.7rem;
+  min-height: 20px;
+}
+
+.allergen-badges.size-xsmall .allergen-badge-icon {
+  font-size: 0.8rem;
+}
+
+.allergen-badges.size-small .allergen-badge {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  min-height: 24px;
+}
+
+.allergen-badges.size-small .allergen-badge-icon {
+  font-size: 0.9rem;
+}
+
+.allergen-badges.size-medium .allergen-badge {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.8rem;
+  min-height: 28px;
+}
+
+.allergen-badges.size-medium .allergen-badge-icon {
+  font-size: 1rem;
+}
+
+.allergen-badges.size-large .allergen-badge {
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  min-height: 32px;
+}
+
+.allergen-badges.size-large .allergen-badge-icon {
+  font-size: 1.1rem;
+}
+
+/* Badge Elements */
+.allergen-badge-icon {
+  display: inline-block;
+  line-height: 1;
+}
+
+.allergen-badge-label {
+  font-weight: 500;
+}
+
+/* Special Badge for "More" indicator */
+.allergen-badge-more {
+  background: #e5e7eb !important;
+  color: #6b7280 !important;
+  font-size: 0.7rem !important;
+  font-weight: 600 !important;
+}
+
+.allergen-badge-more:hover {
+  background: #d1d5db !important;
+}
+
+/* Variant Styles */
+.allergen-badges-compact {
+  gap: 0.125rem;
+}
+
+.allergen-badges-compact .allergen-badge {
+  border-radius: 8px;
+}
+
+.allergen-badges-detailed {
+  gap: 0.375rem;
+}
+
+.allergen-badges-detailed .allergen-badge {
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Color coding for specific allergens (optional enhancement) */
+.allergen-badge[title*="Glutine"] {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.allergen-badge[title*="Lattosio"] {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.allergen-badge[title*="Noci"],
+.allergen-badge[title*="Arachidi"] {
+  background: #fed7aa;
+  border-color: #ea580c;
+  color: #9a3412;
+}
+
+.allergen-badge[title*="Uova"] {
+  background: #fef9c3;
+  border-color: #eab308;
+  color: #a16207;
+}
+
+.allergen-badge[title*="Pesce"],
+.allergen-badge[title*="Crostacei"],
+.allergen-badge[title*="Molluschi"] {
+  background: #cffafe;
+  border-color: #06b6d4;
+  color: #0e7490;
+}
+
+.allergen-badge[title*="Soia"],
+.allergen-badge[title*="Lupini"] {
+  background: #dcfce7;
+  border-color: #22c55e;
+  color: #15803d;
+}
+
+/* Accessibility */
+.allergen-badge:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .allergen-badge {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+  }
+
+  .allergen-badge:hover {
+    background: #4b5563;
+  }
+
+  .allergen-badge-more {
+    background: #4b5563 !important;
+    color: #9ca3af !important;
+  }
+
+  .allergen-badge-more:hover {
+    background: #6b7280 !important;
+  }
+
+  /* Adjusted colors for dark mode */
+  .allergen-badge[title*="Glutine"] {
+    background: #451a03;
+    border-color: #f59e0b;
+    color: #fbbf24;
+  }
+
+  .allergen-badge[title*="Lattosio"] {
+    background: #1e3a8a;
+    border-color: #3b82f6;
+    color: #93c5fd;
+  }
+
+  .allergen-badge[title*="Noci"],
+  .allergen-badge[title*="Arachidi"] {
+    background: #431407;
+    border-color: #ea580c;
+    color: #fdba74;
+  }
+
+  .allergen-badge[title*="Uova"] {
+    background: #422006;
+    border-color: #eab308;
+    color: #fde047;
+  }
+
+  .allergen-badge[title*="Pesce"],
+  .allergen-badge[title*="Crostacei"],
+  .allergen-badge[title*="Molluschi"] {
+    background: #164e63;
+    border-color: #06b6d4;
+    color: #67e8f9;
+  }
+
+  .allergen-badge[title*="Soia"],
+  .allergen-badge[title*="Lupini"] {
+    background: #14532d;
+    border-color: #22c55e;
+    color: #86efac;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .allergen-badges {
+    gap: 0.125rem;
+  }
+
+  .allergen-badges.size-medium .allergen-badge {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .allergen-badges.size-large .allergen-badge {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .allergen-badges-detailed .allergen-badge-label {
+    display: none;
+  }
+  
+  .allergen-badges-detailed .allergen-badge {
+    padding: 0.25rem 0.5rem;
+  }
+}
+
+/* Animation for dynamic additions */
+@keyframes fadeInBadge {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.allergen-badge {
+  animation: fadeInBadge 0.2s ease;
+}

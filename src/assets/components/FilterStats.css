@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Filter Stats Component
+   ========================================================================== */
+
+.filter-stats {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.filter-stats-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.filter-stats-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #475569;
+}
+
+.filter-stats-icon {
+  font-size: 1rem;
+}
+
+.filter-stats-text {
+  flex: 1;
+}
+
+.filter-stats-text strong {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.filter-stats-percentage {
+  color: #64748b;
+  font-size: 0.85rem;
+}
+
+.filter-stats-details {
+  font-size: 0.8rem;
+  color: #64748b;
+  padding-left: 1.5rem;
+}
+
+.filter-stats-hidden {
+  color: #ef4444;
+}
+
+.filter-stats-filters {
+  font-size: 0.8rem;
+  color: #3b82f6;
+  padding-left: 1.5rem;
+}
+
+/* Compact variant */
+.filter-stats-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: #fef3c7;
+  color: #92400e;
+  border: 1px solid #f59e0b;
+  border-radius: 16px;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.filter-stats-compact-icon {
+  font-size: 0.9rem;
+}
+
+.filter-stats-compact-text {
+  font-weight: 600;
+}
+
+.filter-stats-compact-badge {
+  background: #f59e0b;
+  color: white;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .filter-stats {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .filter-stats-main {
+    flex-wrap: wrap;
+    gap: 0.25rem;
+  }
+
+  .filter-stats-percentage {
+    margin-left: auto;
+  }
+}
+
+/* Animation */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filter-stats {
+  animation: slideIn 0.3s ease;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+  .filter-stats {
+    background: #1e293b;
+    border-color: #334155;
+    color: #cbd5e1;
+  }
+
+  .filter-stats-text strong {
+    color: #f1f5f9;
+  }
+
+  .filter-stats-percentage,
+  .filter-stats-details {
+    color: #94a3b8;
+  }
+
+  .filter-stats-hidden {
+    color: #f87171;
+  }
+
+  .filter-stats-filters {
+    color: #60a5fa;
+  }
+
+  .filter-stats-compact {
+    background: #451a03;
+    color: #fbbf24;
+    border-color: #f59e0b;
+  }
+
+  .filter-stats-compact-badge {
+    background: #f59e0b;
+    color: #451a03;
+  }
+}
