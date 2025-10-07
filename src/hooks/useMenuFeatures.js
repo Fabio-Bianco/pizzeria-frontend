@@ -30,12 +30,23 @@ export const useAllergeni = () => {
  * Hook per gestire il sistema multilingua
  */
 export const useLanguage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState('it')
+  // Carica la lingua dal localStorage, fallback a 'it'
+  const [currentLanguage, setCurrentLanguage] = useState(() => {
+    try {
+      return localStorage.getItem('pizzeria-language') || 'it'
+    } catch {
+      return 'it'
+    }
+  })
 
   const changeLanguage = useCallback((lang) => {
     setCurrentLanguage(lang)
-    // TODO: Implementare logica cambio lingua
-    console.log('Cambio lingua a:', lang)
+    // Salva la preferenza nel localStorage
+    try {
+      localStorage.setItem('pizzeria-language', lang)
+    } catch (error) {
+      console.warn('Errore nel salvataggio della lingua:', error)
+    }
   }, [])
 
   const toggleLanguage = useCallback(() => {

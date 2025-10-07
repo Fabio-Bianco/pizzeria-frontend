@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { AllergenIcon } from './Icons'
 import './AllergenModal.css'
 
-// Mapping degli allergeni con l'icona AllergenIcon unificata nel colore #e5ad3e
+// Mapping degli allergeni con l'icona AllergenIcon unificata nel colore #777777
 const ALLERGEN_CONFIG = [
   { id: 1, name: 'GLUTINE' },
   { id: 2, name: 'LATTOSIO' },
@@ -93,7 +93,7 @@ export default function AllergenModal({
                 disabled={!isAvailable}
               >
                 <div className="allergen-modal-item-icon">
-                  <AllergenIcon size={32} color="#e5ad3e" />
+                  <AllergenIcon size={32} color="#777777" />
                 </div>
                 <div className="allergen-modal-item-name">
                   {allergen.name}

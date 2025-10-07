@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
 import AllergenModal from '../components/AllergenModal'
@@ -9,7 +9,7 @@ import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
 
 export default function MenuPage() {
-	const { categories, pizzas, appetizers, beverages, desserts, allergens, loading, error, initialized, refetch } = usePizzeria()
+	const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized } = usePizzeria()
 	const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
 	const { currentLanguage, toggleLanguage } = useLanguage()
 
@@ -19,8 +19,7 @@ export default function MenuPage() {
 		updateSelection,
 		resetSelection,
 		filterItems,
-		filterStats,
-		getSelectedAllergensDetails
+		filterStats
 	} = useAllergenFilter()
 
 	useEffect(() => {
@@ -39,25 +38,6 @@ export default function MenuPage() {
 		filterItems // Passa la funzione di filtro
 	)
 
-	// Calcola i conteggi per le statistiche
-	const menuStats = useMemo(() => {
-		const originalCounts = {
-			pizzas: pizzas?.length || 0,
-			appetizers: appetizers?.length || 0,
-			beverages: beverages?.length || 0,
-			desserts: desserts?.length || 0
-		}
-
-		const filteredCounts = {
-			pizzas: menuSections.find(s => s.id === 'pizzas')?.count || 0,
-			appetizers: menuSections.find(s => s.id === 'appetizers')?.count || 0,
-			beverages: menuSections.find(s => s.id === 'beverages')?.count || 0,
-			desserts: menuSections.find(s => s.id === 'desserts')?.count || 0
-		}
-
-		return { originalCounts, filteredCounts }
-	}, [pizzas, appetizers, beverages, desserts, menuSections])
-
 	const handleAllergensClick = () => {
 		openAllergensModal()
 	}
@@ -74,10 +54,7 @@ export default function MenuPage() {
 		updateSelection(newSelection)
 	}
 
-	// Ottieni dettagli degli allergeni selezionati per mostrare nel reset
-	const selectedAllergensDetails = useMemo(() => {
-		return allergens.filter(allergen => selectedAllergens.includes(allergen.id))
-	}, [allergens, selectedAllergens])
+
 
 	return (
 		<div className="qodeup-layout">
@@ -86,7 +63,7 @@ export default function MenuPage() {
 				<div className="qodeup-header-container">
 					{/* Logo Qodeup a sinistra */}
 					<div className="qodeup-header-logo">
-						<span className="qodeup-logo-text">qodeup</span>
+						<span className="qodeup-logo-text">b_bot</span>
 					</div>
 					
 					{/* Icone a destra */}
@@ -98,16 +75,16 @@ export default function MenuPage() {
 						
 						{/* Icona Allergeni */}
 						<button className="qodeup-header-icon-btn" onClick={handleAllergensClick} title="Allergeni">
-							<AllergenIcon size={28} color="#e5ad3e" />
+							<AllergenIcon size={28} color="#777777" />
 							{filterStats.hasActiveFilters && (
 								<span className="qodeup-header-badge">{filterStats.activeFilterCount}</span>
 							)}
 						</button>
 						
-						{/* Icona Ordina (carrello) */}
-						<button className="qodeup-header-icon-btn" title="Ordina">
+						{/* TODO: Feature futura - Ordini/Carrello */}
+						{/* <button className="qodeup-header-icon-btn" title="Ordina">
 							<span className="material-symbols-outlined">shopping_cart</span>
-						</button>
+						</button> */}
 						
 						{/* Icona Lingua */}
 						<button className="qodeup-header-icon-btn" onClick={handleLanguageClick} title="Language">
@@ -128,7 +105,7 @@ export default function MenuPage() {
 				
 				<button className="qodeup-quick-btn" onClick={handleAllergensClick} title="Allergeni">
 					<div className="qodeup-quick-icon">
-						<AllergenIcon size={40} color="#e5ad3e" />
+						<AllergenIcon size={40} color="#777777" />
 					</div>
 					<span className="qodeup-quick-label">ALLERGENI</span>
 					{filterStats.hasActiveFilters && (
@@ -136,18 +113,19 @@ export default function MenuPage() {
 					)}
 				</button>
 				
-				<button className="qodeup-quick-btn" title="Ordina">
+				{/* TODO: Feature futura - Ordini/Carrello */}
+				{/* <button className="qodeup-quick-btn" title="Ordina">
 					<div className="qodeup-quick-icon">
 						<span className="material-symbols-outlined">shopping_cart</span>
 					</div>
 					<span className="qodeup-quick-label">ORDINA</span>
-				</button>
+				</button> */}
 				
 				<button className="qodeup-quick-btn" onClick={handleLanguageClick} title="Language">
 					<div className="qodeup-quick-icon">
 						<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
 					</div>
-					<span className="qodeup-quick-label">LANGUAGE</span>
+					<span className="qodeup-quick-label">LINGUA</span>
 				</button>
 			</div>
 
@@ -159,7 +137,7 @@ export default function MenuPage() {
 							<span className="material-symbols-outlined">filter_alt</span>
 						</span>
 						<span className="qodeup-filter-text">
-							Filtri attivi: {selectedAllergensDetails.map(a => a.name).join(', ')}
+							Filtri attivi: {allergens.filter(a => selectedAllergens.includes(a.id)).map(a => a.name).join(', ')}
 						</span>
 					</div>
 					<button 

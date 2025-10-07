@@ -33,7 +33,9 @@ api.interceptors.request.use(
       console.warn(`[API WARNING] Possibile polling su ${url} - chiamate: ${apiCallCount[url]}`)
     }
     
-    console.log(`[API REQUEST] ${config.method?.toUpperCase()} ${url}`)
+    if (import.meta.env.DEV) {
+      console.log(`[API REQUEST] ${config.method?.toUpperCase()} ${url}`)
+    }
     return config
   },
   (error) => Promise.reject(error)
@@ -42,7 +44,9 @@ api.interceptors.request.use(
 api.interceptors.response.use(
   (res) => {
     lastSuccessfulCall = new Date()
-    console.log(`[API SUCCESS] ${res.config.method?.toUpperCase()} ${res.config.url}`)
+    if (import.meta.env.DEV) {
+      console.log(`[API SUCCESS] ${res.config.method?.toUpperCase()} ${res.config.url}`)
+    }
     return res
   },
   (error) => {

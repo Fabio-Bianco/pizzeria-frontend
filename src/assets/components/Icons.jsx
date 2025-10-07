@@ -59,7 +59,7 @@ export function VeganBadgeIcon({
 
 export function AllergenIcon({
   size = 64,
-  color = "#e5ad3e",
+  color = "#777777",
   strokeWidth = 2,
   title = "Allergeni"
 }) {
@@ -96,7 +96,7 @@ export function IconsExample() {
   return (
     <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
       <VeganBadgeIcon size={72} color="#777777" withLabel />
-      <AllergenIcon size={72} color="#e5ad3e" />
+      <AllergenIcon size={72} color="#777777" />
     </div>
   );
 }

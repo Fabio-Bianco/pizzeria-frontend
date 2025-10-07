@@ -7,8 +7,7 @@ export default function CollapsibleMenuSection({
   items = [], 
   icon = '🍕', 
   isExpanded = false,
-  count,
-  originalCount 
+  count
 }) {
   const [expanded, setExpanded] = useState(isExpanded)
 
@@ -19,7 +18,7 @@ export default function CollapsibleMenuSection({
   // Determina il conteggio da mostrare
   const displayCount = count !== undefined ? count : items.length
 
-  const getProductIcon = (item) => {
+  const getProductIcon = () => {
     // Determina l'icona in base al tipo di prodotto
     if (title.toLowerCase().includes('pizza')) return '🍕'
     if (title.toLowerCase().includes('antipast') || title.toLowerCase().includes('fritti')) return '🍤'
@@ -84,11 +83,11 @@ export default function CollapsibleMenuSection({
                   src={item.image_url}
                   alt={item.name}
                   className="qodeup-product-image"
-                  placeholder={getProductIcon(item)}
+                  placeholder={getProductIcon()}
                 />
               ) : (
                 <div className="qodeup-product-placeholder">
-                  {getProductIcon(item)}
+                  {getProductIcon()}
                 </div>
               )}
               
@@ -98,9 +97,10 @@ export default function CollapsibleMenuSection({
                   {item.price && (
                     <div className="d-flex align-items-center gap-2">
                       <span className="qodeup-product-price">€{Number(item.price).toFixed(2)}</span>
-                      <button className="qodeup-add-btn" title="Aggiungi al carrello">
+                      {/* TODO: Feature futura - Carrello */}
+                      {/* <button className="qodeup-add-btn" title="Aggiungi al carrello">
                         +
-                      </button>
+                      </button> */}
                     </div>
                   )}
                 </div>
