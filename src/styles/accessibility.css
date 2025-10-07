@@ -1,0 +1,469 @@
+/* ===============================================
+   ♿ ACCESSIBILITY FIRST - WCAG 2.1 AAA COMPLIANCE
+   =============================================== */
+
+/* ===== SKIP LINKS ===== */
+.skip-links {
+  position: absolute;
+  top: -100vh;
+  left: 0;
+  z-index: var(--z-index-skip-link);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-2);
+}
+
+.skip-link {
+  background: var(--color-brand-primary);
+  color: var(--color-neutral-0);
+  padding: var(--space-3) var(--space-4);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  border: 2px solid transparent;
+  transition: all var(--duration-200) var(--ease-out);
+  box-shadow: var(--shadow-lg);
+}
+
+.skip-link:focus {
+  top: var(--space-2);
+  transform: translateY(0);
+  border-color: var(--color-neutral-0);
+  outline: none;
+}
+
+.skip-link:hover {
+  background: var(--color-brand-primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ===== FOCUS MANAGEMENT ===== */
+.focus-visible,
+*:focus-visible {
+  outline: var(--focus-ring-width) solid var(--focus-ring-color);
+  outline-offset: var(--focus-ring-offset);
+  border-radius: var(--radius-sm);
+}
+
+/* Enhanced focus for interactive elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[role="link"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px rgba(212, 41, 42, 0.15);
+  position: relative;
+  z-index: var(--z-index-popover);
+}
+
+/* Focus trap for modals */
+.focus-trap {
+  position: relative;
+}
+
+.focus-trap::before,
+.focus-trap::after {
+  content: '';
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* ===== HIGH CONTRAST SUPPORT ===== */
+@media (prefers-contrast: high) {
+  :root {
+    --color-brand-primary: #b71c1c;
+    --color-brand-secondary: #1b5e20;
+    --color-brand-accent: #ff8f00;
+    --color-neutral-0: #ffffff;
+    --color-neutral-100: #f5f5f5;
+    --color-neutral-500: #424242;
+    --color-neutral-900: #000000;
+  }
+  
+  /* Enhanced borders for high contrast */
+  .pizzeria-logo__icon,
+  .qodeup-header-icon-btn,
+  .badge,
+  button,
+  input,
+  select,
+  textarea {
+    border-width: 2px !important;
+    border-style: solid !important;
+  }
+  
+  /* Remove subtle shadows in high contrast */
+  .shadow-sm,
+  .shadow-md,
+  .shadow-lg {
+    box-shadow: none !important;
+    border: 2px solid var(--color-neutral-900) !important;
+  }
+}
+
+/* ===== REDUCED MOTION SUPPORT ===== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Keep essential animations for feedback */
+  .focus-visible,
+  button:focus-visible,
+  a:focus-visible {
+    transition: outline var(--duration-150) var(--ease-out) !important;
+  }
+}
+
+/* ===== SCREEN READER OPTIMIZATIONS ===== */
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.sr-only-focusable:focus,
+.sr-only-focusable:active {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: inherit !important;
+  border: inherit !important;
+}
+
+/* ===== SEMANTIC LANDMARKS ===== */
+main {
+  scroll-margin-top: var(--space-20);
+}
+
+nav[aria-label] {
+  position: relative;
+}
+
+nav[aria-label]::before {
+  content: attr(aria-label);
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* ===== ACCESSIBLE INTERACTIVE STATES ===== */
+.interactive-element {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  -webkit-touch-callout: none;
+  touch-action: manipulation;
+}
+
+.interactive-element:disabled,
+.interactive-element[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.interactive-element[aria-pressed="true"] {
+  background: var(--color-brand-primary);
+  color: var(--color-neutral-0);
+}
+
+.interactive-element[aria-expanded="true"]::after {
+  content: '▲';
+  margin-left: var(--space-2);
+}
+
+.interactive-element[aria-expanded="false"]::after {
+  content: '▼';
+  margin-left: var(--space-2);
+}
+
+/* ===== ACCESSIBLE FORM ELEMENTS ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.form-label {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-neutral-800);
+  font-size: var(--font-size-sm);
+}
+
+.form-label--required::after {
+  content: ' *';
+  color: var(--color-error);
+  font-weight: var(--font-weight-bold);
+}
+
+.form-input {
+  padding: var(--space-3);
+  border: 2px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  transition: all var(--duration-200) var(--ease-out);
+  background: var(--color-neutral-0);
+}
+
+.form-input:focus {
+  border-color: var(--color-brand-primary);
+  box-shadow: 0 0 0 3px rgba(212, 41, 42, 0.15);
+}
+
+.form-input:invalid {
+  border-color: var(--color-error);
+}
+
+.form-input:invalid:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
+}
+
+.form-error {
+  color: var(--color-error);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.form-error::before {
+  content: '⚠';
+  font-size: var(--font-size-base);
+}
+
+.form-help {
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===== ACCESSIBLE TABLES ===== */
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-neutral-200);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-sm);
+}
+
+.table th {
+  background: var(--color-neutral-100);
+  padding: var(--space-3);
+  text-align: left;
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 2px solid var(--color-neutral-300);
+  color: var(--color-neutral-800);
+}
+
+.table td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--color-neutral-200);
+  color: var(--color-neutral-700);
+}
+
+.table tr:hover {
+  background: var(--color-neutral-50);
+}
+
+.table th[aria-sort]::after {
+  content: ' ↕';
+  opacity: 0.5;
+}
+
+.table th[aria-sort="ascending"]::after {
+  content: ' ↑';
+  opacity: 1;
+  color: var(--color-brand-primary);
+}
+
+.table th[aria-sort="descending"]::after {
+  content: ' ↓';
+  opacity: 1;
+  color: var(--color-brand-primary);
+}
+
+/* ===== ACCESSIBLE ALERTS ===== */
+.alert {
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border-left: 4px solid;
+  margin-bottom: var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+.alert--success {
+  background: var(--color-success-bg);
+  border-color: var(--color-success);
+  color: var(--color-success-dark);
+}
+
+.alert--warning {
+  background: var(--color-warning-bg);
+  border-color: var(--color-warning);
+  color: var(--color-warning-dark);
+}
+
+.alert--error {
+  background: var(--color-error-bg);
+  border-color: var(--color-error);
+  color: var(--color-error-dark);
+}
+
+.alert--info {
+  background: var(--color-info-bg);
+  border-color: var(--color-info);
+  color: var(--color-info-dark);
+}
+
+.alert__icon {
+  flex-shrink: 0;
+  margin-top: var(--space-0_5);
+}
+
+.alert__content {
+  flex: 1;
+}
+
+.alert__title {
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.alert__description {
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ===== KEYBOARD NAVIGATION HELPERS ===== */
+.keyboard-nav-active button:focus,
+.keyboard-nav-active a:focus,
+.keyboard-nav-active [tabindex]:focus {
+  outline: 3px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* Hide mouse focus when using keyboard */
+.mouse-nav-active button:focus,
+.mouse-nav-active a:focus,
+.mouse-nav-active [tabindex]:focus {
+  outline: none;
+}
+
+/* ===== ARIA LIVE REGIONS ===== */
+.live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Live regions are positioned absolutely for screen readers */
+
+/* ===== CONTRAST RATIO UTILITIES ===== */
+.text-contrast-aa {
+  /* Minimum 4.5:1 for normal text, 3:1 for large text */
+  color: var(--color-neutral-800);
+}
+
+.text-contrast-aaa {
+  /* Minimum 7:1 for normal text, 4.5:1 for large text */
+  color: var(--color-neutral-900);
+}
+
+.bg-contrast-aa {
+  background: var(--color-neutral-0);
+  color: var(--color-neutral-800);
+}
+
+.bg-contrast-aaa {
+  background: var(--color-neutral-0);
+  color: var(--color-neutral-900);
+}
+
+/* ===== TOUCH TARGET SIZES ===== */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.touch-target-large {
+  min-width: 48px;
+  min-height: 48px;
+}
+
+/* ===== RESPONSIVE TEXT SCALING ===== */
+@media (max-width: 768px) {
+  .responsive-text {
+    font-size: clamp(var(--font-size-sm), 4vw, var(--font-size-base));
+  }
+  
+  .responsive-heading {
+    font-size: clamp(var(--font-size-lg), 6vw, var(--font-size-2xl));
+  }
+}
+
+/* ===== PRINT ACCESSIBILITY ===== */
+@media print {
+  .sr-only {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+  
+  .skip-links {
+    display: none;
+  }
+  
+  a[href]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+    color: #666;
+  }
+}

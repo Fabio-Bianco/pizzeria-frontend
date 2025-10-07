@@ -1,0 +1,544 @@
+/* ===============================================
+   🏷️ BADGE SYSTEM STYLES - SEMANTIC VARIANTS
+   =============================================== */
+
+/* ===== BASE BADGE STYLES ===== */
+.semantic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-snug);
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  transition: all var(--duration-200) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ===== SIZE VARIANTS ===== */
+.semantic-badge--small {
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  gap: var(--space-0_5);
+  min-height: 20px;
+}
+
+.semantic-badge--medium {
+  padding: var(--space-1_5) var(--space-3);
+  font-size: var(--font-size-sm);
+  gap: var(--space-1);
+  min-height: 24px;
+}
+
+.semantic-badge--large {
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-base);
+  gap: var(--space-1_5);
+  min-height: 32px;
+}
+
+/* ===== SHAPE VARIANTS ===== */
+.semantic-badge--rounded {
+  border-radius: var(--radius-md);
+}
+
+.semantic-badge--pill {
+  border-radius: var(--radius-full);
+}
+
+.semantic-badge--square {
+  border-radius: var(--radius-sm);
+}
+
+/* ===== COLOR VARIANTS - FILLED STYLE ===== */
+.semantic-badge--filled.semantic-badge--default {
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-800);
+  border-color: var(--color-neutral-200);
+}
+
+.semantic-badge--filled.semantic-badge--success {
+  background: var(--color-success);
+  color: var(--color-neutral-0);
+  border-color: var(--color-success-dark);
+}
+
+.semantic-badge--filled.semantic-badge--warning {
+  background: var(--color-warning);
+  color: var(--color-neutral-900);
+  border-color: var(--color-warning-dark);
+}
+
+.semantic-badge--filled.semantic-badge--error {
+  background: var(--color-error);
+  color: var(--color-neutral-0);
+  border-color: var(--color-error-dark);
+}
+
+.semantic-badge--filled.semantic-badge--info {
+  background: var(--color-info);
+  color: var(--color-neutral-0);
+  border-color: var(--color-info-dark);
+}
+
+.semantic-badge--filled.semantic-badge--brand {
+  background: var(--color-brand-primary);
+  color: var(--color-neutral-0);
+  border-color: var(--color-brand-primary-dark);
+}
+
+/* ===== COLOR VARIANTS - OUTLINE STYLE ===== */
+.semantic-badge--outline.semantic-badge--default {
+  background: transparent;
+  color: var(--color-neutral-700);
+  border-color: var(--color-neutral-300);
+}
+
+.semantic-badge--outline.semantic-badge--success {
+  background: transparent;
+  color: var(--color-success-dark);
+  border-color: var(--color-success);
+}
+
+.semantic-badge--outline.semantic-badge--warning {
+  background: transparent;
+  color: var(--color-warning-dark);
+  border-color: var(--color-warning);
+}
+
+.semantic-badge--outline.semantic-badge--error {
+  background: transparent;
+  color: var(--color-error-dark);
+  border-color: var(--color-error);
+}
+
+.semantic-badge--outline.semantic-badge--info {
+  background: transparent;
+  color: var(--color-info-dark);
+  border-color: var(--color-info);
+}
+
+.semantic-badge--outline.semantic-badge--brand {
+  background: transparent;
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+}
+
+/* ===== COLOR VARIANTS - SOFT STYLE ===== */
+.semantic-badge--soft.semantic-badge--default {
+  background: var(--color-neutral-100);
+  color: var(--color-neutral-800);
+  border-color: transparent;
+}
+
+.semantic-badge--soft.semantic-badge--success {
+  background: var(--color-success-bg);
+  color: var(--color-success-dark);
+  border-color: transparent;
+}
+
+.semantic-badge--soft.semantic-badge--warning {
+  background: var(--color-warning-bg);
+  color: var(--color-warning-dark);
+  border-color: transparent;
+}
+
+.semantic-badge--soft.semantic-badge--error {
+  background: var(--color-error-bg);
+  color: var(--color-error-dark);
+  border-color: transparent;
+}
+
+.semantic-badge--soft.semantic-badge--info {
+  background: var(--color-info-bg);
+  color: var(--color-info-dark);
+  border-color: transparent;
+}
+
+.semantic-badge--soft.semantic-badge--brand {
+  background: rgba(212, 41, 42, 0.1);
+  color: var(--color-brand-primary-dark);
+  border-color: transparent;
+}
+
+/* ===== GLASS STYLE ===== */
+.semantic-badge--glass {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-sm);
+}
+
+.semantic-badge--glass.semantic-badge--default {
+  color: var(--color-neutral-800);
+}
+
+.semantic-badge--glass.semantic-badge--success {
+  color: var(--color-success-dark);
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.semantic-badge--glass.semantic-badge--warning {
+  color: var(--color-warning-dark);
+  background: rgba(245, 158, 11, 0.15);
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.semantic-badge--glass.semantic-badge--error {
+  color: var(--color-error-dark);
+  background: rgba(239, 68, 68, 0.15);
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.semantic-badge--glass.semantic-badge--info {
+  color: var(--color-info-dark);
+  background: rgba(59, 130, 246, 0.15);
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.semantic-badge--glass.semantic-badge--brand {
+  color: var(--color-brand-primary-dark);
+  background: rgba(212, 41, 42, 0.15);
+  border-color: rgba(212, 41, 42, 0.2);
+}
+
+/* ===== BADGE ELEMENTS ===== */
+.semantic-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.semantic-badge__icon--left {
+  margin-right: var(--space-0_5);
+  margin-left: calc(var(--space-0_5) * -1);
+}
+
+.semantic-badge__icon--right {
+  margin-left: var(--space-0_5);
+  margin-right: calc(var(--space-0_5) * -1);
+}
+
+.semantic-badge__text {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.semantic-badge__count {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-full);
+  padding: var(--space-0_5) var(--space-1);
+  font-size: 0.8em;
+  font-weight: var(--font-weight-bold);
+  min-width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.semantic-badge__remove {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: var(--radius-full);
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  color: currentColor;
+  cursor: pointer;
+  transition: all var(--duration-200) var(--ease-out);
+  margin-left: var(--space-1);
+}
+
+.semantic-badge__remove:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transform: scale(1.1);
+}
+
+/* ===== PULSING ANIMATION ===== */
+.semantic-badge--pulsing {
+  animation: badgePulse 2s infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* ===== HOVER EFFECTS ===== */
+.semantic-badge--filled:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.semantic-badge--outline:hover {
+  background: currentColor;
+  color: var(--color-neutral-0);
+}
+
+.semantic-badge--soft:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.semantic-badge--glass:hover {
+  backdrop-filter: blur(15px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ===== ALLERGEN SPECIFIC STYLES ===== */
+.semantic-badge--allergen {
+  border-width: 2px;
+  font-weight: var(--font-weight-semibold);
+  box-shadow: var(--shadow-sm);
+}
+
+.semantic-badge--allergen.semantic-badge--warning {
+  background: linear-gradient(135deg, var(--color-warning) 0%, var(--color-warning-light) 100%);
+  animation: allergenGlow 3s ease-in-out infinite;
+}
+
+@keyframes allergenGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(245, 158, 11, 0.5);
+  }
+}
+
+/* ===== PRICE BADGE STYLES ===== */
+.price-badge-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.price-badge {
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+.price-currency {
+  font-size: 0.8em;
+  opacity: 0.8;
+}
+
+.price-amount {
+  font-size: 1.2em;
+}
+
+.price-discount {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+}
+
+.original-price {
+  color: var(--color-neutral-500);
+  font-size: var(--font-size-sm);
+  text-decoration: line-through;
+}
+
+.discount-badge {
+  font-weight: var(--font-weight-bold);
+}
+
+/* ===== RATING BADGE STYLES ===== */
+.rating-badge {
+  font-family: var(--font-family-primary);
+}
+
+.rating-stars {
+  display: flex;
+  gap: 1px;
+  margin-right: var(--space-1);
+}
+
+.star {
+  color: var(--color-brand-accent);
+  font-size: 1em;
+}
+
+.star--empty {
+  color: var(--color-neutral-300);
+}
+
+.star--half {
+  background: linear-gradient(90deg, var(--color-brand-accent) 50%, var(--color-neutral-300) 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.rating-value {
+  font-weight: var(--font-weight-bold);
+}
+
+.review-count {
+  color: var(--color-neutral-500);
+  font-size: 0.9em;
+  margin-left: var(--space-0_5);
+}
+
+/* ===== NUTRITION BADGE STYLES ===== */
+.semantic-badge--nutrition {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+/* ===== BADGE GROUP STYLES ===== */
+.badge-group {
+  display: flex;
+  align-items: center;
+}
+
+.badge-group--horizontal {
+  flex-direction: row;
+}
+
+.badge-group--vertical {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.badge-group--wrap {
+  flex-wrap: wrap;
+}
+
+.badge-group--tight {
+  gap: var(--space-1);
+}
+
+.badge-group--normal {
+  gap: var(--space-2);
+}
+
+.badge-group--loose {
+  gap: var(--space-3);
+}
+
+/* ===== RESPONSIVE BADGE STYLES ===== */
+@media (max-width: 768px) {
+  .semantic-badge--large {
+    padding: var(--space-1_5) var(--space-3);
+    font-size: var(--font-size-sm);
+  }
+  
+  .semantic-badge--medium {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+  
+  .badge-group--horizontal {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .price-badge-container {
+    align-items: flex-start;
+  }
+  
+  .rating-stars {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 480px) {
+  .semantic-badge {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .semantic-badge--large {
+    padding: var(--space-1) var(--space-2);
+    font-size: var(--font-size-xs);
+  }
+  
+  .badge-group {
+    width: 100%;
+  }
+}
+
+/* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+@media (prefers-reduced-motion: reduce) {
+  .semantic-badge--pulsing {
+    animation: none;
+  }
+  
+  .semantic-badge--allergen {
+    animation: none;
+  }
+  
+  .semantic-badge:hover {
+    transform: none;
+  }
+}
+
+/* ===== HIGH CONTRAST MODE ===== */
+@media (prefers-contrast: high) {
+  .semantic-badge {
+    border-width: 2px !important;
+    font-weight: var(--font-weight-bold) !important;
+  }
+  
+  .semantic-badge--soft {
+    border: 2px solid currentColor !important;
+  }
+  
+  .semantic-badge--glass {
+    backdrop-filter: none !important;
+    background: var(--color-neutral-0) !important;
+    border: 2px solid currentColor !important;
+  }
+}
+
+/* ===== DARK MODE SUPPORT ===== */
+@media (prefers-color-scheme: dark) {
+  .semantic-badge--glass {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .semantic-badge--soft.semantic-badge--default {
+    background: var(--color-neutral-800);
+    color: var(--color-neutral-200);
+  }
+}
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .semantic-badge {
+    background: white !important;
+    color: black !important;
+    border: 1px solid black !important;
+  }
+  
+  .semantic-badge--pulsing {
+    animation: none !important;
+  }
+  
+  .semantic-badge__icon {
+    display: none;
+  }
+}

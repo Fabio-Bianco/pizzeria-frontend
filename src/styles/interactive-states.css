@@ -1,0 +1,90 @@
+/* ===============================================
+   🎭 INTERACTIVE STATES & ANIMATIONS
+   =============================================== */
+
+/* ===== BUTTON STATES ===== */
+.btn {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 2px solid transparent;
+  font-weight: var(--font-weight-medium);
+  transition: all var(--duration-200) var(--ease-out);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--color-brand-primary);
+  color: var(--color-neutral-0);
+  border-color: var(--color-brand-primary);
+}
+
+.btn-primary:hover {
+  background: var(--color-brand-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+  background: var(--color-neutral-200);
+  color: var(--color-neutral-800);
+  border-color: var(--color-neutral-300);
+}
+
+.btn-secondary:hover {
+  background: var(--color-neutral-300);
+  border-color: var(--color-neutral-400);
+}
+
+.btn-sm {
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--font-size-sm);
+}
+
+.btn-lg {
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--font-size-lg);
+}
+
+/* ===== LOADING ANIMATIONS ===== */
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--color-neutral-300);
+  border-top: 2px solid var(--color-brand-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ===== MICRO INTERACTIONS ===== */
+.hover-lift:hover {
+  transform: translateY(-2px);
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+  transition: transform var(--duration-200) var(--ease-out);
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
