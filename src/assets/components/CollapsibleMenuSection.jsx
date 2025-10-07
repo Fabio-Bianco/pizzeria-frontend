@@ -2,12 +2,22 @@ import { useState } from 'react'
 import LazyImage from './LazyImage'
 import { AllergenBadgesCompact } from './AllergenBadges'
 
-export default function CollapsibleMenuSection({ title, items = [], icon = '🍕', isExpanded = false }) {
+export default function CollapsibleMenuSection({ 
+  title, 
+  items = [], 
+  icon = '🍕', 
+  isExpanded = false,
+  count,
+  originalCount 
+}) {
   const [expanded, setExpanded] = useState(isExpanded)
 
   const toggleExpanded = () => {
     setExpanded(!expanded)
   }
+
+  // Determina il conteggio da mostrare
+  const displayCount = count !== undefined ? count : items.length
 
   const getProductIcon = (item) => {
     // Determina l'icona in base al tipo di prodotto
@@ -56,7 +66,7 @@ export default function CollapsibleMenuSection({ title, items = [], icon = '🍕
           <span>{title}</span>
         </div>
         <div className="d-flex align-items-center gap-2">
-          <span className="qodeup-section-count">({items.length})</span>
+          <span className="qodeup-section-count">({displayCount})</span>
           <span className="qodeup-section-chevron">▶</span>
         </div>
       </button>

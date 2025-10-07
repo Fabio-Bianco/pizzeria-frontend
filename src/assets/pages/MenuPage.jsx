@@ -1,15 +1,15 @@
 import { useEffect, useMemo } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
-import AllergenFilter from '../components/AllergenFilter'
-import FilterStats from '../components/FilterStats'
+import AllergenModal from '../components/AllergenModal'
+import AllergenDebugPanel from '../components/AllergenDebugPanel'
 import { GridSkeleton } from '../components/SkeletonLoaders'
 import { useMenuSections } from '../../hooks/useMenuSections'
 import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
 
 export default function MenuPage() {
-	const { categories, pizzas, appetizers, beverages, desserts, loading, error, initialized, refetch } = usePizzeria()
+	const { categories, pizzas, appetizers, beverages, desserts, allergens, loading, error, initialized, refetch } = usePizzeria()
 	const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
 	const { currentLanguage, toggleLanguage } = useLanguage()
 
@@ -48,10 +48,10 @@ export default function MenuPage() {
 		}
 
 		const filteredCounts = {
-			pizzas: menuSections.find(s => s.id === 'pizzas')?.items?.length || 0,
-			appetizers: menuSections.find(s => s.id === 'appetizers')?.items?.length || 0,
-			beverages: menuSections.find(s => s.id === 'beverages')?.items?.length || 0,
-			desserts: menuSections.find(s => s.id === 'desserts')?.items?.length || 0
+			pizzas: menuSections.find(s => s.id === 'pizzas')?.count || 0,
+			appetizers: menuSections.find(s => s.id === 'appetizers')?.count || 0,
+			beverages: menuSections.find(s => s.id === 'beverages')?.count || 0,
+			desserts: menuSections.find(s => s.id === 'desserts')?.count || 0
 		}
 
 		return { originalCounts, filteredCounts }
@@ -69,6 +69,10 @@ export default function MenuPage() {
 		resetSelection()
 	}
 
+	const handleAllergenSelection = (newSelection) => {
+		updateSelection(newSelection)
+	}
+
 	return (
 		<div className="qodeup-layout">
 			{/* Sezione richiami rapidi */}
@@ -82,34 +86,6 @@ export default function MenuPage() {
 					<div className="qodeup-quick-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</div>
 					<span className="qodeup-quick-label">Language</span>
 				</button>
-			</div>
-
-			{/* Filtro Allergeni */}
-			<div className="qodeup-filter-section">
-				<AllergenFilter
-					selectedAllergens={selectedAllergens}
-					onSelectionChange={updateSelection}
-					className="qodeup-allergen-filter"
-				/>
-				
-				{filterStats.hasActiveFilters && (
-					<>
-						<FilterStats
-							originalCounts={menuStats.originalCounts}
-							filteredCounts={menuStats.filteredCounts}
-							selectedAllergensCount={filterStats.activeFilterCount}
-							className="qodeup-filter-stats"
-						/>
-						<div className="qodeup-filter-actions">
-							<button 
-								className="qodeup-reset-filters-btn"
-								onClick={handleResetFilters}
-							>
-								🗑️ Cancella tutti i filtri
-							</button>
-						</div>
-					</>
-				)}
 			</div>
 
 			{/* Header FOOD */}
@@ -128,6 +104,8 @@ export default function MenuPage() {
 								title={section.title}
 								items={section.items}
 								icon={section.icon}
+								count={section.count}
+								originalCount={section.originalCount}
 								isExpanded={section.id === 'appetizers'} // Prima sezione espansa di default
 							/>
 						)}
@@ -135,16 +113,21 @@ export default function MenuPage() {
 				))}
 			</div>
 
-			{/* TODO: Modal Allergeni */}
-			{showAllergensModal && (
-				<div className="modal-backdrop" onClick={closeAllergensModal}>
-					<div className="modal-content" onClick={(e) => e.stopPropagation()}>
-						<h3>Allergeni</h3>
-						<p>Modal degli allergeni da implementare</p>
-						<button onClick={closeAllergensModal}>Chiudi</button>
-					</div>
-				</div>
-			)}
+			{/* Modal Allergeni */}
+			<AllergenModal
+				isOpen={showAllergensModal}
+				onClose={closeAllergensModal}
+				selectedAllergens={selectedAllergens}
+				onSelectionChange={handleAllergenSelection}
+				availableAllergens={allergens}
+			/>
+
+			{/* Debug Panel (solo in sviluppo) */}
+			<AllergenDebugPanel
+				selectedAllergens={selectedAllergens}
+				filterStats={filterStats}
+				menuStats={menuStats}
+			/>
 		</div>
 	)
 }

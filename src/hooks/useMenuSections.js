@@ -11,13 +11,21 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
       return filterFunction(items)
     }
 
+    // Calcola i conteggi filtrati per ogni sezione
+    const appetizersFiltered = applyFilter(appetizers)
+    const pizzasFiltered = applyFilter(pizzas)
+    const dessertsFiltered = applyFilter(desserts)
+    const beveragesFiltered = applyFilter(beverages)
+
     return [
       {
         id: 'appetizers',
         title: 'ANTIPASTI',
         icon: '🍤',
-        items: applyFilter(appetizers),
+        items: appetizersFiltered,
         originalItems: appetizers || [],
+        count: appetizersFiltered.length,
+        originalCount: (appetizers || []).length,
         loading: loading.appetizers,
         initialized: initialized.appetizers
       },
@@ -25,8 +33,10 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'pizzas',
         title: 'PIZZE',
         icon: '🍕', 
-        items: applyFilter(pizzas),
+        items: pizzasFiltered,
         originalItems: pizzas || [],
+        count: pizzasFiltered.length,
+        originalCount: (pizzas || []).length,
         loading: loading.pizzas,
         initialized: initialized.pizzas
       },
@@ -34,8 +44,10 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'desserts',
         title: 'DESSERT',
         icon: '🍰',
-        items: applyFilter(desserts),
+        items: dessertsFiltered,
         originalItems: desserts || [],
+        count: dessertsFiltered.length,
+        originalCount: (desserts || []).length,
         loading: loading.desserts,
         initialized: initialized.desserts
       },
@@ -43,8 +55,10 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         id: 'beverages', 
         title: 'BEVANDE',
         icon: '🥤',
-        items: applyFilter(beverages),
+        items: beveragesFiltered,
         originalItems: beverages || [],
+        count: beveragesFiltered.length,
+        originalCount: (beverages || []).length,
         loading: loading.beverages,
         initialized: initialized.beverages
       }
