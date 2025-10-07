@@ -6,6 +6,7 @@ import { listIngredients } from '../services/ingredients'
 import { listAllergens } from '../services/allergens'
 import { listAppetizers } from '../services/appetizers'
 import { listBeverages } from '../services/beverages'
+import { listDesserts } from '../services/desserts'
 
 const PizzeriaContext = createContext(null)
 
@@ -16,10 +17,11 @@ export function PizzeriaProvider({ children }) {
   const [allergens, setAllergens] = useState([])
   const [appetizers, setAppetizers] = useState([])
   const [beverages, setBeverages] = useState([])
+  const [desserts, setDesserts] = useState([])
 
-  const [loading, setLoading] = useState({ categories: true, pizzas: true, ingredients: true, allergens: true, appetizers: true, beverages: true })
-  const [error, setError] = useState({ categories: null, pizzas: null, ingredients: null, allergens: null, appetizers: null, beverages: null })
-  const [initialized, setInitialized] = useState({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false })
+  const [loading, setLoading] = useState({ categories: true, pizzas: true, ingredients: true, allergens: true, appetizers: true, beverages: true, desserts: true })
+  const [error, setError] = useState({ categories: null, pizzas: null, ingredients: null, allergens: null, appetizers: null, beverages: null, desserts: null })
+  const [initialized, setInitialized] = useState({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false, desserts: false })
 
   // Tenta di estrarre una lista da varie forme di risposta comuni in Laravel (paginata/non paginata)
   const extractList = (payload) => {
@@ -31,20 +33,27 @@ export function PizzeriaProvider({ children }) {
     return []
   }
 
-  const fetchCategories = useCallback(async () => {
+  const fetchCategories = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.categories && !force) return
+    
     setLoading((s) => ({ ...s, categories: true }))
     setError((e) => ({ ...e, categories: null }))
     try {
-  const data = await listCategories()
-  setCategories(extractList(data))
+      const data = await listCategories()
+      setCategories(extractList(data))
+      setInitialized((s) => ({ ...s, categories: true }))
     } catch (e) {
       setError((err) => ({ ...err, categories: e }))
     } finally {
       setLoading((s) => ({ ...s, categories: false }))
     }
-  }, [])
+  }, [initialized.categories])
 
   const fetchPizzas = useCallback(async (params = {}, force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.pizzas && !force) return
+    
     // Non mostrare loader se abbiamo già dei dati e non è forzato
     const shouldShowLoader = force || !initialized.pizzas
     if (shouldShowLoader) {
@@ -62,33 +71,44 @@ export function PizzeriaProvider({ children }) {
     }
   }, [initialized.pizzas])
 
-  const fetchIngredients = useCallback(async () => {
+  const fetchIngredients = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.ingredients && !force) return
+    
     setLoading((s) => ({ ...s, ingredients: true }))
     setError((e) => ({ ...e, ingredients: null }))
     try {
-  const data = await listIngredients()
-  setIngredients(extractList(data))
+      const data = await listIngredients()
+      setIngredients(extractList(data))
+      setInitialized((s) => ({ ...s, ingredients: true }))
     } catch (e) {
       setError((err) => ({ ...err, ingredients: e }))
     } finally {
       setLoading((s) => ({ ...s, ingredients: false }))
     }
-  }, [])
+  }, [initialized.ingredients])
 
-  const fetchAllergens = useCallback(async () => {
+  const fetchAllergens = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.allergens && !force) return
+    
     setLoading((s) => ({ ...s, allergens: true }))
     setError((e) => ({ ...e, allergens: null }))
     try {
-  const data = await listAllergens()
-  setAllergens(extractList(data))
+      const data = await listAllergens()
+      setAllergens(extractList(data))
+      setInitialized((s) => ({ ...s, allergens: true }))
     } catch (e) {
       setError((err) => ({ ...err, allergens: e }))
     } finally {
       setLoading((s) => ({ ...s, allergens: false }))
     }
-  }, [])
+  }, [initialized.allergens])
 
   const fetchAppetizers = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.appetizers && !force) return
+    
     const shouldShowLoader = force || !initialized.appetizers
     if (shouldShowLoader) {
       setLoading((s) => ({ ...s, appetizers: true }))
@@ -106,6 +126,9 @@ export function PizzeriaProvider({ children }) {
   }, [initialized.appetizers])
 
   const fetchBeverages = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.beverages && !force) return
+    
     const shouldShowLoader = force || !initialized.beverages
     if (shouldShowLoader) {
       setLoading((s) => ({ ...s, beverages: true }))
@@ -122,6 +145,26 @@ export function PizzeriaProvider({ children }) {
     }
   }, [initialized.beverages])
 
+  const fetchDesserts = useCallback(async (force = false) => {
+    // Non fare fetch se già inizializzato e non forzato
+    if (initialized.desserts && !force) return
+    
+    const shouldShowLoader = force || !initialized.desserts
+    if (shouldShowLoader) {
+      setLoading((s) => ({ ...s, desserts: true }))
+    }
+    setError((e) => ({ ...e, desserts: null }))
+    try {
+      const data = await listDesserts()
+      setDesserts(extractList(data))
+      setInitialized((s) => ({ ...s, desserts: true }))
+    } catch (e) {
+      setError((err) => ({ ...err, desserts: e }))
+    } finally {
+      setLoading((s) => ({ ...s, desserts: false }))
+    }
+  }, [initialized.desserts])
+
   useEffect(() => {
     // fetch iniziale in parallelo
     fetchCategories()
@@ -130,6 +173,7 @@ export function PizzeriaProvider({ children }) {
     fetchAllergens()
   fetchAppetizers()
   fetchBeverages()
+  fetchDesserts()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -155,6 +199,7 @@ export function PizzeriaProvider({ children }) {
       allergens,
       appetizers,
       beverages,
+      desserts,
       loading,
       error,
       initialized,
@@ -165,9 +210,10 @@ export function PizzeriaProvider({ children }) {
         allergens: fetchAllergens,
         appetizers: fetchAppetizers,
         beverages: fetchBeverages,
+        desserts: fetchDesserts,
       },
     }),
-    [categories, pizzas, ingredients, allergens, appetizers, beverages, loading, error, initialized, fetchCategories, fetchPizzas, fetchIngredients, fetchAllergens, fetchAppetizers, fetchBeverages]
+    [categories, pizzas, ingredients, allergens, appetizers, beverages, desserts, loading, error, initialized, fetchCategories, fetchPizzas, fetchIngredients, fetchAllergens, fetchAppetizers, fetchBeverages, fetchDesserts]
   )
 
   return <PizzeriaContext.Provider value={value}>{children}</PizzeriaContext.Provider>

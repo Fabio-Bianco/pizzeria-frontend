@@ -1,0 +1,81 @@
+/* ===== LAYOUT E BODY GENERALE ===== */
+body {
+  background-color: var(--pizzeria-light);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1400px;
+}
+
+/* ===== HERO SECTION ===== */
+.hero-section {
+  background: linear-gradient(135deg, var(--pizzeria-secondary), #27ae60);
+  color: white;
+  padding: 3rem 0;
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="50" opacity="0.1">🍕</text></svg>') repeat;
+  background-size: 100px 100px;
+  animation: float 20s infinite linear;
+}
+
+@keyframes float {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100px); }
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  position: relative;
+  z-index: 2;
+}
+
+.hero-section .lead {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  position: relative;
+  z-index: 2;
+}
+
+/* ===== SECTION HEADERS ===== */
+.section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--pizzeria-primary);
+}
+
+.section-header h3 {
+  color: var(--pizzeria-dark);
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.section-header .badge {
+  background: var(--pizzeria-accent) !important;
+  color: var(--pizzeria-dark) !important;
+  font-size: 0.9rem !important;
+  padding: 0.5rem 0.8rem !important;
+  border-radius: 20px !important;
+  margin-left: 1rem;
+  font-weight: 600 !important;
+}

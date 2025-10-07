@@ -12,11 +12,41 @@ const api = axios.create({
     Accept: 'application/json',
   },
   withCredentials: false,
+  timeout: 5000, // 5 secondi timeout
 })
 
+// Debug per monitorare le chiamate API e prevenire polling
+let apiCallCount = {}
+let lastSuccessfulCall = null
+let lastFailedCall = null
+
+const resetCallCount = () => { apiCallCount = {} }
+setInterval(resetCallCount, 60000) // Reset ogni minuto
+
+api.interceptors.request.use(
+  (config) => {
+    const url = config.url
+    apiCallCount[url] = (apiCallCount[url] || 0) + 1
+    
+    // Log warning se troppe chiamate alla stessa API
+    if (apiCallCount[url] > 5) {
+      console.warn(`[API WARNING] Possibile polling su ${url} - chiamate: ${apiCallCount[url]}`)
+    }
+    
+    console.log(`[API REQUEST] ${config.method?.toUpperCase()} ${url}`)
+    return config
+  },
+  (error) => Promise.reject(error)
+)
+
 api.interceptors.response.use(
-  (res) => res,
+  (res) => {
+    lastSuccessfulCall = new Date()
+    console.log(`[API SUCCESS] ${res.config.method?.toUpperCase()} ${res.config.url}`)
+    return res
+  },
   (error) => {
+    lastFailedCall = new Date()
     // normalizza errori
     const e = error?.response?.data || error
     // log diagnostico
@@ -29,5 +59,12 @@ api.interceptors.response.use(
     return Promise.reject(e)
   }
 )
+
+// Funzioni per monitorare lo stato delle API
+export const getApiStatus = () => ({
+  lastSuccessfulCall,
+  lastFailedCall,
+  isHealthy: lastSuccessfulCall && (!lastFailedCall || lastSuccessfulCall > lastFailedCall)
+})
 
 export default api

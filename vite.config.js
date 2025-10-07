@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: {
+      port: 5173,
       proxy: {
         // inoltra tutte le richieste /api (es. /api/v1/pizzas) al backend Laravel
         '/api': {

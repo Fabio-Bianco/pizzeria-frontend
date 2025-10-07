@@ -1,0 +1,151 @@
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+  .qodeup-header .container-fluid {
+    padding: 0 1rem;
+  }
+  
+  .qodeup-logo {
+    font-size: 1.3rem;
+  }
+  
+  .qodeup-icon-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+  
+  .qodeup-quick-access {
+    padding: 1rem 0;
+    gap: 0.5rem;
+  }
+  
+  .qodeup-quick-btn {
+    min-width: 100px;
+    padding: 0.8rem 1rem;
+  }
+  
+  .qodeup-section-header {
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+  }
+  
+  .qodeup-product-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .qodeup-product-image,
+  .qodeup-product-placeholder {
+    align-self: center;
+  }
+  
+  .qodeup-product-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .qodeup-food-title::before,
+  .qodeup-food-title::after {
+    width: 50px;
+  }
+  
+  .qodeup-food-title::before {
+    left: calc(50% - 120px);
+  }
+  
+  .qodeup-food-title::after {
+    right: calc(50% - 120px);
+  }
+
+  .hero-section h1 {
+    font-size: 2.2rem;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .section-header .badge {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
+}
+
+/* ===== EXTRA SMALL DEVICES ===== */
+@media (max-width: 576px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+  
+  .hero-section {
+    padding: 1.5rem 0 !important;
+  }
+  
+  .hero-section h1 {
+    font-size: 1.8rem;
+  }
+  
+  .hero-section .lead {
+    font-size: 1rem;
+  }
+  
+  .section-header h3 {
+    font-size: 1.4rem;
+  }
+}
+
+/* ===== TOUCH IMPROVEMENTS ===== */
+@media (hover: none) and (pointer: coarse) {
+  .qodeup-product-card:hover {
+    transform: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .qodeup-quick-btn:hover {
+    transform: none !important;
+  }
+  
+  .qodeup-icon-btn:hover {
+    transform: none !important;
+  }
+  
+  /* Improve touch targets */
+  .qodeup-icon-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .qodeup-quick-btn {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  .qodeup-section-header {
+    min-height: 44px;
+  }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+  .qodeup-product-card {
+    transition: none !important;
+  }
+  
+  .qodeup-quick-btn {
+    transition: none !important;
+  }
+  
+  .qodeup-section-header {
+    transition: none !important;
+  }
+  
+  .qodeup-section-content {
+    transition: none !important;
+  }
+  
+  .qodeup-section-chevron {
+    transition: none !important;
+  }
+}

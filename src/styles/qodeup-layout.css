@@ -1,0 +1,137 @@
+/* ===== QODEUP HEADER STYLES ===== */
+.qodeup-header {
+  background: #f8f9fa;
+  border-radius: 0;
+  padding: 1rem 0;
+  margin-bottom: 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.qodeup-logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #333;
+  text-decoration: none;
+}
+
+.qodeup-logo:hover {
+  color: #d73527;
+  text-decoration: none;
+}
+
+.qodeup-header-icons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
+}
+
+.qodeup-icon-btn {
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  border: 2px solid #e9ecef;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.qodeup-icon-btn:hover {
+  border-color: #d73527;
+  background: #fff5f5;
+  transform: translateY(-2px);
+}
+
+/* ===== QODEUP LAYOUT SECTIONS ===== */
+.qodeup-layout {
+  max-width: 100%;
+}
+
+/* Quick Access Section */
+.qodeup-quick-access {
+  padding: 2rem 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.qodeup-quick-btn {
+  padding: 1rem 2rem;
+  border: 2px dashed #e9ecef;
+  border-radius: 12px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 120px;
+}
+
+.qodeup-quick-btn:hover {
+  border-color: #d73527;
+  background: #fff5f5;
+}
+
+.qodeup-quick-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.qodeup-quick-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+}
+
+/* Food Section Header */
+.qodeup-food-header {
+  text-align: center;
+  margin: 3rem 0 2rem 0;
+  position: relative;
+}
+
+.qodeup-food-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.qodeup-food-title::before,
+.qodeup-food-title::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 100px;
+  height: 2px;
+  background: repeating-linear-gradient(
+    to right,
+    #ccc 0,
+    #ccc 5px,
+    transparent 5px,
+    transparent 10px
+  );
+}
+
+.qodeup-food-title::before {
+  left: calc(50% - 200px);
+}
+
+.qodeup-food-title::after {
+  right: calc(50% - 200px);
+}
