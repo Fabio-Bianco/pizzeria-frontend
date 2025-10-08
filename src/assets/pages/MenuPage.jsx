@@ -7,6 +7,7 @@ import { VeganBadgeIcon, AllergenIcon } from '../components/Icons'
 import { useMenuSections } from '../../hooks/useMenuSections'
 import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
+import { useVeggieFilter } from '../../hooks/useVeggieFilter'
 
 export default function MenuPage() {
 	const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized } = usePizzeria()
@@ -22,12 +23,32 @@ export default function MenuPage() {
 		filterStats
 	} = useAllergenFilter()
 
+	// Hook per la gestione del filtro veggie
+	const {
+		veggieFilterActive,
+		toggleVeggieFilter,
+		resetVeggieFilter,
+		filterItems: filterVeggieItems,
+		filterStats: veggieFilterStats
+	} = useVeggieFilter()
+
 	useEffect(() => {
 		// Il caricamento è già gestito automaticamente dal PizzeriaContext
 		// I dati vengono caricati automaticamente dal context al mount
 	}, [])
 
-	// Prepara le sezioni del menu usando il hook con filtro
+	// Funzione combinata per applicare entrambi i filtri
+	const applyCombinedFilters = (items) => {
+		// Prima applica il filtro veggie se attivo
+		let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
+		
+		// Poi applica il filtro allergeni se attivo
+		filteredItems = filterItems(filteredItems)
+		
+		return filteredItems
+	}
+
+	// Prepara le sezioni del menu usando il hook con filtri combinati
 	const menuSections = useMenuSections(
 		pizzas, 
 		appetizers, 
@@ -35,11 +56,15 @@ export default function MenuPage() {
 		desserts, 
 		loading, 
 		initialized,
-		filterItems // Passa la funzione di filtro
+		applyCombinedFilters // Usa la funzione combinata per i filtri
 	)
 
 	const handleAllergensClick = () => {
 		openAllergensModal()
+	}
+
+	const handleVeggieClick = () => {
+		toggleVeggieFilter()
 	}
 
 	const handleLanguageClick = () => {
@@ -48,6 +73,7 @@ export default function MenuPage() {
 
 	const handleResetFilters = () => {
 		resetSelection()
+		resetVeggieFilter()
 	}
 
 	const handleAllergenSelection = (newSelection) => {
@@ -70,11 +96,13 @@ export default function MenuPage() {
 					<nav className="qodeup-header-icons" role="navigation" aria-label="Menu azioni rapide">
 						{/* Icona Veggie */}
 						<button 
-							className="qodeup-header-icon-btn" 
-							title="Filtra prodotti vegani"
-							aria-label="Filtra prodotti vegani"
+							className={`qodeup-header-icon-btn ${veggieFilterActive ? 'active' : ''}`}
+							onClick={handleVeggieClick}
+							title={veggieFilterActive ? "Rimuovi filtro veggie" : "Filtra prodotti vegani"}
+							aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Filtra prodotti vegani"}
+							aria-pressed={veggieFilterActive}
 						>
-							<VeganBadgeIcon size={28} color="#777777" withLabel={false} />
+							<VeganBadgeIcon size={28} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
 						</button>
 						
 						{/* Icona Allergeni */}
@@ -109,14 +137,21 @@ export default function MenuPage() {
 			{/* Sezione icone intermedie - WCAG Quick Access */}
 			<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
 				<button 
-					className="qodeup-quick-btn" 
-					title="Visualizza prodotti vegani"
-					aria-label="Visualizza solo prodotti vegani"
+					className={`qodeup-quick-btn ${veggieFilterActive ? 'active' : ''}`}
+					onClick={handleVeggieClick}
+					title={veggieFilterActive ? "Rimuovi filtro veggie" : "Visualizza prodotti vegani"}
+					aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Visualizza solo prodotti vegani"}
+					aria-pressed={veggieFilterActive}
 				>
 					<div className="qodeup-quick-icon">
-						<VeganBadgeIcon size={40} color="#777777" withLabel={false} />
+						<VeganBadgeIcon size={40} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
 					</div>
 					<span className="qodeup-quick-label">VEGGIE</span>
+					{veggieFilterActive && (
+						<span className="qodeup-quick-badge" aria-label="Filtro veggie attivo">
+							✓
+						</span>
+					)}
 				</button>
 				
 				<button 
@@ -151,21 +186,24 @@ export default function MenuPage() {
 			</section>
 
 			{/* Barra di reset filtri - WCAG Enhanced */}
-			{filterStats.hasActiveFilters && (
+			{(filterStats.hasActiveFilters || veggieFilterActive) && (
 				<section className="qodeup-filter-reset-bar" role="status" aria-live="polite">
 					<div className="qodeup-filter-info">
 						<span className="qodeup-filter-icon" aria-hidden="true">
 							<span className="material-symbols-outlined">filter_alt</span>
 						</span>
 						<span className="qodeup-filter-text">
-							Filtri attivi: {allergens.filter(a => selectedAllergens.includes(a.id)).map(a => a.name).join(', ')}
+							Filtri attivi: {[
+								veggieFilterActive && "Veggie",
+								filterStats.hasActiveFilters && `Allergeni (${allergens.filter(a => selectedAllergens.includes(a.id)).map(a => a.name).join(', ')})`
+							].filter(Boolean).join(', ')}
 						</span>
 					</div>
 					<button 
 						className="qodeup-filter-reset-btn"
 						onClick={handleResetFilters}
-						title="Rimuovi tutti i filtri allergeni attivi"
-						aria-label="Rimuovi tutti i filtri allergeni attivi"
+						title="Rimuovi tutti i filtri attivi"
+						aria-label="Rimuovi tutti i filtri attivi"
 					>
 						<span className="qodeup-reset-icon" aria-hidden="true">
 							<span className="material-symbols-outlined">close</span>

@@ -22,9 +22,9 @@
 .qodeup-section-header:hover {
   background: #0f5a2e;
   transform: translateY(-2px);
-}
-
-.qodeup-section-title {
+    padding: 0.5rem 1rem;
+    border-radius: 16px;
+    font-size: 1rem;
   display: flex;
   align-items: center;
   gap: 0.5rem;
