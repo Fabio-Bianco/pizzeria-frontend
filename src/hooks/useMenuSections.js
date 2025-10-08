@@ -3,7 +3,7 @@ import { useMemo, useState, useCallback } from 'react'
 /**
  * Hook per preparare e organizzare le sezioni del menu con supporto per filtri allergeni
  */
-export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading, initialized, filterFunction = null) => {
+export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading, filterFunction = null) => {
   const menuSections = useMemo(() => {
     // Funzione per applicare il filtro se fornito
     const applyFilter = (items) => {
@@ -26,8 +26,7 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         originalItems: appetizers || [],
         count: appetizersFiltered.length,
         originalCount: (appetizers || []).length,
-        loading: loading.appetizers,
-        initialized: initialized.appetizers
+        loading: loading.appetizers
       },
       {
         id: 'pizzas',
@@ -37,8 +36,7 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         originalItems: pizzas || [],
         count: pizzasFiltered.length,
         originalCount: (pizzas || []).length,
-        loading: loading.pizzas,
-        initialized: initialized.pizzas
+        loading: loading.pizzas
       },
       {
         id: 'desserts',
@@ -48,8 +46,7 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         originalItems: desserts || [],
         count: dessertsFiltered.length,
         originalCount: (desserts || []).length,
-        loading: loading.desserts,
-        initialized: initialized.desserts
+        loading: loading.desserts
       },
       {
         id: 'beverages', 
@@ -59,11 +56,10 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
         originalItems: beverages || [],
         count: beveragesFiltered.length,
         originalCount: (beverages || []).length,
-        loading: loading.beverages,
-        initialized: initialized.beverages
+        loading: loading.beverages
       }
     ]
-  }, [pizzas, appetizers, beverages, desserts, loading, initialized, filterFunction])
+  }, [pizzas, appetizers, beverages, desserts, loading, filterFunction])
 
   return menuSections
 }

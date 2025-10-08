@@ -218,17 +218,17 @@ export function ErrorLogo({ message = "Qualcosa è andato storto" }) {
   )
 }
 
-// Brand Colors for JS usage (if needed in other files)
+// Brand Colors per JS usage (se servono, decommentare e completare in altro file)
 // const brandColors = {
-  primary: 'var(--color-brand-primary)',
-  secondary: 'var(--color-brand-secondary)', 
-  accent: 'var(--color-brand-accent)',
-  primaryLight: 'var(--color-brand-primary-light)',
-  primaryDark: 'var(--color-brand-primary-dark)',
-  secondaryLight: 'var(--color-brand-secondary-light)',
-  secondaryDark: 'var(--color-brand-secondary-dark)',
-  accentLight: 'var(--color-brand-accent-light)',
-  accentDark: 'var(--color-brand-accent-dark)'
-}
+//   primary: 'var(--color-brand-primary)',
+//   secondary: 'var(--color-brand-secondary)', 
+//   accent: 'var(--color-brand-accent)',
+//   primaryLight: 'var(--color-brand-primary-light)',
+//   primaryDark: 'var(--color-brand-primary-dark)',
+//   secondaryLight: 'var(--color-brand-secondary-light)',
+//   secondaryDark: 'var(--color-brand-secondary-dark)',
+//   accentLight: 'var(--color-brand-accent-light)',
+//   accentDark: 'var(--color-brand-accent-dark)'
+// }
 
 export { PizzeriaLogo as Logo, PizzaLogoIcon, ChefHatIcon, ItalianFlagStripe }

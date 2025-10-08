@@ -56,21 +56,38 @@ export default function CollapsibleMenuSection({
 
   return (
     <div className="qodeup-menu-section">
-      <button 
+      {/* Header sezione con gestione toggle originale */}
+      <button
         className={`qodeup-section-header ${expanded ? 'expanded' : ''}`}
         onClick={toggleExpanded}
+        aria-expanded={expanded}
+        aria-controls={`section-${title.replace(/\s+/g, '-').toLowerCase()}`}
+        aria-label={`${expanded ? 'Chiudi' : 'Apri'} sezione ${title} (${displayCount} prodotti)`}
       >
         <div className="qodeup-section-title">
-          <span>{icon}</span>
+          <span aria-hidden="true">{getProductIcon()}</span>
           <span>{title}</span>
         </div>
         <div className="d-flex align-items-center gap-2">
-          <span className="qodeup-section-count">({displayCount})</span>
-          <span className="qodeup-section-chevron">▶</span>
+          <span className="qodeup-section-count" aria-label={`${displayCount} prodotti disponibili`}>
+            ({displayCount})
+          </span>
+          <span 
+            className="qodeup-section-chevron"
+            aria-hidden="true"
+          >
+            ▼
+          </span>
         </div>
       </button>
-      
-      <div className={`qodeup-section-content ${expanded ? 'expanded' : 'collapsed'}`}>
+
+      {/* Content sezione con logica collassabile originale */}
+      <div 
+        className={`qodeup-section-content ${expanded ? 'expanded' : 'collapsed'}`}
+        id={`section-${title.replace(/\s+/g, '-').toLowerCase()}`}
+        role="region"
+        aria-labelledby={`header-${title.replace(/\s+/g, '-').toLowerCase()}`}
+      >
         {items.map((item) => {
           const allergens = extractAllergens(item)
           const description = item.description || item.notes || ''
@@ -97,10 +114,6 @@ export default function CollapsibleMenuSection({
                   {item.price && (
                     <div className="d-flex align-items-center gap-2">
                       <span className="qodeup-product-price">€{Number(item.price).toFixed(2)}</span>
-                      {/* TODO: Feature futura - Carrello */}
-                      {/* <button className="qodeup-add-btn" title="Aggiungi al carrello">
-                        +
-                      </button> */}
                     </div>
                   )}
                 </div>

@@ -1,21 +1,37 @@
-@import './styles/qodeup-layout.css';
-@import './styles/menu-components.css';
-@import './styles/layout.css';
-@import './styles/responsive.css';
-
-/* ===== CSS VARIABLES ===== */
-:root {
-  --pizzeria-primary: #d73527;
-  --pizzeria-secondary: #0b4d27;
-  --pizzeria-accent: #efca1a;
-  --pizzeria-warning: #e74c3c;
-  --pizzeria-light: #faf5f0;
-  --pizzeria-dark: #2c3e50;
-  --pizzeria-shadow: rgba(215, 53, 39, 0.1);
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
 }
 
-/* ===== APP CONTAINER ===== */
+.App {
+  min-height: 100vh;
+}
+
+/* Skip links for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: #007bff;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  border-radius: 4px;
+  z-index: 1000;
+}
+
+.skip-to-content:focus {
+  top: 6px;
+}
+
 .app-container {
   min-height: 100vh;
-  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-main {
+  flex: 1;
 }

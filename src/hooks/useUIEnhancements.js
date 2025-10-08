@@ -7,7 +7,6 @@ export function useInteractionFeedback() {
   const [isPressed, setIsPressed] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
   const [ripples, setRipples] = useState([])
-  const timeoutRef = useRef()
 
   const handleMouseDown = useCallback((event) => {
     setIsPressed(true)
@@ -55,15 +54,6 @@ export function useInteractionFeedback() {
   const handleKeyUp = useCallback((event) => {
     if (event.key === 'Enter' || event.key === ' ') {
       setIsPressed(false)
-    }
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      const currentTimeout = timeoutRef.current
-      if (currentTimeout) {
-        clearTimeout(currentTimeout)
-      }
     }
   }, [])
 

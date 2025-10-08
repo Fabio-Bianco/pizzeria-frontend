@@ -1,22 +1,46 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { usePizzeria } from '../contexts/PizzeriaContext'
 import { useMenuSections } from '../../hooks/useMenuSections'
 import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
 
-// Import Enhanced Components
-import { SkipLinks, useKeyboardNavigation } from '../components/AccessibilityComponents'
-import { PizzeriaLogo } from '../components/BrandComponents'
-import { AdvancedSearchBar, EnhancedBreadcrumb, QuickAccessNav } from '../components/NavigationComponents'
-import { SemanticBadge, AllergenBadge, StatusBadge, PriceBadge, BadgeGroup } from '../components/BadgeSystem'
+// Import WCAG AAA Enhanced Components
+import { SkipLinks, useKeyboardNavigation } from '../components/AccessibilityComponentsWCAG'
+import { PremiumPizzeriaLogo, BrandHeader } from '../components/BrandComponentsWCAG'
+import { 
+  EnhancedBreadcrumb, 
+  AdvancedSearchBar, 
+  QuickAccessNav,
+  PositionIndicator 
+} from '../components/NavigationComponentsWCAG'
+import { 
+  EnhancedBadge,
+  AllergenBadge, 
+  DietaryBadge,
+  QualityBadge,
+  NutritionalBadge,
+  BadgeGroup 
+} from '../components/SemanticBadgeSystemWCAG'
+import { 
+  InteractiveButton,
+  ToastNotification,
+  LoadingState,
+  AnimatedCard
+} from '../components/InteractiveStatesWCAG'
 import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
 import AllergenModal from '../components/AllergenModal'
-import { GridSkeleton } from '../components/SkeletonLoaders'
+// Context e Services
 
 export default function EnhancedMenuPage() {
-  const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized } = usePizzeria()
+  const { pizzas, appetizers, beverages, desserts, allergens, loading } = usePizzeria()
   const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
   const { currentLanguage, toggleLanguage } = useLanguage()
+  
+  // State locale per UI enhancement
+  const [currentSection, setCurrentSection] = useState('pizzas')
+  const [searchQuery, setSearchQuery] = useState('')
+  const [activeFilters, setActiveFilters] = useState([])
+  const [toasts, setToasts] = useState([])
 
   // Enable keyboard navigation
   useKeyboardNavigation()
@@ -31,7 +55,25 @@ export default function EnhancedMenuPage() {
   } = useAllergenFilter()
 
   useEffect(() => {
-    // Il caricamento è già gestito automaticamente dal PizzeriaContext
+    // Track current section for position indicator
+    const handleScroll = () => {
+      const sections = ['pizzas', 'appetizers', 'beverages', 'desserts']
+      const scrollPosition = window.scrollY + 100
+      
+      for (const section of sections) {
+        const element = document.getElementById(section)
+        if (element) {
+          const { offsetTop, offsetHeight } = element
+          if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+            setCurrentSection(section)
+            break
+          }
+        }
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   // Prepara le sezioni del menu usando il hook con filtro
@@ -41,83 +83,126 @@ export default function EnhancedMenuPage() {
     beverages, 
     desserts, 
     loading, 
-    initialized,
     filterItems
   )
 
-  // Search and filter configuration
-  const searchFilters = [
-    { id: 'vegetarian', label: 'Vegetariano', icon: '🌱', count: 12 },
-    { id: 'vegan', label: 'Vegano', icon: '🌿', count: 8 },
-    { id: 'gluten-free', label: 'Senza Glutine', icon: '🌾', count: 15 },
-    { id: 'spicy', label: 'Piccante', icon: '🌶️', count: 6 },
-    { id: 'new', label: 'Novità', icon: '✨', count: 4 },
-    { id: 'popular', label: 'Popolare', icon: '🔥', count: 10 }
+  // Search suggestions per auto-complete
+  const searchSuggestions = [
+    { text: 'Pizza Margherita', category: 'Pizze' },
+    { text: 'Pizza Napoletana', category: 'Pizze' },
+    { text: 'Bruschetta', category: 'Antipasti' },
+    { text: 'Tiramisù', category: 'Dolci' },
+    { text: 'Vino Chianti', category: 'Bevande' }
   ]
 
-  const sortOptions = [
-    { value: 'name', label: 'Nome', icon: '📝' },
-    { value: 'price-low', label: 'Prezzo crescente', icon: '💰' },
-    { value: 'price-high', label: 'Prezzo decrescente', icon: '💸' },
-    { value: 'rating', label: 'Valutazione', icon: '⭐' },
-    { value: 'popularity', label: 'Popolarità', icon: '🔥' }
+  // Search and filter configuration
+  const searchFilters = [
+    { 
+      value: 'vegetarian', 
+      label: 'Vegetariano', 
+      icon: '🌱', 
+      count: 12,
+      active: activeFilters.includes('vegetarian')
+    },
+    { 
+      value: 'vegan', 
+      label: 'Vegano', 
+      icon: '🌿', 
+      count: 8,
+      active: activeFilters.includes('vegan')
+    },
+    { 
+      value: 'gluten-free', 
+      label: 'Senza Glutine', 
+      icon: '🌾', 
+      count: 15,
+      active: activeFilters.includes('gluten-free')
+    },
+    { 
+      value: 'spicy', 
+      label: 'Piccante', 
+      icon: '🌶️', 
+      count: 6,
+      active: activeFilters.includes('spicy')
+    },
+    { 
+      value: 'new', 
+      label: 'Novità', 
+      icon: '✨', 
+      count: 4,
+      active: activeFilters.includes('new')
+    },
+    { 
+      value: 'popular', 
+      label: 'Popolare', 
+      icon: '🔥', 
+      count: 10,
+      active: activeFilters.includes('popular')
+    }
   ]
 
   // Quick access navigation items
-  const quickAccessItems = [
+  const quickAccessSections = [
     {
       id: 'pizzas',
-      label: 'Pizze',
+      title: 'Pizze',
       icon: '🍕',
-      href: '#pizzas',
-      badge: { count: pizzas?.length || 0, type: 'brand' },
-      description: 'Le nostre pizze tradizionali napoletane'
+      count: pizzas?.length || 0
     },
     {
       id: 'appetizers', 
-      label: 'Antipasti',
+      title: 'Antipasti',
       icon: '🥗',
-      href: '#appetizers',
-      badge: { count: appetizers?.length || 0 },
-      description: 'Antipasti tipici della tradizione italiana'
+      count: appetizers?.length || 0
     },
     {
       id: 'beverages',
-      label: 'Bevande',
+      title: 'Bevande',
       icon: '🥤',
-      href: '#beverages', 
-      badge: { count: beverages?.length || 0 },
-      description: 'Bevande, vini e liquori selezionati'
+      count: beverages?.length || 0
     },
     {
       id: 'desserts',
-      label: 'Dolci',
+      title: 'Dolci',
       icon: '🍰',
-      href: '#desserts',
-      badge: { count: desserts?.length || 0 },
-      description: 'Dolci artigianali della casa'
+      count: desserts?.length || 0
     }
   ]
 
   // Breadcrumb items
   const breadcrumbItems = [
+    { label: 'Home', href: '/' },
     { label: 'Menu Completo', href: '/menu' },
     { label: 'Specialità Napoletane' }
   ]
 
+  // Toast management
+  const addToast = (toast) => {
+    const id = Date.now()
+    setToasts(prev => [...prev, { ...toast, id }])
+  }
+
+  const removeToast = (id) => {
+    setToasts(prev => prev.filter(toast => toast.id !== id))
+  }
+
+  // Event handlers
   const handleSearch = (searchTerm) => {
+    setSearchQuery(searchTerm)
     console.log('Searching for:', searchTerm)
-    // Implement search logic
   }
 
-  const handleFilter = (activeFilters) => {
-    console.log('Active filters:', activeFilters)
-    // Implement filter logic
-  }
-
-  const handleSort = (sortValue) => {
-    console.log('Sorting by:', sortValue)
-    // Implement sort logic
+  const handleFilter = (filter) => {
+    const newFilters = activeFilters.includes(filter.value)
+      ? activeFilters.filter(f => f !== filter.value)
+      : [...activeFilters, filter.value]
+    
+    setActiveFilters(newFilters)
+    addToast({
+      type: 'success',
+      title: 'Filtro aggiornato',
+      message: `Filtro "${filter.label}" ${newFilters.includes(filter.value) ? 'attivato' : 'disattivato'}`
+    })
   }
 
   const handleAllergensClick = () => {
@@ -126,14 +211,31 @@ export default function EnhancedMenuPage() {
 
   const handleLanguageClick = () => {
     toggleLanguage()
+    addToast({
+      type: 'info',
+      title: 'Lingua cambiata',
+      message: `Lingua impostata su ${currentLanguage === 'it' ? 'Inglese' : 'Italiano'}`
+    })
   }
 
   const handleResetFilters = () => {
     resetSelection()
+    setActiveFilters([])
+    setSearchQuery('')
+    addToast({
+      type: 'info',
+      title: 'Filtri azzerati',
+      message: 'Tutti i filtri sono stati rimossi'
+    })
   }
 
   const handleAllergenSelection = (newSelection) => {
     updateSelection(newSelection)
+  }
+
+  const getSectionTitle = (sectionId) => {
+    const section = quickAccessSections.find(s => s.id === sectionId)
+    return section ? section.title : sectionId
   }
 
   return (
@@ -141,256 +243,254 @@ export default function EnhancedMenuPage() {
       {/* Skip Links for Accessibility */}
       <SkipLinks />
       
+      {/* Position Indicator */}
+      <PositionIndicator 
+        currentSection={getSectionTitle(currentSection)}
+        sections={quickAccessSections}
+      />
+      
       <div className="app-layout">
-        {/* Enhanced Header */}
-        <header className="enhanced-header" id="main-navigation">
+        {/* Enhanced Header con Brand WCAG AAA */}
+        <BrandHeader className="enhanced-header">
           <div className="container">
-            <div className="enhanced-header-container">
+            <div className="flex items-center justify-between py-4">
               {/* Enhanced Brand Logo */}
-              <div className="enhanced-header-brand">
-                <PizzeriaLogo 
-                  variant="compact" 
-                  size="medium"
-                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                />
-              </div>
+              <PremiumPizzeriaLogo 
+                variant="horizontal"
+                size="medium"
+                showTagline={true}
+                interactive={true}
+              />
 
               {/* Quick Access Navigation */}
-              <nav className="enhanced-header-nav">
-                <QuickAccessNav 
-                  items={quickAccessItems}
-                  orientation="horizontal"
-                  showLabels={false}
-                  showBadges={true}
-                />
-              </nav>
+              <QuickAccessNav 
+                sections={quickAccessSections}
+                className="hidden md:flex"
+              />
 
               {/* Header Actions */}
-              <div className="enhanced-header-actions">
+              <div className="flex items-center gap-3">
                 {/* Allergeni Button with Enhanced Badge */}
-                <button 
-                  className="qodeup-header-icon-btn"
+                <InteractiveButton
+                  variant="ghost"
+                  size="medium"
                   onClick={handleAllergensClick}
                   aria-label="Gestione allergeni"
-                  title="Filtri allergeni"
+                  className="relative"
                 >
-                  <span className="text-2xl">🚫</span>
+                  🚫
                   {filterStats.hasActiveFilters && (
-                    <SemanticBadge
-                      variant="warning"
+                    <EnhancedBadge
+                      type="warning"
                       size="small"
-                      style="filled"
                       className="absolute -top-1 -right-1"
                     >
                       {filterStats.activeFilterCount}
-                    </SemanticBadge>
+                    </EnhancedBadge>
                   )}
-                </button>
+                </InteractiveButton>
 
                 {/* Language Toggle */}
-                <button 
-                  className="qodeup-header-icon-btn"
+                <InteractiveButton
+                  variant="ghost" 
+                  size="medium"
                   onClick={handleLanguageClick}
                   aria-label={`Cambia lingua (attuale: ${currentLanguage})`}
-                  title="Cambia lingua"
                 >
-                  <span className="text-xl font-bold">
-                    {currentLanguage === 'it' ? 'IT' : 'EN'}
-                  </span>
-                </button>
+                  {currentLanguage === 'it' ? 'IT' : 'EN'}
+                </InteractiveButton>
 
-                {/* Search Toggle */}
-                <button 
-                  className="qodeup-header-icon-btn"
-                  aria-label="Ricerca avanzata"
-                  title="Cerca nel menu"
-                >
-                  <span className="text-xl">🔍</span>
-                </button>
+                {/* Reset Filters */}
+                {(activeFilters.length > 0 || filterStats.hasActiveFilters) && (
+                  <InteractiveButton
+                    variant="outline"
+                    size="small"
+                    onClick={handleResetFilters}
+                    aria-label="Azzera tutti i filtri"
+                  >
+                    Azzera filtri
+                  </InteractiveButton>
+                )}
               </div>
             </div>
           </div>
-        </header>
+        </BrandHeader>
 
         {/* Main Content */}
         <main className="app-main" id="main-content">
-          <div className="container">
+          <div className="container py-6">
             {/* Breadcrumb Navigation */}
             <EnhancedBreadcrumb 
               items={breadcrumbItems}
-              showHome={true}
-              homeLabel="Home"
-              homeHref="/"
               className="mb-6"
             />
 
             {/* Advanced Search Bar */}
             <AdvancedSearchBar
               placeholder="Cerca pizze, antipasti, ingredienti..."
+              value={searchQuery}
               onSearch={handleSearch}
               onFilter={handleFilter}
-              onSort={handleSort}
               filters={searchFilters}
-              sortOptions={sortOptions}
-              showFilters={true}
-              showSort={true}
+              suggestions={searchSuggestions}
               className="mb-8"
             />
 
-            {/* Menu Layout */}
-            <div className="menu-layout">
-              {/* Sidebar with Filters */}
-              <aside className="menu-sidebar">
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="heading-4 mb-4">Filtri Rapidi</h3>
-                    <BadgeGroup direction="vertical" spacing="normal">
-                      <StatusBadge status="vegetarian" />
-                      <StatusBadge status="vegan" />
-                      <StatusBadge status="new" />
-                      <StatusBadge status="popular" />
-                      <StatusBadge status="spicy" />
-                    </BadgeGroup>
-                  </div>
-
-                  <div>
-                    <h3 className="heading-4 mb-4">Informazioni</h3>
-                    <div className="space-y-3 text-sm text-neutral-600">
-                      <p>🍕 Tutte le nostre pizze sono preparate con impasto a lievitazione naturale di 48 ore</p>
-                      <p>🧄 Utilizziamo solo ingredienti DOP e IGP certificati</p>
-                      <p>🔥 Cottura nel forno a legna a 450°C</p>
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="heading-4 mb-4">Allergeni</h3>
-                    <p className="text-sm text-neutral-600 mb-3">
-                      Clicca sul pulsante allergeni nell'header per gestire i filtri.
-                    </p>
-                    <SemanticBadge
-                      variant="info"
-                      size="small"
-                      style="soft"
-                      icon="ℹ️"
-                    >
-                      Informazioni complete disponibili
-                    </SemanticBadge>
-                  </div>
-                </div>
-              </aside>
-
-              {/* Menu Content */}
-              <div className="menu-content">
-                {loading && !initialized ? (
-                  <GridSkeleton />
-                ) : (
-                  <div className="space-y-12">
-                    {menuSections.map((section) => (
-                      <section key={section.title} className="menu-section" id={section.title.toLowerCase()}>
-                        {/* Enhanced Section Header */}
-                        <div className="menu-section-header">
-                          <div className="flex items-center">
-                            <span className="menu-section-icon" aria-hidden="true">
-                              {section.icon}
-                            </span>
-                            <h2 className="menu-section-title">
-                              {section.title}
-                              <SemanticBadge
-                                variant="brand"
-                                size="medium"
-                                style="soft"
-                                className="menu-section-count"
-                              >
-                                {section.items.length}
-                              </SemanticBadge>
-                            </h2>
-                          </div>
-                          
+            {/* Menu Content */}
+            {loading.pizzas || loading.appetizers || loading.beverages || loading.desserts ? (
+              <LoadingState 
+                variant="skeleton"
+                message="Caricamento menu in corso..."
+              />
+            ) : (
+              <div className="space-y-12">
+                {menuSections.map((section) => (
+                  <section key={section.title} className="menu-section" id={section.title.toLowerCase()}>
+                    {/* Enhanced Section Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-4">
+                        <span className="text-4xl" aria-hidden="true">
+                          {section.icon}
+                        </span>
+                        <div>
+                          <h2 className="heading-2 flex items-center gap-3">
+                            {section.title}
+                            <EnhancedBadge
+                              type="info"
+                              size="medium"
+                            >
+                              {section.items.length}
+                            </EnhancedBadge>
+                          </h2>
                           {section.description && (
-                            <p className="subtitle">{section.description}</p>
+                            <p className="body-large text-neutral-600 mt-1">
+                              {section.description}
+                            </p>
                           )}
                         </div>
+                      </div>
+                    </div>
 
-                        {/* Enhanced Menu Items Grid */}
-                        <div className="menu-items-grid">
-                          {section.items.map((item) => (
-                            <article key={item.id} className="menu-item-card">
-                              <div className="menu-item-header">
-                                <div className="flex-1">
-                                  <h3 className="menu-item-title">{item.name}</h3>
-                                  {item.description && (
-                                    <p className="menu-item-description">{item.description}</p>
-                                  )}
+                    {/* Enhanced Menu Items Grid */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                      {section.items.map((item) => (
+                        <AnimatedCard key={item.id} className="menu-item-card">
+                          <div className="flex justify-between items-start mb-3">
+                            <div className="flex-1">
+                              <h3 className="heading-3 mb-2">{item.name}</h3>
+                              {item.description && (
+                                <p className="body-base text-neutral-600 mb-3">
+                                  {item.description}
+                                </p>
+                              )}
+                            </div>
+                            
+                            <div className="text-right">
+                              <div className="heading-3 text-brand-primary">€{item.price}</div>
+                              {item.originalPrice && item.originalPrice > item.price && (
+                                <div className="text-sm text-neutral-500 line-through">
+                                  €{item.originalPrice}
                                 </div>
-                                
-                                <PriceBadge 
-                                  price={item.price}
-                                  currency="€"
-                                  discount={item.discount}
-                                  original={item.originalPrice}
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Enhanced Badges */}
+                          <BadgeGroup className="mb-4">
+                            {item.vegetarian && (
+                              <DietaryBadge diet="vegetarian" certified={false} />
+                            )}
+                            {item.vegan && (
+                              <DietaryBadge diet="vegan" certified={true} />
+                            )}
+                            {item.glutenFree && (
+                              <DietaryBadge diet="glutenFree" certified={true} />
+                            )}
+                            {item.spicy && (
+                              <EnhancedBadge type="warning" icon="🌶️" size="small">
+                                Piccante
+                              </EnhancedBadge>
+                            )}
+                            {item.isNew && (
+                              <EnhancedBadge type="success" icon="✨" size="small">
+                                Novità
+                              </EnhancedBadge>
+                            )}
+                            {item.popular && (
+                              <QualityBadge quality="chef" />
+                            )}
+                            
+                            {/* Allergen Badges */}
+                            {item.allergens?.map((allergen) => (
+                              <AllergenBadge
+                                key={allergen}
+                                allergen={allergen}
+                                severity="high"
+                              />
+                            ))}
+                          </BadgeGroup>
+
+                          {/* Nutritional Info */}
+                          {item.calories && (
+                            <div className="flex gap-2 mb-4">
+                              <NutritionalBadge 
+                                type="calories" 
+                                value={item.calories}
+                                level={item.calories > 500 ? 'high' : 'medium'}
+                              />
+                              {item.protein && (
+                                <NutritionalBadge 
+                                  type="protein" 
+                                  value={item.protein}
+                                  level="medium"
                                 />
-                              </div>
+                              )}
+                            </div>
+                          )}
 
-                              {/* Enhanced Badges */}
-                              <div className="menu-item-badges">
-                                <BadgeGroup spacing="normal">
-                                  {item.vegetarian && <StatusBadge status="vegetarian" size="small" />}
-                                  {item.vegan && <StatusBadge status="vegan" size="small" />}
-                                  {item.spicy && <StatusBadge status="spicy" size="small" />}
-                                  {item.isNew && <StatusBadge status="new" size="small" animated />}
-                                  {item.popular && <StatusBadge status="popular" size="small" animated />}
-                                  
-                                  {/* Allergen Badges */}
-                                  {item.allergens?.map((allergen) => (
-                                    <AllergenBadge
-                                      key={allergen}
-                                      allergen={allergen}
-                                      size="small"
-                                      severity="medium"
-                                    />
-                                  ))}
-                                </BadgeGroup>
-                              </div>
+                          {/* Item Footer */}
+                          <div className="flex items-center justify-between pt-4 border-t border-neutral-200">
+                            <div className="flex items-center gap-3">
+                              {item.rating && (
+                                <EnhancedBadge
+                                  type="premium"
+                                  size="small"
+                                  icon="⭐"
+                                >
+                                  {item.rating.toFixed(1)}
+                                </EnhancedBadge>
+                              )}
+                              
+                              {item.prepTime && (
+                                <EnhancedBadge
+                                  type="info"
+                                  size="small"
+                                  icon="⏱️"
+                                >
+                                  {item.prepTime} min
+                                </EnhancedBadge>
+                              )}
+                            </div>
 
-                              {/* Item Footer */}
-                              <div className="menu-item-footer">
-                                <div className="flex items-center space-x-4">
-                                  {item.rating && (
-                                    <SemanticBadge
-                                      variant="brand"
-                                      size="small"
-                                      style="soft"
-                                      icon="⭐"
-                                    >
-                                      {item.rating.toFixed(1)}
-                                    </SemanticBadge>
-                                  )}
-                                  
-                                  {item.prepTime && (
-                                    <SemanticBadge
-                                      variant="info"
-                                      size="small"
-                                      style="outline"
-                                      icon="⏱️"
-                                    >
-                                      {item.prepTime} min
-                                    </SemanticBadge>
-                                  )}
-                                </div>
-
-                                <button className="btn btn-primary btn-sm hover-lift">
-                                  Aggiungi
-                                </button>
-                              </div>
-                            </article>
-                          ))}
-                        </div>
-                      </section>
-                    ))}
-                  </div>
-                )}
+                            <InteractiveButton 
+                              variant="primary" 
+                              size="small"
+                              onClick={() => addToast({
+                                type: 'success',
+                                title: 'Aggiunto al carrello',
+                                message: `${item.name} aggiunto con successo`
+                              })}
+                            >
+                              Aggiungi
+                            </InteractiveButton>
+                          </div>
+                        </AnimatedCard>
+                      ))}
+                    </div>
+                  </section>
+                ))}
               </div>
-            </div>
+            )}
           </div>
         </main>
       </div>
@@ -405,6 +505,18 @@ export default function EnhancedMenuPage() {
           onReset={handleResetFilters}
         />
       )}
+
+      {/* Toast Notifications */}
+      {toasts.map((toast) => (
+        <ToastNotification
+          key={toast.id}
+          type={toast.type}
+          title={toast.title}
+          message={toast.message}
+          onClose={() => removeToast(toast.id)}
+          duration={3000}
+        />
+      ))}
     </>
   )
 }

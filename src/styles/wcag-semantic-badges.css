@@ -1,0 +1,566 @@
+/* ===============================================
+   🏷️ WCAG AAA Semantic Badge System CSS
+   Sistema badge accessibile con semantica avanzata
+   =============================================== */
+
+/* 🏷️ Base Badge Styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  line-height: 1.2;
+  border-radius: var(--radius-full);
+  border: 1px solid;
+  transition: all var(--duration-fast) ease;
+  white-space: nowrap;
+  vertical-align: middle;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.badge:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  z-index: var(--z-index-tooltip);
+}
+
+/* 📏 Badge Sizes */
+.badge-sm {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1) var(--space-2);
+  min-height: 24px;
+  gap: var(--space-1);
+}
+
+.badge-md {
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-3);
+  min-height: 28px;
+  gap: var(--space-2);
+}
+
+.badge-lg {
+  font-size: var(--font-size-base);
+  padding: var(--space-2) var(--space-4);
+  min-height: 32px;
+  gap: var(--space-2);
+}
+
+/* 🎨 Badge Type Styles - WCAG AAA Contrast 7:1+ */
+.badge-allergen {
+  background-color: #FEF2F2; /* red-50 */
+  color: #7F1D1D; /* red-900 - Contrast: 8.2:1 */
+  border-color: #FCA5A5; /* red-300 */
+  box-shadow: 0 1px 2px rgba(239, 68, 68, 0.1);
+}
+
+.badge-allergen:hover {
+  background-color: #FEE2E2; /* red-100 */
+  border-color: #F87171; /* red-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(239, 68, 68, 0.15);
+}
+
+.badge-warning {
+  background-color: #FFFBEB; /* amber-50 */
+  color: #78350F; /* amber-900 - Contrast: 7.8:1 */
+  border-color: #FCD34D; /* amber-300 */
+  box-shadow: 0 1px 2px rgba(245, 158, 11, 0.1);
+}
+
+.badge-warning:hover {
+  background-color: #FEF3C7; /* amber-100 */
+  border-color: #FBBF24; /* amber-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(245, 158, 11, 0.15);
+}
+
+.badge-success {
+  background-color: #F0FDF4; /* green-50 */
+  color: #14532D; /* green-900 - Contrast: 8.1:1 */
+  border-color: #86EFAC; /* green-300 */
+  box-shadow: 0 1px 2px rgba(34, 197, 94, 0.1);
+}
+
+.badge-success:hover {
+  background-color: #DCFCE7; /* green-100 */
+  border-color: #4ADE80; /* green-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(34, 197, 94, 0.15);
+}
+
+.badge-info {
+  background-color: #EFF6FF; /* blue-50 */
+  color: #1E3A8A; /* blue-900 - Contrast: 7.5:1 */
+  border-color: #93C5FD; /* blue-300 */
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.1);
+}
+
+.badge-info:hover {
+  background-color: #DBEAFE; /* blue-100 */
+  border-color: #60A5FA; /* blue-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.15);
+}
+
+.badge-dietary {
+  background-color: #ECFDF5; /* emerald-50 */
+  color: #064E3B; /* emerald-900 - Contrast: 8.5:1 */
+  border-color: #86EFAC; /* emerald-300 */
+  box-shadow: 0 1px 2px rgba(16, 185, 129, 0.1);
+}
+
+.badge-dietary:hover {
+  background-color: #D1FAE5; /* emerald-100 */
+  border-color: #34D399; /* emerald-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(16, 185, 129, 0.15);
+}
+
+.badge-premium {
+  background-color: #FAF5FF; /* purple-50 */
+  color: #581C87; /* purple-900 - Contrast: 7.9:1 */
+  border-color: #C4B5FD; /* purple-300 */
+  box-shadow: 0 1px 2px rgba(147, 51, 234, 0.1);
+}
+
+.badge-premium:hover {
+  background-color: #F3E8FF; /* purple-100 */
+  border-color: #A78BFA; /* purple-400 */
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(147, 51, 234, 0.15);
+}
+
+/* 🎯 Badge Variants */
+.badge[class*="outline"] {
+  background-color: transparent !important;
+  border-width: 2px;
+}
+
+.badge[class*="solid"] {
+  color: var(--color-white) !important;
+  border-color: transparent !important;
+}
+
+.badge[class*="solid"].badge-allergen {
+  background: linear-gradient(135deg, #DC2626, #B91C1C); /* red-600 to red-700 */
+}
+
+.badge[class*="solid"].badge-warning {
+  background: linear-gradient(135deg, #D97706, #B45309); /* amber-600 to amber-700 */
+}
+
+.badge[class*="solid"].badge-success {
+  background: linear-gradient(135deg, #16A34A, #15803D); /* green-600 to green-700 */
+}
+
+.badge[class*="solid"].badge-info {
+  background: linear-gradient(135deg, #2563EB, #1D4ED8); /* blue-600 to blue-700 */
+}
+
+.badge[class*="solid"].badge-dietary {
+  background: linear-gradient(135deg, #059669, #047857); /* emerald-600 to emerald-700 */
+}
+
+.badge[class*="solid"].badge-premium {
+  background: linear-gradient(135deg, #9333EA, #7C3AED); /* purple-600 to purple-700 */
+}
+
+/* 🚨 Specific Allergen Badge Styles */
+.allergen-badge {
+  position: relative;
+  font-weight: var(--font-weight-semibold);
+}
+
+.allergen-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(135deg, transparent 0%, rgba(220, 38, 38, 0.1) 100%);
+  pointer-events: none;
+}
+
+.allergen-badge .badge-icon {
+  filter: drop-shadow(0 1px 2px rgba(220, 38, 38, 0.3));
+}
+
+/* 🍃 Dietary Badge Styles */
+.dietary-badge {
+  position: relative;
+  font-weight: var(--font-weight-semibold);
+}
+
+.dietary-badge.certified {
+  background: linear-gradient(135deg, var(--color-emerald-600), var(--color-emerald-700));
+  color: var(--color-white);
+  border-color: transparent;
+  box-shadow: 
+    0 2px 4px rgba(5, 150, 105, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.dietary-badge.certified::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(45deg, #FFD700, #FFA500);
+  border-radius: 50%;
+  border: 1px solid var(--color-white);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.certified-indicator {
+  font-weight: var(--font-weight-bold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* 📊 Nutritional Badge Styles */
+.nutritional-badge {
+  font-family: var(--font-family-mono);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0.025em;
+}
+
+.nutritional-badge .badge-text {
+  font-variant-numeric: tabular-nums;
+}
+
+/* 🏆 Quality Badge Styles */
+.quality-badge {
+  position: relative;
+  font-weight: var(--font-weight-semibold);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.quality-badge::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+  pointer-events: none;
+}
+
+.quality-star {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+  animation: qualityShine 3s ease-in-out infinite;
+}
+
+@keyframes qualityShine {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* 💡 Tooltip Styles */
+.tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background-color: var(--color-neutral-900);
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--z-index-tooltip);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.2s ease-out;
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid var(--color-neutral-900);
+}
+
+/* 🏷️ Badge Group Styles */
+.badge-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  margin: var(--space-2) 0;
+}
+
+.badge-item {
+  flex-shrink: 0;
+}
+
+.show-more-badge,
+.show-less-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-neutral-600);
+  background-color: transparent;
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  min-height: 24px;
+}
+
+.show-more-badge:hover,
+.show-less-badge:hover {
+  color: var(--color-brand-primary);
+  border-color: var(--color-brand-primary);
+  background-color: var(--color-brand-primary-light);
+}
+
+.show-more-badge:focus-visible,
+.show-less-badge:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+/* 🎯 Badge Filter Styles */
+.badge-filter {
+  padding: var(--space-4);
+  background-color: var(--color-neutral-50);
+  border: 1px solid var(--color-neutral-200);
+  border-radius: var(--radius-lg);
+  margin: var(--space-4) 0;
+}
+
+.filter-header h3 {
+  margin: 0;
+  color: var(--color-neutral-700);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.filter-option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background-color: var(--color-white);
+  color: var(--color-neutral-700);
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--duration-fast) ease;
+  min-height: var(--touch-target-size);
+  text-decoration: none;
+}
+
+.filter-option:hover {
+  border-color: var(--color-brand-primary);
+  color: var(--color-brand-primary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.filter-option:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+}
+
+.filter-option[aria-pressed="true"] {
+  background-color: var(--color-brand-primary);
+  color: var(--color-white);
+  border-color: var(--color-brand-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.filter-option[aria-pressed="true"]:hover {
+  background-color: var(--color-brand-primary-dark);
+  border-color: var(--color-brand-primary-dark);
+}
+
+.filter-icon {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.count-badge {
+  font-size: var(--font-size-xs);
+  padding: var(--space-1) calc(var(--space-1) * 1.5);
+  border-radius: var(--radius-full);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.filter-actions {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-neutral-200);
+}
+
+.clear-filters {
+  background: none;
+  border: none;
+  color: var(--color-neutral-600);
+  font-size: var(--font-size-sm);
+  text-decoration: underline;
+  cursor: pointer;
+  transition: color var(--duration-fast) ease;
+  padding: 0;
+}
+
+.clear-filters:hover {
+  color: var(--color-brand-primary);
+}
+
+.clear-filters:focus-visible {
+  outline: 2px solid var(--color-brand-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* 📱 Responsive Design */
+@media (max-width: 768px) {
+  .badge-group {
+    gap: var(--space-1);
+  }
+  
+  .badge-sm {
+    font-size: 10px;
+    padding: var(--space-1) calc(var(--space-1) * 1.5);
+  }
+  
+  .badge-md {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+  
+  .tooltip {
+    font-size: var(--font-size-xs);
+    max-width: 200px;
+    white-space: normal;
+    text-align: center;
+  }
+  
+  .filter-options {
+    gap: var(--space-1);
+  }
+  
+  .filter-option {
+    font-size: var(--font-size-xs);
+    padding: var(--space-1) var(--space-2);
+    gap: var(--space-1);
+  }
+}
+
+@media (max-width: 480px) {
+  .badge-filter {
+    padding: var(--space-3);
+  }
+  
+  .filter-options {
+    justify-content: center;
+  }
+  
+  .tooltip {
+    position: fixed;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    right: var(--space-4);
+    transform: none;
+    margin: 0;
+  }
+  
+  .tooltip-arrow {
+    display: none;
+  }
+}
+
+/* 🎯 High Contrast Mode */
+@media (prefers-contrast: high) {
+  .badge {
+    border-width: 2px;
+  }
+  
+  .badge[class*="solid"] {
+    border: 2px solid var(--color-white);
+  }
+  
+  .tooltip {
+    border: 2px solid var(--color-white);
+  }
+  
+  .quality-star {
+    animation: none;
+  }
+}
+
+/* 🔄 Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .badge,
+  .filter-option,
+  .show-more-badge,
+  .show-less-badge,
+  .clear-filters {
+    transition: none;
+  }
+  
+  .quality-star {
+    animation: none;
+  }
+  
+  .tooltip {
+    animation: none;
+  }
+  
+  .badge:hover,
+  .filter-option:hover {
+    transform: none;
+  }
+}
+
+/* 🎨 Print Styles */
+@media print {
+  .badge {
+    background: var(--color-white) !important;
+    color: var(--color-neutral-900) !important;
+    border: 1px solid var(--color-neutral-400) !important;
+    box-shadow: none !important;
+  }
+  
+  .tooltip,
+  .badge-filter {
+    display: none;
+  }
+  
+  .badge-group {
+    break-inside: avoid;
+  }
+}

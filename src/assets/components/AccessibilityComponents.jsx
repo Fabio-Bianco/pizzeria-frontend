@@ -1,21 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react'
+/* eslint-disable react-refresh/only-export-components */
+import { useEffect, useRef, useState, useCallback } from 'react'
 
-/* ===============================================
-   ♿ ACCESSIBILITY COMPONENTS - WCAG 2.1 AAA
-   =============================================== */
-
-// Skip Links Component
-function SkipLinks() {
+/**
+ * 🔗 Skip Links Component - WCAG AAA Navigation
+ * Fornisce navigazione rapida per screen reader e keyboard users
+ */
+export function SkipLinks() {
   return (
-    <div className="skip-links">
+    <div className="skip-links" role="navigation" aria-label="Link di navigazione rapida">
       <a href="#main-content" className="skip-link">
         Vai al contenuto principale
       </a>
       <a href="#main-navigation" className="skip-link">
-        Vai alla navigazione
+        Vai al menu di navigazione
       </a>
       <a href="#search" className="skip-link">
         Vai alla ricerca
+      </a>
+      <a href="#menu-sections" className="skip-link">
+        Vai alle sezioni del menu
       </a>
       <a href="#footer" className="skip-link">
         Vai al footer
@@ -24,29 +27,286 @@ function SkipLinks() {
   )
 }
 
-// Focus Trap for Modals
-function FocusTrap({ children, isActive = true, restoreFocus = true }) {
+/**
+ * 🎯 Focus Manager Hook - Gestione focus accessibile
+ * Gestisce il focus per modal, drawer e componenti dinamici
+ */
+export function useFocusManagement(isOpen = false) {
   const containerRef = useRef(null)
   const previousFocusRef = useRef(null)
 
   useEffect(() => {
-    if (!isActive) return
+    if (isOpen) {
+      // Salva il focus corrente
+      previousFocusRef.current = document.activeElement
+      
+      // Focus sul primo elemento focusabile nel container
+      setTimeout(() => {
+        const firstFocusable = containerRef.current?.querySelector(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        )
+        firstFocusable?.focus()
+      }, 0)
+    } else {
+      // Ripristina il focus precedente
+      previousFocusRef.current?.focus()
+    }
+  }, [isOpen])
+
+  // Trap focus all'interno del container
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === 'Tab' && containerRef.current) {
+      const focusableElements = containerRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+      
+      const firstElement = focusableElements[0]
+      const lastElement = focusableElements[focusableElements.length - 1]
+
+      if (e.shiftKey) {
+        if (document.activeElement === firstElement) {
+          e.preventDefault()
+          lastElement?.focus()
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          e.preventDefault()
+          firstElement?.focus()
+        }
+      }
+    }
+  }, [])
+
+  return { containerRef, handleKeyDown }
+}
+
+/**
+ * 📢 Live Region Component - ARIA Live per aggiornamenti dinamici
+ */
+export function LiveRegion({ message, priority = 'polite', clearDelay = 5000 }) {
+  const [currentMessage, setCurrentMessage] = useState('')
+  const timeoutRef = useRef(null)
+
+  useEffect(() => {
+    if (message) {
+      setCurrentMessage(message)
+      
+      if (clearDelay > 0) {
+        clearTimeout(timeoutRef.current)
+        timeoutRef.current = setTimeout(() => {
+          setCurrentMessage('')
+        }, clearDelay)
+      }
+    }
+  }, [message, clearDelay])
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current)
+    }
+  }, [])
+
+  return (
+    <div
+      aria-live={priority}
+      aria-atomic="true"
+      className="live-region"
+      role={priority === 'assertive' ? 'alert' : 'status'}
+    >
+      {currentMessage}
+    </div>
+  )
+}
+
+/**
+ * ⌨️ Keyboard Navigation Hook - Navigazione avanzata
+ */
+export function useKeyboardNavigation(options = {}) {
+  const {
+    direction = 'both',
+    wrap = true,
+    exitKeys = ['Escape'],
+    onExit = () => {}
+  } = options
+
+  const containerRef = useRef(null)
+
+  const handleKeyDown = useCallback((e) => {
+    if (!containerRef.current) return
+
+    const focusableElements = Array.from(
+      containerRef.current.querySelectorAll(
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      )
+    )
+
+    const currentIndex = focusableElements.indexOf(document.activeElement)
+    if (currentIndex === -1) return
+
+    let nextIndex = currentIndex
+
+    switch (e.key) {
+      case 'ArrowDown':
+        if (direction === 'vertical' || direction === 'both') {
+          e.preventDefault()
+          nextIndex = wrap && currentIndex === focusableElements.length - 1 
+            ? 0 
+            : Math.min(currentIndex + 1, focusableElements.length - 1)
+        }
+        break
+      case 'ArrowUp':
+        if (direction === 'vertical' || direction === 'both') {
+          e.preventDefault()
+          nextIndex = wrap && currentIndex === 0 
+            ? focusableElements.length - 1 
+            : Math.max(currentIndex - 1, 0)
+        }
+        break
+      case 'ArrowRight':
+        if (direction === 'horizontal' || direction === 'both') {
+          e.preventDefault()
+          nextIndex = wrap && currentIndex === focusableElements.length - 1 
+            ? 0 
+            : Math.min(currentIndex + 1, focusableElements.length - 1)
+        }
+        break
+      case 'ArrowLeft':
+        if (direction === 'horizontal' || direction === 'both') {
+          e.preventDefault()
+          nextIndex = wrap && currentIndex === 0 
+            ? focusableElements.length - 1 
+            : Math.max(currentIndex - 1, 0)
+        }
+        break
+      case 'Home':
+        e.preventDefault()
+        nextIndex = 0
+        break
+      case 'End':
+        e.preventDefault()
+        nextIndex = focusableElements.length - 1
+        break
+      default:
+        if (exitKeys.includes(e.key)) {
+          e.preventDefault()
+          onExit()
+          return
+        }
+        break
+    }
+
+    if (nextIndex !== currentIndex) {
+      focusableElements[nextIndex]?.focus()
+    }
+  }, [direction, wrap, exitKeys, onExit])
+
+  return { containerRef, handleKeyDown }
+}
+
+/**
+ * 🔊 Screen Reader Announcer - Comunicazione accessibile
+ */
+export function ScreenReaderAnnouncer({ children, level = 'polite' }) {
+  return (
+    <div
+      aria-live={level}
+      aria-atomic="true"
+      className="sr-only"
+      role={level === 'assertive' ? 'alert' : 'status'}
+    >
+      {children}
+    </div>
+  )
+}
+
+/**
+ * 🎛️ Accessible Button - Pulsante WCAG AAA compliant
+ */
+export function AccessibleButton({
+  children,
+  variant = 'primary',
+  size = 'medium',
+  isLoading = false,
+  isDisabled = false,
+  onClick,
+  ariaLabel,
+  ariaDescribedBy,
+  className = '',
+  ...props
+}) {
+  const buttonRef = useRef(null)
+  const [isPressed, setIsPressed] = useState(false)
+
+  const handleClick = useCallback((e) => {
+    if (isLoading || isDisabled) {
+      e.preventDefault()
+      return
+    }
+    onClick?.(e)
+  }, [isLoading, isDisabled, onClick])
+
+  const handleKeyDown = useCallback((e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      setIsPressed(true)
+    }
+  }, [])
+
+  const handleKeyUp = useCallback((e) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      setIsPressed(false)
+      handleClick(e)
+    }
+  }, [handleClick])
+
+  return (
+    <button
+      ref={buttonRef}
+      className={`btn btn-${variant} btn-${size} ${className}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      onKeyUp={handleKeyUp}
+      disabled={isDisabled}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-busy={isLoading}
+      aria-pressed={isPressed}
+      type="button"
+      {...props}
+    >
+      {isLoading ? (
+        <>
+          <span className="sr-only">Caricamento in corso...</span>
+          <span aria-hidden="true">{children}</span>
+        </>
+      ) : (
+        children
+      )}
+    </button>
+  )
+}
+
+// Focus Trap Hook
+export function useFocusTrap(containerRef, isActive = true, restoreFocus = true) {
+  const previousFocusRef = useRef(null)
+
+  useEffect(() => {
+    if (!isActive || !containerRef.current) return
 
     // Store the currently focused element
     previousFocusRef.current = document.activeElement
 
-    // Find all focusable elements
-    const focusableElements = containerRef.current?.querySelectorAll(
+    const container = containerRef.current
+    const focusableElements = container.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     )
-
-    if (!focusableElements?.length) return
-
+    
     const firstElement = focusableElements[0]
     const lastElement = focusableElements[focusableElements.length - 1]
 
     // Focus the first element
-    firstElement.focus()
+    if (firstElement) {
+      firstElement.focus()
+    }
 
     const handleTabKey = (e) => {
       if (e.key === 'Tab') {
@@ -82,6 +342,12 @@ function FocusTrap({ children, isActive = true, restoreFocus = true }) {
       }
     }
   }, [isActive, restoreFocus])
+}
+
+// Focus Trap Component
+export function FocusTrap({ children, isActive = true, restoreFocus = true }) {
+  const containerRef = useRef(null)
+  useFocusTrap(containerRef, isActive, restoreFocus)
 
   if (!isActive) return children
 
@@ -432,31 +698,6 @@ export function AccessibleBreadcrumb({ items, className = '' }) {
 }
 
 // Keyboard Navigation Hook
-function useKeyboardNavigation() {
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      // Add keyboard navigation class when Tab is pressed
-      if (e.key === 'Tab') {
-        document.body.classList.add('keyboard-nav-active')
-        document.body.classList.remove('mouse-nav-active')
-      }
-    }
-
-    const handleMouseDown = () => {
-      // Add mouse navigation class when mouse is used
-      document.body.classList.add('mouse-nav-active')
-      document.body.classList.remove('keyboard-nav-active')
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    document.addEventListener('mousedown', handleMouseDown)
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown)
-      document.removeEventListener('mousedown', handleMouseDown)
-    }
-  }, [])
-}
 
 // Accessible Loading State
 export function AccessibleLoading({ 
