@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import SimpleMenuItem from './SimpleMenuItem';
 import '../../styles/simple-menu-item.css';
+import '../../styles/menu-components.css';
 
 export default function CollapsibleMenuSection({
   title,
@@ -51,7 +52,7 @@ export default function CollapsibleMenuSection({
           <div className="qodeup-section-empty">Nessun prodotto disponibile.</div>
         )}
         {expanded && items.length > 0 && (
-          <ul style={{ padding: 0, margin: 0 }}>
+          <ul className="qodeup-menu-grid" style={{ padding: 0, margin: 0, listStyle: 'none' }}>
             {items.map((item) => (
               <SimpleMenuItem
                 key={item.id || item.name}
@@ -61,6 +62,8 @@ export default function CollapsibleMenuSection({
                 note={item.note}
                 vegan={item.vegan || item.vegetarian || (item.tags && (item.tags.includes('vegan') || item.tags.includes('vegetarian')))}
                 allergens={item.allergens || []}
+                ingredients={item.ingredients || []}
+                image={item.image || item.photo || item.img || null}
               />
             ))}
           </ul>

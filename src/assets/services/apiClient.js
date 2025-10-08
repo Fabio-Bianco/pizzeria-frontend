@@ -12,7 +12,7 @@ const api = axios.create({
     Accept: 'application/json',
   },
   withCredentials: false,
-  timeout: 30000, // 30 secondi timeout temporaneo per debug
+  timeout: 8000, // 8 secondi timeout standard produzione
 })
 
 // Debug per monitorare le chiamate API e prevenire polling
