@@ -1,65 +1,63 @@
-import { useEffect } from 'react'
-import { usePizzeria } from '../contexts/PizzeriaContext'
-import CollapsibleMenuSection from '../components/CollapsibleMenuSection'
-import AllergenModal from '../components/AllergenModal'
-import { GridSkeleton } from '../components/SkeletonLoaders'
-import { VeganBadgeIcon, AllergenIcon } from '../components/Icons'
-import { useMenuSections } from '../../hooks/useMenuSections'
-import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
-import { useAllergenFilter } from '../../hooks/useAllergenFilter'
-import { useVeggieFilter } from '../../hooks/useVeggieFilter'
+import { useEffect } from 'react';
+import { usePizzeria } from '../contexts/PizzeriaContext';
+import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures';
+import { useAllergenFilter } from '../../hooks/useAllergenFilter';
+import { useVeggieFilter } from '../../hooks/useVeggieFilter';
+import { useMenuSections } from '../../hooks/useMenuSections';
+import { VeganBadgeIcon, AllergenIcon } from '../components/Icons';
+import CollapsibleMenuSection from '../components/CollapsibleMenuSection';
+import AllergenModal from '../components/AllergenModal';
+import { GridSkeleton } from '../components/SkeletonLoaders';
 
 export default function MenuPage() {
-	const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized } = usePizzeria()
-	const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
-	const { currentLanguage, toggleLanguage } = useLanguage()
+  const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized, error } = usePizzeria()
+  const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
+  const { currentLanguage, toggleLanguage } = useLanguage()
 
-	// Hook per la gestione del filtro allergeni
-	const {
-		selectedAllergens,
-		updateSelection,
-		resetSelection,
-		filterItems,
-		filterStats
-	} = useAllergenFilter()
+  // Hook per la gestione del filtro allergeni
+  const {
+    selectedAllergens,
+    updateSelection,
+    resetSelection,
+    filterItems,
+    filterStats
+  } = useAllergenFilter()
 
-	// Hook per la gestione del filtro veggie
-	const {
-		veggieFilterActive,
-		toggleVeggieFilter,
-		resetVeggieFilter,
-		filterItems: filterVeggieItems,
-		filterStats: veggieFilterStats
-	} = useVeggieFilter()
+  // Hook per la gestione del filtro veggie
+  const {
+    veggieFilterActive,
+    toggleVeggieFilter,
+    resetVeggieFilter,
+    filterItems: filterVeggieItems,
+    filterStats: veggieFilterStats
+  } = useVeggieFilter()
 
-	useEffect(() => {
-		// Il caricamento è già gestito automaticamente dal PizzeriaContext
-		// I dati vengono caricati automaticamente dal context al mount
-	}, [])
+  useEffect(() => {
+    // Il caricamento è già gestito automaticamente dal PizzeriaContext
+    // I dati vengono caricati automaticamente dal context al mount
+  }, [])
 
-	// Funzione combinata per applicare entrambi i filtri
-	const applyCombinedFilters = (items) => {
-		// Prima applica il filtro veggie se attivo
-		let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
-		
-		// Poi applica il filtro allergeni se attivo
-		filteredItems = filterItems(filteredItems)
-		
-		return filteredItems
-	}
+  // Funzione combinata per applicare entrambi i filtri
+  const applyCombinedFilters = (items) => {
+    // Prima applica il filtro veggie se attivo
+    let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
+    // Poi applica il filtro allergeni se attivo
+    filteredItems = filterItems(filteredItems)
+    return filteredItems
+  }
 
-	// Prepara le sezioni del menu usando il hook con filtri combinati
-	const menuSections = useMenuSections(
-		pizzas, 
-		appetizers, 
-		beverages, 
-		desserts, 
-		loading, 
-		initialized,
-		applyCombinedFilters // Usa la funzione combinata per i filtri
-	)
+  // Prepara le sezioni del menu usando il hook con filtri combinati
+  const menuSections = useMenuSections(
+    pizzas, 
+    appetizers, 
+    beverages, 
+    desserts, 
+    loading, 
+    initialized,
+    applyCombinedFilters // Usa la funzione combinata per i filtri
+  )
 
-	const handleAllergensClick = () => {
+  const handleAllergensClick = () => {
 		openAllergensModal()
 	}
 
@@ -81,6 +79,9 @@ export default function MenuPage() {
 	}
 
 
+
+	// Mostra errore se almeno una fetch ha fallito
+	const hasAnyError = Object.values(error).some(e => !!e);
 
 	return (
 		<div className="qodeup-layout">
@@ -218,25 +219,36 @@ export default function MenuPage() {
 				<h1 className="qodeup-food-title">FOOD</h1>
 			</header>
 
-			{/* Sezioni menu collassabili - WCAG Enhanced */}
-			<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">
-				{menuSections.map((section) => (
-					<section key={section.id} aria-label={`Sezione ${section.title}`}>
-						{section.loading && !section.initialized ? (
-							<GridSkeleton type={section.id} count={3} />
-						) : (
-							<CollapsibleMenuSection
-								title={section.title}
-								items={section.items}
-								icon={section.icon}
-								count={section.count}
-								originalCount={section.originalCount}
-								isExpanded={false} // Tutte le sezioni chiuse di default
-							/>
-						)}
-					</section>
-				))}
-			</main>
+				{/* Avviso errori globali */}
+				{hasAnyError && (
+					<div className="qodeup-mock-warning" role="alert" style={{background:'#fffbe6',color:'#b45309',padding:'1em',border:'1px solid #facc15',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
+						Attenzione: alcuni dati del menu non sono disponibili. Controlla la connessione o la configurazione dell'API.
+					</div>
+				)}
+
+				{/* Sezioni menu collassabili - WCAG Enhanced */}
+				<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">
+					{menuSections.map((section) => (
+						<section key={section.id} aria-label={`Sezione ${section.title}`}>
+							{error[section.id] ? (
+								<div className="qodeup-section-error" role="alert" style={{background:'#fef2f2',color:'#b91c1c',padding:'1em',border:'1px solid #fca5a5',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
+									Errore nel caricamento della sezione "{section.title}". Riprova più tardi.
+								</div>
+							) : section.loading && !section.initialized ? (
+								<GridSkeleton type={section.id} count={3} />
+							) : (
+								<CollapsibleMenuSection
+									title={section.title}
+									items={section.items}
+									icon={section.icon}
+									count={section.count}
+									originalCount={section.originalCount}
+									isExpanded={false} // Tutte le sezioni chiuse di default
+								/>
+							)}
+						</section>
+					))}
+				</main>
 
 			{/* Modal Allergeni */}
 			<AllergenModal

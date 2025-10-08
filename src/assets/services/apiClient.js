@@ -12,7 +12,7 @@ const api = axios.create({
     Accept: 'application/json',
   },
   withCredentials: false,
-  timeout: 5000, // 5 secondi timeout
+  timeout: 30000, // 30 secondi timeout temporaneo per debug
 })
 
 // Debug per monitorare le chiamate API e prevenire polling
@@ -53,13 +53,20 @@ api.interceptors.response.use(
     lastFailedCall = new Date()
     // normalizza errori
     const e = error?.response?.data || error
-    // log diagnostico
-    console.error('[API ERROR]', {
+    // log diagnostico dettagliato
+    const errorLog = {
       url: error?.config?.baseURL + error?.config?.url,
       method: error?.config?.method,
       status: error?.response?.status,
       data: e,
-    })
+      fullError: error,
+      response: error?.response,
+    }
+    try {
+      console.error('[API ERROR]', JSON.stringify(errorLog, null, 2))
+    } catch (jsonErr) {
+      console.error('[API ERROR]', errorLog)
+    }
     return Promise.reject(e)
   }
 )

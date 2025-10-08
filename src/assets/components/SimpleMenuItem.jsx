@@ -9,7 +9,7 @@ export default function SimpleMenuItem({ name, price, description, note, vegan, 
           <span className="item-badge vegan" aria-label="Piatto vegano" title="Vegano">🌱</span>
         )}
         {allergens.length > 0 && (
-          <span className="item-badge allergen" aria-label={`Allergeni: ${allergens.join(', ')}`}>{allergens.map(a => <span key={a}>[{a}]</span>)}</span>
+          <span className="item-badge allergen" aria-label={`Allergeni: ${allergens.map(a => typeof a === 'object' ? a.name : a).join(', ')}`}>{allergens.map(a => <span key={typeof a === 'object' ? a.id || a.name : a}>[{typeof a === 'object' ? a.name : a}]</span>)}</span>
         )}
         <span className="item-price">€{price}</span>
       </div>
