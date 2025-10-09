@@ -1,3 +1,22 @@
+/* Bottone X chiusura allergeni */
+.allergen-modal-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.7rem;
+  color: #bdbdbd;
+  cursor: pointer;
+  padding: 0.1em 0.5em;
+  border-radius: 50%;
+  transition: background 0.18s, color 0.18s;
+  line-height: 1;
+  outline: none;
+}
+.allergen-modal-close-btn:hover,
+.allergen-modal-close-btn:focus {
+  background: #f8f9fa;
+  color: #d73527;
+  box-shadow: 0 0 0 2px #efca1a33;
+}
 /* ==========================================================================
    Allergen Modal - Design elegante con colori Qodeup e Material Symbols
    ========================================================================== */

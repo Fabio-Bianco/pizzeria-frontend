@@ -119,18 +119,25 @@ export default function MenuPage() {
 						
 						{/* Icona Allergeni */}
 						<button 
-							className="qodeup-header-icon-btn" 
-							onClick={handleAllergensClick} 
-							title="Gestione allergeni"
-							aria-label="Gestione allergeni"
-							aria-expanded="false"
-						>
-							<AllergenIcon size={28} color="#777777" />
-							{filterStats.hasActiveFilters && (
-								<span className="qodeup-header-badge" aria-label={`${filterStats.activeFilterCount} filtri attivi`}>
-									{filterStats.activeFilterCount}
-								</span>
-							)}
+													className={`qodeup-header-icon-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
+													onClick={() => {
+														if (filterStats.hasActiveFilters) {
+															resetSelection();
+														} else {
+															handleAllergensClick();
+														}
+													}}
+													title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
+													aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
+													aria-pressed={filterStats.hasActiveFilters}
+													aria-expanded={filterStats.hasActiveFilters}
+												>
+										<AllergenIcon size={28} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
+										{filterStats.hasActiveFilters && (
+											<span className="qodeup-header-badge" aria-label={`${filterStats.activeFilterCount} filtri allergeni attivi`}>
+												{filterStats.activeFilterCount}
+											</span>
+										)}
 						</button>
 						
 						{/* Icona Lingua */}
@@ -164,16 +171,26 @@ export default function MenuPage() {
 						<span className="qodeup-quick-label">VEGGIE</span>
 					</button>
 					<button 
-						className="qodeup-quick-btn" 
-						onClick={handleAllergensClick} 
-						title="Gestione allergeni"
-						aria-label="Apri gestione allergeni"
-						aria-expanded="false"
-					>
-						<div className="qodeup-quick-icon">
-							<AllergenIcon size={40} color="#777777" />
-						</div>
-						<span className="qodeup-quick-label">ALLERGENI</span>
+												className={`qodeup-quick-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
+												onClick={() => {
+													if (filterStats.hasActiveFilters) {
+														resetSelection();
+													} else {
+														handleAllergensClick();
+													}
+												}}
+												title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
+												aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
+												aria-pressed={filterStats.hasActiveFilters}
+												aria-expanded={filterStats.hasActiveFilters}
+											>
+									<div className="qodeup-quick-icon">
+										<AllergenIcon size={40} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
+										{filterStats.hasActiveFilters && (
+											<span className="qodeup-quick-badge" aria-label="Filtro allergeni attivo">✓</span>
+										)}
+									</div>
+									<span className="qodeup-quick-label">ALLERGENI</span>
 					</button>
 					<button 
 						className="qodeup-quick-btn" 

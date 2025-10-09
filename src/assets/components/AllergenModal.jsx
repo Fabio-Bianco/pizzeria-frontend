@@ -30,48 +30,61 @@ export default function AllergenModal({
   onSelectionChange,
   availableAllergens = []
 }) {
-  const [localSelection, setLocalSelection] = useState([...selectedAllergens])
+  // Selezione locale rimossa: la selezione è gestita dal parent
 
   if (!isOpen) return null
 
-  // Toggle selezione allergene
+  // Toggle selezione allergene: aggiorna subito la selezione parent
   const toggleAllergen = (allergenId) => {
-    setLocalSelection(prev => {
-      if (prev.includes(allergenId)) {
-        return prev.filter(id => id !== allergenId)
-      } else {
-        return [...prev, allergenId]
-      }
-    })
-  }
-
-  // Conferma selezione e chiudi
-  const handleOK = () => {
-    onSelectionChange(localSelection)
-    onClose()
-  }
-
-  // Prepara la lista degli allergeni da mostrare
-  const displayAllergens = ALLERGEN_CONFIG.map(config => {
-    // Trova l'allergene corrispondente dai dati del backend
-    const backendAllergen = availableAllergens.find(a => 
-      a.name.toUpperCase().includes(config.name) || 
-      config.name.includes(a.name.toUpperCase())
-    )
-    
-    return {
-      ...config,
-      backendId: backendAllergen?.id,
-      available: !!backendAllergen
+    let newSelection;
+    if (selectedAllergens.includes(allergenId)) {
+      newSelection = selectedAllergens.filter(id => id !== allergenId);
+    } else {
+      newSelection = [...selectedAllergens, allergenId];
     }
-  })
+    onSelectionChange(newSelection);
+  }
+
+  // Pulsante OK: chiude la modale
+  const handleOK = () => {
+    onClose();
+  }
+
+
+  // Mostra tutti gli allergeni del backend, ordinati come ALLERGEN_CONFIG se possibile
+  let displayAllergens = [];
+  if (availableAllergens && availableAllergens.length > 0) {
+    // Ordina secondo ALLERGEN_CONFIG se matcha, poi aggiungi gli altri
+    const configNames = ALLERGEN_CONFIG.map(a => a.name.toUpperCase());
+    const mapped = availableAllergens.map(a => {
+      const configIdx = configNames.indexOf(a.name.toUpperCase());
+      return {
+        ...a,
+        id: a.id,
+        name: a.name,
+        configOrder: configIdx === -1 ? 999 : configIdx
+      };
+    });
+    displayAllergens = mapped.sort((a, b) => a.configOrder - b.configOrder);
+  } else {
+    // fallback: mostra config
+    displayAllergens = ALLERGEN_CONFIG;
+  }
 
   return (
     <div className="allergen-modal-overlay" onClick={onClose}>
       <div className="allergen-modal-content" onClick={(e) => e.stopPropagation()}>
         {/* Header con titolo */}
-        <div className="allergen-modal-header">
+        <div className="allergen-modal-header" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <h2 className="allergen-modal-title">ALLERGICO?</h2>
+          <button
+            className="allergen-modal-close-btn"
+            onClick={onClose}
+            aria-label="Chiudi finestra allergeni"
+            style={{background:'none',border:'none',fontSize:'1.7rem',cursor:'pointer',color:'#888',marginLeft:'1rem',lineHeight:1}}
+          >
+            ×
+          </button>
         </div>
 
         {/* Disclaimer text */}
@@ -82,15 +95,13 @@ export default function AllergenModal({
         {/* Griglia degli allergeni */}
         <div className="allergen-modal-grid">
           {displayAllergens.map((allergen) => {
-            const isSelected = allergen.backendId && localSelection.includes(allergen.backendId)
-            const isAvailable = allergen.available
-            
+            const isSelected = selectedAllergens.includes(allergen.id)
             return (
               <button
                 key={allergen.id}
-                className={`allergen-modal-item ${isSelected ? 'selected' : ''} ${!isAvailable ? 'disabled' : ''}`}
-                onClick={() => isAvailable && toggleAllergen(allergen.backendId)}
-                disabled={!isAvailable}
+                className={`allergen-modal-item${isSelected ? ' selected' : ''}`}
+                onClick={() => toggleAllergen(allergen.id)}
+                type="button"
               >
                 <div className="allergen-modal-item-icon">
                   <AllergenIcon size={32} color="#777777" />
@@ -106,9 +117,8 @@ export default function AllergenModal({
           })}
         </div>
 
-        {/* Pulsante OK */}
         <div className="allergen-modal-actions">
-          <button className="allergen-modal-ok-btn" onClick={handleOK}>
+          <button className="allergen-modal-ok-btn" style={{background:'#fde047',color:'#333',fontWeight:'bold',border:'none',borderRadius:'8px',padding:'0.7em 2.5em',fontSize:'1.1rem',marginTop:'1.2em',boxShadow:'0 1px 4px #0001',cursor:'pointer'}} onClick={handleOK}>
             OK
           </button>
         </div>
