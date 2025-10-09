@@ -129,10 +129,16 @@ export function PizzeriaProvider({ children }) {
     try {
       const data = await listAppetizers()
       const extracted = extractList(data)
+      // Normalizza is_gluten_free e gluten_free per compatibilità badge
+      const mapped = extracted.map(item => ({
+        ...item,
+        is_gluten_free: item.is_gluten_free ?? item.gluten_free,
+        gluten_free: item.is_gluten_free ?? item.gluten_free
+      }))
       if (typeof window !== 'undefined') {
-        console.log('[PizzeriaContext] Appetizers from API:', extracted)
+        console.log('[PizzeriaContext] Appetizers from API:', mapped)
       }
-      setAppetizers(extracted)
+      setAppetizers(mapped)
       initializedRef.current.appetizers = true
     } catch (e) {
       console.error('Errore nel caricamento antipasti:', e)

@@ -2,8 +2,23 @@ import { useState } from 'react'
 import { AllergenIcon } from './Icons'
 import './AllergenModal.css'
 
-// Mapping degli allergeni con l'icona AllergenIcon unificata nel colore #777777
+// Mapping degli allergeni con icona personalizzata (Material Symbols)
 // Il glutine NON è più presente tra gli allergeni filtrabili: gestito solo come badge separato nei piatti
+const ALLERGEN_ICON_MAP = {
+  'LATTOSIO': 'icecream',
+  'FRUTTA A GUSCIO': 'nutrition',
+  'UOVA': 'egg',
+  'PESCE': 'fish',
+  'ARACHIDI': 'spa',
+  'SOIA': 'eco',
+  'CROSTACEI': 'cruelty_free',
+  'SEDANO': 'grass',
+  'SENAPE': 'science',
+  'SESAMO': 'restaurant',
+  'SOLFITI': 'local_drink',
+  'LUPINI': 'spa',
+  'MOLLUSCHI': 'waves',
+};
 const ALLERGEN_CONFIG = [
   { id: 2, name: 'LATTOSIO' },
   { id: 3, name: 'FRUTTA A GUSCIO' },
@@ -105,7 +120,9 @@ export default function AllergenModal({
                 type="button"
               >
                 <div className="allergen-modal-item-icon">
-                  <AllergenIcon size={32} color="#777777" />
+                  <span className="material-symbols-outlined" style={{fontSize:32,color:'#777'}}>
+                    {ALLERGEN_ICON_MAP[allergen.name?.toUpperCase?.()] || 'warning'}
+                  </span>
                 </div>
                 <div className="allergen-modal-item-name">
                   {allergen.name}

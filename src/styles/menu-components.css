@@ -2,59 +2,57 @@
 
 .qodeup-menu-section {
   margin-bottom: 1.5rem;
-  border-radius: 12px;
-  background: linear-gradient(180deg, #fffaf3 0%, #f9f7ed 100%);
-  box-shadow: none;
-  border: 1.5px solid #f3e3a7;
+  border-radius: 16px;
+  background: linear-gradient(180deg, #f4fbf7 0%, #eef8f3 100%); /* sostituisce il beige con un soft green */
+  box-shadow: 0 1px 6px rgba(15,109,79,0.06);
+  border: 1.5px solid #cbeadf;
   padding: 0.2rem 0.2rem 1.2rem 0.2rem;
   transition: box-shadow 0.18s, border-color 0.18s;
 }
 
 
 .qodeup-section-header {
-  background: #f7f8f9;
-  color: #232323;
+  background: #0f6d4f; /* deep green */
+  color: #ffffff;
   padding: 0.85rem 1.5rem;
-  border-radius: 10px 10px 0 0;
+  border-radius: 16px; /* look più "pill" come nello screenshot */
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: box-shadow 0.16s, background 0.16s, border-color 0.16s;
-  border: 1.5px solid #e3e3e3;
-  border-bottom: none;
+  transition: box-shadow 0.16s, background 0.16s, border-color 0.16s, transform 0.12s ease-out;
+  border: 1.5px solid #0b5d41;
   width: 100%;
-  font-size: 1.08rem;
-  font-weight: 700;
-  box-shadow: 0 1px 4px 0 rgba(60,60,60,0.03);
+  font-size: 1.06rem;
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(15,109,79,0.15);
   margin-bottom: 0;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.02em;
 }
 
 .qodeup-section-header:hover,
-.qodeup-section-header:focus,
-.qodeup-section-header:hover {
-  background: #fff8ed;
-  border-color: #f3e3a7;
+.qodeup-section-header:focus {
+  background: #128860; /* hover green più chiaro */
+  border-color: #0f6d4f;
   outline: none;
-  box-shadow: none;
-  transform: none;
+  box-shadow: 0 4px 16px rgba(18,136,96,0.22);
+  transform: translateY(-1px);
 }
 
 .qodeup-section-count {
-  background: #f6f6f6;
-  color: #7a7a7a;
+  background: #e8f5ec; /* soft green chip */
+  color: #0f6d4f;
   padding: 0.28rem 0.9rem;
-  border-radius: 10px;
-  font-size: 0.97rem;
-  font-weight: 600;
-  border: 1px solid #e3e3e3;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  border: 1px solid #cbeadf;
   margin-left: 0.7em;
 }
 
 .qodeup-section-chevron {
   font-size: 1.15rem;
-  color: #bdbdbd;
+  color: #ffffff;
   transition: transform 0.22s;
 }
 
@@ -188,4 +186,30 @@
 .qodeup-add-btn:hover {
   background: #229954;
   transform: scale(1.1);
+}
+
+/* Nasconde eventuale icona/emoji corrotta nel primo span del badge gluten-free */
+.item-badge.gluten-free > span:first-child { display: none !important; }
+
+/* ---------- MOBILE OVERFLOW FIXES (coerenza con design-system.css) ---------- */
+@media (max-width: 640px) {
+  /* Contenitori */
+  .qodeup-section-content { padding: 0.75rem; overflow-x: hidden; }
+  .menu-items-list { padding: 0 !important; margin: 0; overflow-x: hidden; }
+  .qodeup-menu-section, .qodeup-menu-sections { overflow-x: hidden; }
+
+  /* Card */
+  .qodeup-product-card { width: 100%; max-width: 100%; box-sizing: border-box; }
+  .qodeup-product-info, .qodeup-product-header { min-width: 0; }
+
+  /* Immagini */
+  .qodeup-product-image, .qodeup-product-placeholder { width: 60px; height: 60px; }
+
+  /* Testo: consentire wrapping (override degli inline style) */
+  .qodeup-product-name { white-space: normal !important; overflow-wrap: anywhere; word-break: break-word; }
+  .qodeup-product-description { white-space: normal !important; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; word-break: break-word; }
+  .item-ingredients { white-space: normal !important; overflow: hidden; text-overflow: ellipsis; overflow-wrap: anywhere; word-break: break-word; }
+
+  /* Prezzo */
+  .price-value { font-size: 1.05em !important; }
 }

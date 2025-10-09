@@ -51,7 +51,7 @@ export default function CollapsibleMenuSection({
           <div className="qodeup-section-empty">Nessun prodotto disponibile.</div>
         )}
         {expanded && items.length > 0 && (
-          <ul className="menu-items-list">
+          <ul className="menu-items-list" style={{display:'flex',flexDirection:'column',gap:'0'}}>
             {items.map((item) => (
               <SimpleMenuItem
                 key={item.id || item.name}
@@ -59,8 +59,8 @@ export default function CollapsibleMenuSection({
                 price={item.price}
                 description={item.description}
                 note={item.note}
-                is_vegan={item.is_vegan}
-                is_gluten_free={item.is_gluten_free}
+                vegan={item.is_vegan ?? item.vegan}
+                is_gluten_free={item.is_gluten_free ?? item.gluten_free}
                 allergens={item.allergens || []}
                 ingredients={item.ingredients || []}
                 image={item.image || item.photo || item.img || null}
