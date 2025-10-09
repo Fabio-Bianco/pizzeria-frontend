@@ -64,6 +64,20 @@ export default function CollapsibleMenuSection({
                 allergens={item.allergens || []}
                 ingredients={item.ingredients || []}
                 image={item.image || item.photo || item.img || null}
+                category={(() => {
+                  // Priorità: classica > bianca > speciale > prima disponibile
+                  const cats = [];
+                  if (item.category) cats.push(item.category);
+                  if (Array.isArray(item.categories)) cats.push(...item.categories);
+                  const norm = c => (typeof c === 'object' ? (c.name || '').toLowerCase() : (c || '').toLowerCase());
+                  const classica = cats.find(c => norm(c).includes('classica') || norm(c).includes('classiche'));
+                  if (classica) return classica;
+                  const bianca = cats.find(c => norm(c).includes('bianca') || norm(c).includes('bianche'));
+                  if (bianca) return bianca;
+                  const speciale = cats.find(c => norm(c).includes('speciale') || norm(c).includes('speciali'));
+                  if (speciale) return speciale;
+                  return cats[0] || null;
+                })()}
               />
             ))}
           </ul>

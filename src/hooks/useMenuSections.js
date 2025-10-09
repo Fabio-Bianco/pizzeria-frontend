@@ -20,7 +20,22 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
 
     // Calcola i conteggi filtrati per ogni sezione
     const appetizersFiltered = applyFilter(appetizers)
-    const pizzasFiltered = applyFilter(pizzas)
+    // Ordina le pizze per priorità categoria: classica > bianca > speciale > altre
+    const sortByCategoryPriority = (arr) => {
+      if (!Array.isArray(arr)) return arr;
+      const getCat = (item) => {
+        const cats = [];
+        if (item.category) cats.push(item.category);
+        if (Array.isArray(item.categories)) cats.push(...item.categories);
+        const norm = c => (typeof c === 'object' ? (c.name || '').toLowerCase() : (c || '').toLowerCase());
+        if (cats.find(c => norm(c).includes('classica') || norm(c).includes('classiche'))) return 1;
+        if (cats.find(c => norm(c).includes('bianca') || norm(c).includes('bianche'))) return 2;
+        if (cats.find(c => norm(c).includes('speciale') || norm(c).includes('speciali'))) return 3;
+        return 4;
+      };
+      return [...arr].sort((a, b) => getCat(a) - getCat(b));
+    };
+    const pizzasFiltered = sortByCategoryPriority(applyFilter(pizzas));
     const dessertsFiltered = applyFilter(desserts)
     const beveragesFiltered = applyFilter(beverages)
 
