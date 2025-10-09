@@ -23,12 +23,17 @@ export default function SimpleMenuItem({
   price,
   description,
   note,
-  vegan,
+  is_vegan,
   is_gluten_free,
   allergens = [],
   ingredients = [],
-  image
+  image,
+  ...props
 }) {
+  if (typeof window !== 'undefined') {
+    // Debug: log props per capire se is_gluten_free arriva
+    console.log('[SimpleMenuItem] props:', { name, is_vegan, is_gluten_free, allergens, ingredients, ...props });
+  }
   return (
     <li className="simple-menu-item">
       <div className="item-row">
@@ -36,8 +41,8 @@ export default function SimpleMenuItem({
         {price && (
           <span className="item-price">€{Number(price).toFixed(2)}</span>
         )}
-        {vegan && (
-          <span className="item-badge vegan" title="Vegano o vegetariano" aria-label="Vegano o vegetariano">Veg</span>
+        {is_vegan && (
+          <span className="item-badge vegan" title="Vegano" aria-label="Vegano">Veg</span>
         )}
         {is_gluten_free && (
           <span className="item-badge gluten-free" title="Senza glutine" aria-label="Gluten free">GF</span>

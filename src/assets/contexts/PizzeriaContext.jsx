@@ -128,7 +128,11 @@ export function PizzeriaProvider({ children }) {
     setError((e) => ({ ...e, appetizers: null }))
     try {
       const data = await listAppetizers()
-      setAppetizers(extractList(data))
+      const extracted = extractList(data)
+      if (typeof window !== 'undefined') {
+        console.log('[PizzeriaContext] Appetizers from API:', extracted)
+      }
+      setAppetizers(extracted)
       initializedRef.current.appetizers = true
     } catch (e) {
       console.error('Errore nel caricamento antipasti:', e)

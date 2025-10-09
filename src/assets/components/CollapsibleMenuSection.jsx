@@ -59,7 +59,7 @@ export default function CollapsibleMenuSection({
                 price={item.price}
                 description={item.description}
                 note={item.note}
-                vegan={item.vegan || item.vegetarian || (item.tags && (item.tags.includes('vegan') || item.tags.includes('vegetarian')))}
+                is_vegan={item.is_vegan}
                 is_gluten_free={item.is_gluten_free}
                 allergens={item.allergens || []}
                 ingredients={item.ingredients || []}
