@@ -1,66 +1,83 @@
 /* ===== COLLAPSIBLE MENU SECTIONS ===== */
+
 .qodeup-menu-section {
-  margin-bottom: 1rem;
+  margin-bottom: 2.5rem;
+  border-radius: 18px;
+  background: #fcfcfc;
+  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.06);
+  border: 2.5px solid #e6e6e6;
+  padding: 0.5rem 0.5rem 2.5rem 0.5rem;
+  transition: box-shadow 0.2s, border-color 0.2s;
 }
 
+
 .qodeup-section-header {
-  background: #0b4d27;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 25px;
+  background: #f7f7f7;
+  color: #222;
+  padding: 1.3rem 2.5rem;
+  border-radius: 16px 16px 0 0;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 0.3s ease;
-  border: none;
+  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  border: 2.5px solid #e6e6e6;
+  border-bottom: none;
   width: 100%;
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1.18rem;
+  font-weight: 700;
+  box-shadow: 0 2px 8px 0 rgba(60,60,60,0.04);
+  margin-bottom: 0;
+  letter-spacing: 0.01em;
 }
 
-.qodeup-section-header:hover {
-  background: #0f5a2e;
-  transform: translateY(-2px);
-    padding: 0.5rem 1rem;
-    border-radius: 16px;
-    font-size: 1rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+.qodeup-section-header:hover,
+.qodeup-section-header:focus {
+  background: #f2f2f2;
+  border-color: #d1d5db;
+  box-shadow: 0 4px 16px 0 rgba(60,60,60,0.10);
+  outline: none;
+  transform: translateY(-1px) scale(1.01);
 }
 
 .qodeup-section-count {
-  background: rgba(255, 255, 255, 0.2);
-  color: white;
-  padding: 0.3rem 0.8rem;
-  border-radius: 15px;
-  font-size: 0.9rem;
+  background: #f5f5f5;
+  color: #888;
+  padding: 0.35rem 1.1rem;
+  border-radius: 12px;
+  font-size: 1rem;
   font-weight: 600;
+  border: 1.5px solid #e6e6e6;
+  margin-left: 0.7em;
 }
 
 .qodeup-section-chevron {
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
+  font-size: 1.3rem;
+  color: #bdbdbd;
+  transition: transform 0.3s;
 }
 
 .qodeup-section-header.expanded .qodeup-section-chevron {
   transform: rotate(180deg);
 }
 
+
 .qodeup-section-content {
-  padding: 0;
+  padding: 2.2rem 2.5rem 0.5rem 2.5rem;
   overflow: hidden;
-  transition: max-height 0.3s ease;
+  transition: max-height 0.3s ease, padding 0.2s;
+  background: transparent;
+  border-radius: 0 0 16px 16px;
 }
 
 .qodeup-section-content.collapsed {
   max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 .qodeup-section-content.expanded {
   max-height: 2000px;
-  padding: 1rem 0;
 }
 
 /* ===== PRODUCT CARDS QODEUP STYLE ===== */

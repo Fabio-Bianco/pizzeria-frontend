@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { usePizzeria } from '../contexts/PizzeriaContext';
-import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures';
+import { useAllergeni } from '../../hooks/useMenuFeatures';
 import { useAllergenFilter } from '../../hooks/useAllergenFilter';
 import { useVeggieFilter } from '../../hooks/useVeggieFilter';
 import { useMenuSections } from '../../hooks/useMenuSections';
@@ -18,7 +18,7 @@ export default function MenuPage() {
 		console.log('[MenuPage] desserts:', desserts)
 	}
   const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
-  const { currentLanguage, toggleLanguage } = useLanguage()
+
 
   // Hook per la gestione del filtro allergeni
   const {
@@ -76,9 +76,7 @@ export default function MenuPage() {
 		toggleVeggieFilter()
 	}
 
-	const handleLanguageClick = () => {
-		toggleLanguage()
-	}
+
 
 	const handleResetFilters = () => {
 		resetSelection()
@@ -140,15 +138,7 @@ export default function MenuPage() {
 										)}
 						</button>
 						
-						{/* Icona Lingua */}
-						<button 
-							className="qodeup-header-icon-btn" 
-							onClick={handleLanguageClick} 
-							title={`Cambia lingua (attuale: ${currentLanguage === 'it' ? 'Italiano' : 'English'})`}
-							aria-label={`Cambia lingua, attualmente ${currentLanguage === 'it' ? 'Italiano' : 'Inglese'}`}
-						>
-							<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
-						</button>
+
 					</nav>
 				</div>
 			</header>
@@ -192,17 +182,7 @@ export default function MenuPage() {
 									</div>
 									<span className="qodeup-quick-label">ALLERGENI</span>
 					</button>
-					<button 
-						className="qodeup-quick-btn" 
-						onClick={handleLanguageClick} 
-						title={`Cambia lingua (${currentLanguage === 'it' ? 'Italiano' : 'English'})`}
-						aria-label={`Cambia lingua da ${currentLanguage === 'it' ? 'Italiano' : 'Inglese'}`}
-					>
-						<div className="qodeup-quick-icon">
-							<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
-						</div>
-						<span className="qodeup-quick-label">LINGUA</span>
-					</button>
+
 				</section>
 
 
