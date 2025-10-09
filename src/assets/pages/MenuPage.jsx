@@ -146,84 +146,48 @@ export default function MenuPage() {
 				</div>
 			</header>
 
-			{/* Sezione icone intermedie - WCAG Quick Access */}
-			<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
-				<button 
-					className={`qodeup-quick-btn ${veggieFilterActive ? 'active' : ''}`}
-					onClick={handleVeggieClick}
-					title={veggieFilterActive ? "Rimuovi filtro veggie" : "Visualizza prodotti vegani"}
-					aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Visualizza solo prodotti vegani"}
-					aria-pressed={veggieFilterActive}
-				>
-					<div className="qodeup-quick-icon">
-						<VeganBadgeIcon size={40} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
-					</div>
-					<span className="qodeup-quick-label">VEGGIE</span>
-					{veggieFilterActive && (
-						<span className="qodeup-quick-badge" aria-label="Filtro veggie attivo">
-							✓
-						</span>
-					)}
-				</button>
-				
-				<button 
-					className="qodeup-quick-btn" 
-					onClick={handleAllergensClick} 
-					title="Gestione allergeni"
-					aria-label="Apri gestione allergeni"
-					aria-expanded="false"
-				>
-					<div className="qodeup-quick-icon">
-						<AllergenIcon size={40} color="#777777" />
-					</div>
-					<span className="qodeup-quick-label">ALLERGENI</span>
-					{filterStats.hasActiveFilters && (
-						<span className="qodeup-quick-badge" aria-label={`${filterStats.activeFilterCount} filtri allergeni attivi`}>
-							{filterStats.activeFilterCount}
-						</span>
-					)}
-				</button>
-				
-				<button 
-					className="qodeup-quick-btn" 
-					onClick={handleLanguageClick} 
-					title={`Cambia lingua (${currentLanguage === 'it' ? 'Italiano' : 'English'})`}
-					aria-label={`Cambia lingua da ${currentLanguage === 'it' ? 'Italiano' : 'Inglese'}`}
-				>
-					<div className="qodeup-quick-icon">
-						<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
-					</div>
-					<span className="qodeup-quick-label">LINGUA</span>
-				</button>
-			</section>
-
-			{/* Barra di reset filtri - WCAG Enhanced */}
-			{(filterStats.hasActiveFilters || veggieFilterActive) && (
-				<section className="qodeup-filter-reset-bar" role="status" aria-live="polite">
-					<div className="qodeup-filter-info">
-						<span className="qodeup-filter-icon" aria-hidden="true">
-							<span className="material-symbols-outlined">filter_alt</span>
-						</span>
-						<span className="qodeup-filter-text">
-							Filtri attivi: {[
-								veggieFilterActive && "Veggie",
-								filterStats.hasActiveFilters && `Allergeni (${allergens.filter(a => selectedAllergens.includes(a.id)).map(a => a.name).join(', ')})`
-							].filter(Boolean).join(', ')}
-						</span>
-					</div>
+				{/* Sezione icone intermedie - solo filtri rapidi, senza comunicazioni extra */}
+				<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
 					<button 
-						className="qodeup-filter-reset-btn"
-						onClick={handleResetFilters}
-						title="Rimuovi tutti i filtri attivi"
-						aria-label="Rimuovi tutti i filtri attivi"
+						className={`qodeup-quick-btn ${veggieFilterActive ? 'active' : ''}`}
+						onClick={handleVeggieClick}
+						title={veggieFilterActive ? "Rimuovi filtro veggie" : "Visualizza prodotti vegani"}
+						aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Visualizza solo prodotti vegani"}
+						aria-pressed={veggieFilterActive}
 					>
-						<span className="qodeup-reset-icon" aria-hidden="true">
-							<span className="material-symbols-outlined">close</span>
-						</span>
-						<span className="qodeup-reset-text">Rimuovi filtri</span>
+						<div className="qodeup-quick-icon">
+							<VeganBadgeIcon size={40} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
+							{veggieFilterActive && (
+								<span className="qodeup-quick-badge" aria-label="Filtro veggie attivo">✓</span>
+							)}
+						</div>
+						<span className="qodeup-quick-label">VEGGIE</span>
+					</button>
+					<button 
+						className="qodeup-quick-btn" 
+						onClick={handleAllergensClick} 
+						title="Gestione allergeni"
+						aria-label="Apri gestione allergeni"
+						aria-expanded="false"
+					>
+						<div className="qodeup-quick-icon">
+							<AllergenIcon size={40} color="#777777" />
+						</div>
+						<span className="qodeup-quick-label">ALLERGENI</span>
+					</button>
+					<button 
+						className="qodeup-quick-btn" 
+						onClick={handleLanguageClick} 
+						title={`Cambia lingua (${currentLanguage === 'it' ? 'Italiano' : 'English'})`}
+						aria-label={`Cambia lingua da ${currentLanguage === 'it' ? 'Italiano' : 'Inglese'}`}
+					>
+						<div className="qodeup-quick-icon">
+							<span className="qodeup-flag-icon">{currentLanguage === 'it' ? '🇮🇹' : '🇬🇧'}</span>
+						</div>
+						<span className="qodeup-quick-label">LINGUA</span>
 					</button>
 				</section>
-			)}
+
 
 			{/* Header FOOD - WCAG Semantic */}
 			<header className="qodeup-food-header" role="banner">
