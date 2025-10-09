@@ -8,7 +8,14 @@ export const useMenuSections = (pizzas, appetizers, beverages, desserts, loading
     // Funzione per applicare il filtro se fornito
     const applyFilter = (items) => {
       if (!filterFunction || !Array.isArray(items)) return items || []
-      return filterFunction(items)
+      if (typeof window !== 'undefined') {
+        console.log('[useMenuSections] applyFilter items:', items)
+      }
+      const filtered = filterFunction(items)
+      if (typeof window !== 'undefined') {
+        console.log('[useMenuSections] filtered:', filtered)
+      }
+      return filtered
     }
 
     // Calcola i conteggi filtrati per ogni sezione

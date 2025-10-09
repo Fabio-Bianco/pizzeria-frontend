@@ -10,7 +10,13 @@ import AllergenModal from '../components/AllergenModal';
 import { GridSkeleton } from '../components/SkeletonLoaders';
 
 export default function MenuPage() {
-  const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized, error } = usePizzeria()
+	const { pizzas, appetizers, beverages, desserts, allergens, loading, initialized, error } = usePizzeria()
+	if (typeof window !== 'undefined') {
+		console.log('[MenuPage] pizzas:', pizzas)
+		console.log('[MenuPage] appetizers:', appetizers)
+		console.log('[MenuPage] beverages:', beverages)
+		console.log('[MenuPage] desserts:', desserts)
+	}
   const { showAllergensModal, openAllergensModal, closeAllergensModal } = useAllergeni()
   const { currentLanguage, toggleLanguage } = useLanguage()
 
@@ -38,24 +44,29 @@ export default function MenuPage() {
   }, [])
 
   // Funzione combinata per applicare entrambi i filtri
-  const applyCombinedFilters = (items) => {
-    // Prima applica il filtro veggie se attivo
-    let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
-    // Poi applica il filtro allergeni se attivo
-    filteredItems = filterItems(filteredItems)
-    return filteredItems
-  }
+	const applyCombinedFilters = (items) => {
+		// LOG: cosa arriva a applyCombinedFilters
+		if (typeof window !== 'undefined') {
+			console.log('[MenuPage] Items in ingresso:', items);
+		}
+		let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
+		filteredItems = filterItems(filteredItems)
+		// LOG: cosa esce da applyCombinedFilters
+		if (typeof window !== 'undefined') {
+			console.log('[MenuPage] Items dopo filtri:', filteredItems);
+		}
+		return filteredItems
+	}
 
   // Prepara le sezioni del menu usando il hook con filtri combinati
-  const menuSections = useMenuSections(
-    pizzas, 
-    appetizers, 
-    beverages, 
-    desserts, 
-    loading, 
-    initialized,
-    applyCombinedFilters // Usa la funzione combinata per i filtri
-  )
+	const menuSections = useMenuSections(
+		pizzas, 
+		appetizers, 
+		beverages, 
+		desserts, 
+		loading, 
+		applyCombinedFilters // Usa la funzione combinata per i filtri
+	)
 
   const handleAllergensClick = () => {
 		openAllergensModal()

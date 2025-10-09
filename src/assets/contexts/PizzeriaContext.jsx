@@ -65,7 +65,13 @@ export function PizzeriaProvider({ children }) {
     setError((e) => ({ ...e, pizzas: null }))
     try {
       const data = await listPizzas(params)
-      setPizzas(extractList(data))
+      // Mappo is_vegan/is_vegetarian su vegan/vegetarian per compatibilità filtri
+      const mapped = extractList(data).map(item => ({
+        ...item,
+        vegan: item.is_vegan ?? item.vegan,
+        vegetarian: item.is_vegetarian ?? item.vegetarian
+      }))
+      setPizzas(mapped)
       initializedRef.current.pizzas = true
     } catch (e) {
       console.error('Errore nel caricamento pizze:', e)
