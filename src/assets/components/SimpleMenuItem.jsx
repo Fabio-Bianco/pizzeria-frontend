@@ -1,6 +1,7 @@
 import React from 'react';
 import LazyImage from './LazyImage';
 import AllergenBadges from './AllergenBadges';
+import { VeganBadgeIcon } from './Icons';
 
 function SimpleMenuItem({
   name,
@@ -11,7 +12,8 @@ function SimpleMenuItem({
   allergens,
   ingredients,
   description,
-  price
+  price,
+  vegan
 }) {
   const hasFormatOrAlcohol = !!format || !!alcohol;
 
@@ -45,39 +47,41 @@ function SimpleMenuItem({
           ) : (
             <div className="qodeup-product-placeholder" style={{width:64,height:64,borderRadius:12,background:'#f6f6f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'2em'}}>🍽️</div>
           )}
+          {/* Badge gluten free spostato in alto a destra */}
+        </div>
+      </div>
+      <div style={{flex:1,display:'flex',flexDirection:'column',gap:'0.7em',minWidth:0,justifyContent:'flex-start',alignItems:'flex-start',height:'100%',paddingTop:0,marginTop:0,position:'relative'}}>
+        {/* Allergen icons in alto a destra */}
+  <div style={{position:'absolute',top:0,right:8,zIndex:2,display:'flex',justifyContent:'flex-end',width:'auto',maxWidth:'70%',pointerEvents:'none',gap:'0.3em',paddingTop:'0.3em'}}>
           {is_gluten_free && (
             <span
               className="item-badge gluten-free"
               aria-label="Senza glutine"
               title="Gluten Free"
               style={{
-                marginTop: 8,
-                background: '#f0fdf4',
-                color: '#0e7490',
-                borderRadius: '7px',
-                padding: '0.13em 1em 0.13em 0.7em',
+                background: 'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)',
+                color: '#b89a0e',
+                borderRadius: '12px',
+                padding: '0.13em 0.7em',
                 fontWeight: 700,
-                fontSize: '1em',
+                fontSize: '0.97em',
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: '0.38em',
-                boxShadow: '0 1px 4px #0ea5e922',
+                boxShadow: '0 1px 4px #efca1a22',
                 letterSpacing: '0.01em',
                 lineHeight: 1.1,
-                minWidth: 90,
+                minWidth: 0,
                 whiteSpace: 'nowrap',
                 verticalAlign: 'middle',
+                border: '1.5px solid #efca1a',
+                margin: 0
               }}
             >
-              <span style={{fontSize:'1.13em',marginRight:'0.13em'}}>🌾</span>
-              <span style={{fontSize:'0.97em',fontWeight:600,letterSpacing:'0.01em'}}>Gluten Free</span>
+              <span className="material-symbols-outlined" style={{fontSize:'1.13em',marginRight:'0.13em',color:'#efca1a',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
+              <span style={{fontSize:'0.97em',fontWeight:600,letterSpacing:'0.01em',color:'#b89a0e'}}>Gluten Free</span>
             </span>
           )}
-        </div>
-      </div>
-      <div style={{flex:1,display:'flex',flexDirection:'column',gap:'0.7em',minWidth:0,justifyContent:'flex-start',alignItems:'flex-start',height:'100%',paddingTop:0,marginTop:0,position:'relative'}}>
-        {/* Allergen icons in alto a destra */}
-        <div style={{position:'absolute',top:8,right:8,zIndex:2,display:'flex',justifyContent:'flex-end',width:'auto',maxWidth:'60%',pointerEvents:'none'}}>
           <AllergenBadges allergens={allergens} size="small" />
         </div>
         <span
@@ -92,12 +96,19 @@ function SimpleMenuItem({
             textOverflow: 'ellipsis',
             letterSpacing: '0.01em',
             lineHeight: 1.2,
-            display: 'inline-block',
+            display: 'inline-flex',
+            alignItems: 'center',
             verticalAlign: 'middle',
+            gap: '0.5em',
             marginRight: 0
           }}
         >
           {name}
+          {vegan && (
+            <span style={{marginLeft:'0.3em',display:'inline-flex',alignItems:'center',verticalAlign:'middle'}}>
+              <VeganBadgeIcon size={22} color="#16a34a" withLabel={false} title="Vegan" />
+            </span>
+          )}
         </span>
         {/* Formato e gradazione alcolica subito sotto il titolo */}
         {hasFormatOrAlcohol && (

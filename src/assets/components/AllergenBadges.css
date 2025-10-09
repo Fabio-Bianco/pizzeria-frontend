@@ -127,7 +127,6 @@
   color: #1e40af;
 }
 
-.allergen-badge[title*="Noci"],
 
 /* Tutti i badge allergeni hanno lo stesso stile giallo delicato */
 @media (prefers-color-scheme: dark) {
