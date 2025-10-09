@@ -1,0 +1,1 @@
+Rimossi tutti gli import dei CSS non necessari dai componenti React e da index.css. Ora solo design-system.css viene importato globalmente.

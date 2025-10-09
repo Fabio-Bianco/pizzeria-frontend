@@ -1,0 +1,12 @@
+Eliminare questi file CSS non più necessari:
+- src/styles/layout.css
+- src/styles/qodeup-layout.css
+- src/styles/menu-components.css
+- src/styles/responsive.css
+- src/styles/simple-menu-item.css
+- src/styles/accessibility.css
+- src/styles/navigation.css
+- src/assets/components/AllergenBadges.css
+- src/assets/components/AllergenFilter.css
+- src/assets/components/AllergenModal.css
+- src/assets/components/FilterStats.css

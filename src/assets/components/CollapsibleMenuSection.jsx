@@ -52,7 +52,7 @@ export default function CollapsibleMenuSection({
           <div className="qodeup-section-empty">Nessun prodotto disponibile.</div>
         )}
         {expanded && items.length > 0 && (
-          <ul className="qodeup-menu-grid" style={{ padding: 0, margin: 0, listStyle: 'none' }}>
+          <ul className="menu-items-list">
             {items.map((item) => (
               <SimpleMenuItem
                 key={item.id || item.name}
