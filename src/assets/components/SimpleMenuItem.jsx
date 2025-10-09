@@ -1,51 +1,60 @@
-import React from 'react';
-import LazyImage from './LazyImage';
-// Esempio di props: { name, price, description, note, vegan, allergens, ingredients, image }
-export default function SimpleMenuItem({ name, price, description, note, vegan, allergens = [], ingredients = [], image }) {
+import React from "react";
+import "../../styles/simple-menu-item.css";
+
+// Utility per normalizzare stringa o oggetto lingua
+function getText(val, label = "") {
+  if (typeof val === "string") return val;
+  if (val && typeof val === "object") {
+    if (val.it) return val.it;
+    // Cerca la prima stringa tra le chiavi
+    const firstStr = Object.values(val).find(v => typeof v === "string" && v.trim());
+    if (firstStr) return firstStr;
+    // Log per debug
+    if (typeof window !== 'undefined') {
+      console.warn(`[SimpleMenuItem] ${label} oggetto non gestito:`, val);
+    }
+    return "";
+  }
+  return "";
+}
+
+export default function SimpleMenuItem({
+  name,
+  price,
+  description,
+  note,
+  vegan,
+  allergens = [],
+  ingredients = [],
+  image
+}) {
   return (
-    <li className="simple-menu-item qodeup-product-card" tabIndex={0}>
-      {image ? (
-        <LazyImage src={image} alt={name} className="qodeup-product-image" placeholder="🍽️" />
-      ) : (
-        <div className="qodeup-product-placeholder">�️</div>
-      )}
-      <div className="qodeup-product-info">
-        <div className="qodeup-product-header">
-          <span className="qodeup-product-name" title={name}>{name}</span>
-          <span className="qodeup-product-price">€{price}</span>
-        </div>
-        <div className="qodeup-product-description" title={description}>{description}</div>
-        {Array.isArray(ingredients) && ingredients.length > 0 && (
-          <div className="item-ingredients" title={ingredients.map(i => typeof i === 'object' ? i.name : i).join(', ')}>
-            <span className="item-ingredients-label">Ingredienti:</span> {ingredients.map((ing, idx) => (
-              <span className="item-ingredient" key={typeof ing === 'object' ? ing.id || ing.name : ing}>
-                {typeof ing === 'object' ? ing.name : ing}{idx < ingredients.length - 1 ? ', ' : ''}
-              </span>
-            ))}
-          </div>
+    <li className="simple-menu-item">
+      <div className="item-row">
+  <span className="item-name">{getText(name, "name")}</span>
+        {price && (
+          <span className="item-price">€{Number(price).toFixed(2)}</span>
         )}
-        <div className="item-badges-group" style={{ marginTop: '0.3em' }}>
-          {vegan && (
-            <span className="item-badge vegan" aria-label="Piatto vegano" title="Vegano">🌱</span>
-          )}
-          {allergens.length > 0 && allergens.map(a => {
-            const allergenName = typeof a === 'object' ? a.name : a;
-            const allergenId = typeof a === 'object' ? a.id || a.name : a;
-            return (
-              <span
-                key={allergenId}
-                className="item-badge allergen"
-                aria-label={`Allergene: ${allergenName}`}
-                title={allergenName}
-                tabIndex={0}
-              >
-                {allergenName}
-              </span>
-            );
-          })}
-        </div>
-        {note && <div className="item-note">Nota: <em>{note}</em></div>}
+        {vegan && (
+          <span className="item-badge vegan" title="Vegano o vegetariano">Veg</span>
+        )}
+        {allergens.length > 0 && (
+          <span className="item-badges-group">
+            {allergens.map((a, i) => (
+              <span className="item-badge allergen" key={a.id || a.name || i} title={a.name || a}>{getText(a.name || a, "allergen")}</span>
+            ))}
+          </span>
+        )}
       </div>
+      {description && (
+        <div className="item-description">{getText(description, "description")}</div>
+      )}
+      {ingredients.length > 0 && (
+        <div className="item-ingredients">
+          <span className="item-ingredients-label">Ingredienti:</span> {ingredients.map((ing, i) => getText(ing.name || ing, "ingredient")).join(", ")}
+        </div>
+      )}
+  {note && <div className="item-note">{getText(note, "note")}</div>}
     </li>
   );
 }
