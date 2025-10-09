@@ -19,7 +19,10 @@ const ALLERGEN_ICON_MAP = {
   'MOLLUSCHI': 'waves',
 };
 // Esempio di props: { name, price, description, note, vegan, allergens, ingredients, image }
-export default function SimpleMenuItem({ name, price, description, note, vegan, is_gluten_free, allergens = [], ingredients = [], image, category }) {
+// Accetta anche campi opzionali: format (es: '33cl'), alcohol (es: '5.2%')
+export default function SimpleMenuItem({ name, price, description, note, vegan, is_gluten_free, allergens = [], ingredients = [], image, category, format, alcohol }) {
+  // Mostra formato e gradazione solo se almeno uno è valorizzato
+  const hasFormatOrAlcohol = !!format || !!alcohol;
   return (
     <li className="simple-menu-item qodeup-product-card" tabIndex={0} style={{
       position: 'relative',
@@ -142,7 +145,7 @@ export default function SimpleMenuItem({ name, price, description, note, vegan, 
     marginTop:0,
     position:'relative'
   }}>
-        <div style={{display:'flex',alignItems:'center',marginBottom:'0.15em'}}>
+        <div style={{display:'flex',flexDirection:'column',alignItems:'flex-start',marginBottom:'0.15em',gap:0}}>
           <span
             className="qodeup-product-name"
             title={name}
@@ -162,6 +165,62 @@ export default function SimpleMenuItem({ name, price, description, note, vegan, 
           >
             {name}
           </span>
+          {/* Formato e gradazione alcolica subito sotto il titolo */}
+          {hasFormatOrAlcohol && (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              alignItems: 'center',
+              gap: '1.1em',
+              margin: '0.13em 0 0 0',
+              padding: 0,
+              minHeight: '1.7em',
+            }}>
+              {format && (
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  background: '#f3f4f6',
+                  color: '#374151',
+                  borderRadius: '6px',
+                  fontWeight: 600,
+                  fontSize: '0.98em',
+                  padding: '0.11em 0.7em 0.11em 0.5em',
+                  letterSpacing: '0.01em',
+                  boxShadow: '0 1px 4px #e0e7ef22',
+                  border: '1px solid #e5e7eb',
+                  gap: '0.35em',
+                  minWidth: 0,
+                  lineHeight: 1.1,
+                  marginRight: alcohol ? '0.3em' : 0
+                }}>
+                  <span className="material-symbols-outlined" style={{fontSize:'1.13em',marginRight:'0.18em',color:'#64748b'}}>local_drink</span>
+                  <span>{format}</span>
+                </span>
+              )}
+              {alcohol && (
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  background: '#f0fdf4',
+                  color: '#0e7490',
+                  borderRadius: '6px',
+                  fontWeight: 600,
+                  fontSize: '0.98em',
+                  padding: '0.11em 0.7em 0.11em 0.5em',
+                  letterSpacing: '0.01em',
+                  boxShadow: '0 1px 4px #0ea5e922',
+                  border: '1px solid #bae6fd',
+                  gap: '0.35em',
+                  minWidth: 0,
+                  lineHeight: 1.1
+                }}>
+                  <span className="material-symbols-outlined" style={{fontSize:'1.13em',marginRight:'0.18em',color:'#0ea5e9'}}>percent</span>
+                  <span>{typeof alcohol === 'number' ? alcohol.toFixed(1) + '%' : (String(alcohol).endsWith('%') ? alcohol : alcohol + '%')}</span>
+                </span>
+              )}
+            </div>
+          )}
           {vegan && (
             <span
               className="item-badge vegan"

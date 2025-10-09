@@ -78,6 +78,9 @@ export default function CollapsibleMenuSection({
                   if (speciale) return speciale;
                   return cats[0] || null;
                 })()}
+                // Passa formato e gradazione SOLO se la sezione è "bevande" o l'item ha questi campi
+                format={item.format || item.formato || undefined}
+                alcohol={item.alcohol || item.gradazione || item.abv || item.gradazione_alcolica || undefined}
               />
             ))}
           </ul>

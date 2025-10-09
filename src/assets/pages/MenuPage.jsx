@@ -43,19 +43,22 @@ export default function MenuPage() {
     // I dati vengono caricati automaticamente dal context al mount
   }, [])
 
-  // Funzione combinata per applicare entrambi i filtri
+	// Funzione combinata per applicare entrambi i filtri
 	const applyCombinedFilters = (items) => {
-		// LOG: cosa arriva a applyCombinedFilters
 		if (typeof window !== 'undefined') {
 			console.log('[MenuPage] Items in ingresso:', items);
 		}
-		let filteredItems = veggieFilterActive ? filterVeggieItems(items) : items
-		filteredItems = filterItems(filteredItems)
-		// LOG: cosa esce da applyCombinedFilters
+		// Se tutti gli item hanno il campo 'formato' o 'tipologia', considera la lista come bevande e NON applicare il filtro veggie
+		const isBeverageList = Array.isArray(items) && items.length > 0 && items.every(item => 'formato' in item || 'tipologia' in item);
+		let filteredItems = items;
+		if (!isBeverageList && veggieFilterActive) {
+			filteredItems = filterVeggieItems(items);
+		}
+		filteredItems = filterItems(filteredItems);
 		if (typeof window !== 'undefined') {
 			console.log('[MenuPage] Items dopo filtri:', filteredItems);
 		}
-		return filteredItems
+		return filteredItems;
 	}
 
   // Prepara le sezioni del menu usando il hook con filtri combinati
