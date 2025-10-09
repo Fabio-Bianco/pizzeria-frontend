@@ -60,6 +60,7 @@ export default function CollapsibleMenuSection({
                 description={item.description}
                 note={item.note}
                 vegan={item.vegan || item.vegetarian || (item.tags && (item.tags.includes('vegan') || item.tags.includes('vegetarian')))}
+                is_gluten_free={item.is_gluten_free}
                 allergens={item.allergens || []}
                 ingredients={item.ingredients || []}
                 image={item.image || item.photo || item.img || null}

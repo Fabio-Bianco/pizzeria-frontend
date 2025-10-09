@@ -2,7 +2,7 @@ import './AllergenBadges.css'
 
 // Mapping degli allergeni con le loro icone (condiviso con AllergenFilter)
 const ALLERGEN_ICONS = {
-  'Glutine': '🌾',
+  // 'Glutine': '🌾',
   'Lattosio': '🥛', 
   'Noci': '🥜',
   'Uova': '🥚',

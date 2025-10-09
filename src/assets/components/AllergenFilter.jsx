@@ -4,7 +4,7 @@ import './AllergenFilter.css'
 
 // Mapping degli allergeni con le loro icone
 const ALLERGEN_ICONS = {
-  'Glutine': '🌾',
+  // 'Glutine': '🌾',
   'Lattosio': '🥛', 
   'Noci': '🥜',
   'Uova': '🥚',

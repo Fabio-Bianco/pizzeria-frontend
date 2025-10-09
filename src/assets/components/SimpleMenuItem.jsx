@@ -24,6 +24,7 @@ export default function SimpleMenuItem({
   description,
   note,
   vegan,
+  is_gluten_free,
   allergens = [],
   ingredients = [],
   image
@@ -36,7 +37,10 @@ export default function SimpleMenuItem({
           <span className="item-price">€{Number(price).toFixed(2)}</span>
         )}
         {vegan && (
-          <span className="item-badge vegan" title="Vegano o vegetariano">Veg</span>
+          <span className="item-badge vegan" title="Vegano o vegetariano" aria-label="Vegano o vegetariano">Veg</span>
+        )}
+        {is_gluten_free && (
+          <span className="item-badge gluten-free" title="Senza glutine" aria-label="Gluten free">GF</span>
         )}
         {allergens.length > 0 && (
           <span className="item-badges-group">

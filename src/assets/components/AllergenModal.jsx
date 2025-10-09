@@ -3,8 +3,8 @@ import { AllergenIcon } from './Icons'
 import './AllergenModal.css'
 
 // Mapping degli allergeni con l'icona AllergenIcon unificata nel colore #777777
+// Il glutine NON è più presente tra gli allergeni filtrabili: gestito solo come badge separato nei piatti
 const ALLERGEN_CONFIG = [
-  { id: 1, name: 'GLUTINE' },
   { id: 2, name: 'LATTOSIO' },
   { id: 3, name: 'FRUTTA A GUSCIO' },
   { id: 4, name: 'UOVA' },
@@ -35,6 +35,7 @@ export default function AllergenModal({
   if (!isOpen) return null
 
   // Toggle selezione allergene: aggiorna subito la selezione parent
+  // Questo gestisce SOLO allergeni, non il gluten free
   const toggleAllergen = (allergenId) => {
     let newSelection;
     if (selectedAllergens.includes(allergenId)) {

@@ -48,7 +48,7 @@ export const mockIngredients = [
 
 export const mockAllergens = [
   { id: 1, name: 'Latticini', icon: '🥛' },
-  { id: 2, name: 'Glutine', icon: '🌾' },
+    // { id: 2, name: 'Glutine', icon: '🌾' },
   { id: 3, name: 'Uova', icon: '🥚' },
   { id: 4, name: 'Noci', icon: '🥜' }
 ]
@@ -58,8 +58,8 @@ export const mockAppetizers = [
     id: 1,
     name: 'Bruschette',
     description: 'Pane tostato con pomodoro e basilico',
-    price: 6.00,
-    allergens: ['glutine']
+    price: 6.00
+    // allergens: ['glutine']
   },
   {
     id: 2,
