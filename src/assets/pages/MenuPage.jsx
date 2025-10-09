@@ -186,10 +186,9 @@ export default function MenuPage() {
 				</section>
 
 
-			{/* Header FOOD - WCAG Semantic */}
-			<header className="qodeup-food-header" role="banner">
-				<h1 className="qodeup-food-title">FOOD</h1>
-			</header>
+
+				{/* Linea divisoria sobria tra quick-access e tab pietanze */}
+				<div className="qodeup-divider" aria-hidden="true"></div>
 
 				{/* Avviso errori globali */}
 				{hasAnyError && (

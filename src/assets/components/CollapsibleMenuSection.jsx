@@ -32,7 +32,6 @@ export default function CollapsibleMenuSection({
         aria-label={`${expanded ? 'Chiudi' : 'Apri'} sezione ${title} (${displayCount} prodotti)`}
       >
         <div className="qodeup-section-title">
-          <span aria-hidden="true">{getProductIcon()}</span>
           <span>{title}</span>
         </div>
         <div className="d-flex align-items-center gap-2">

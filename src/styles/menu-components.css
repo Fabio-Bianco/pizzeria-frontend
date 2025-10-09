@@ -1,60 +1,60 @@
 /* ===== COLLAPSIBLE MENU SECTIONS ===== */
 
 .qodeup-menu-section {
-  margin-bottom: 2.5rem;
-  border-radius: 18px;
-  background: #fcfcfc;
-  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.06);
-  border: 2.5px solid #e6e6e6;
-  padding: 0.5rem 0.5rem 2.5rem 0.5rem;
-  transition: box-shadow 0.2s, border-color 0.2s;
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
+  background: #fafbfa;
+  box-shadow: 0 1px 6px 0 rgba(60,60,60,0.04);
+  border: 1.5px solid #e3e3e3;
+  padding: 0.2rem 0.2rem 1.2rem 0.2rem;
+  transition: box-shadow 0.18s, border-color 0.18s;
 }
 
 
 .qodeup-section-header {
-  background: #f7f7f7;
-  color: #222;
-  padding: 1.3rem 2.5rem;
-  border-radius: 16px 16px 0 0;
+  background: #f7f8f9;
+  color: #232323;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px 10px 0 0;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
-  border: 2.5px solid #e6e6e6;
+  transition: box-shadow 0.16s, background 0.16s, border-color 0.16s;
+  border: 1.5px solid #e3e3e3;
   border-bottom: none;
   width: 100%;
-  font-size: 1.18rem;
+  font-size: 1.08rem;
   font-weight: 700;
-  box-shadow: 0 2px 8px 0 rgba(60,60,60,0.04);
+  box-shadow: 0 1px 4px 0 rgba(60,60,60,0.03);
   margin-bottom: 0;
   letter-spacing: 0.01em;
 }
 
 .qodeup-section-header:hover,
 .qodeup-section-header:focus {
-  background: #f2f2f2;
-  border-color: #d1d5db;
-  box-shadow: 0 4px 16px 0 rgba(60,60,60,0.10);
+  background: #f3f4f6;
+  border-color: #d6d6d6;
+  box-shadow: 0 2px 8px 0 rgba(60,60,60,0.07);
   outline: none;
   transform: translateY(-1px) scale(1.01);
 }
 
 .qodeup-section-count {
-  background: #f5f5f5;
-  color: #888;
-  padding: 0.35rem 1.1rem;
-  border-radius: 12px;
-  font-size: 1rem;
+  background: #f6f6f6;
+  color: #7a7a7a;
+  padding: 0.28rem 0.9rem;
+  border-radius: 10px;
+  font-size: 0.97rem;
   font-weight: 600;
-  border: 1.5px solid #e6e6e6;
+  border: 1px solid #e3e3e3;
   margin-left: 0.7em;
 }
 
 .qodeup-section-chevron {
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: #bdbdbd;
-  transition: transform 0.3s;
+  transition: transform 0.22s;
 }
 
 .qodeup-section-header.expanded .qodeup-section-chevron {
@@ -63,11 +63,11 @@
 
 
 .qodeup-section-content {
-  padding: 2.2rem 2.5rem 0.5rem 2.5rem;
+  padding: 1.1rem 1.5rem 0.5rem 1.5rem;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.2s;
+  transition: max-height 0.22s, padding 0.13s;
   background: transparent;
-  border-radius: 0 0 16px 16px;
+  border-radius: 0 0 10px 10px;
 }
 
 .qodeup-section-content.collapsed {

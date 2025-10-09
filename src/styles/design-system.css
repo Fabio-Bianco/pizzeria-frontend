@@ -1,3 +1,14 @@
+/* ---------- DIVISORI GENTILI ---------- */
+.qodeup-divider {
+  width: 100%;
+  max-width: 900px;
+  margin: 2.2rem auto 2.2rem auto;
+  border: none;
+  border-top: 1.5px solid #ececec;
+  background: none;
+  opacity: 0.85;
+  box-shadow: 0 1px 0 0 #f7f7f7;
+}
 /* ---------- HEADER ---------- */
 .qodeup-header-main {
   background: var(--surface);
