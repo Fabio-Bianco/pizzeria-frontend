@@ -1,22 +1,24 @@
 import './AllergenBadges.css'
 
-// Mapping degli allergeni con le loro icone (condiviso con AllergenFilter)
-const ALLERGEN_ICONS = {
-  // 'Glutine': '🌾',
-  'Lattosio': '🥛', 
-  'Noci': '🥜',
-  'Uova': '🥚',
-  'Pesce': '🐟',
-  'Crostacei': '🦐',
-  'Soia': '🫘',
-  'Sesamo': '🌰',
-  'Senape': '🌿',
-  'Sedano': '🥬',
-  'Lupini': '🫘',
-  'Molluschi': '🦪',
-  'Anidride solforosa': '⚠️',
-  'Arachidi': '🥜'
-}
+
+// Mapping icone Material Symbols come nella modale
+const ALLERGEN_ICON_MAP = {
+  'LATTOSIO': 'icecream',
+  'FRUTTA A GUSCIO': 'nutrition',
+  'NOCI': 'nutrition',
+  'UOVA': 'egg',
+  'PESCE': 'fish',
+  'ARACHIDI': 'spa',
+  'SOIA': 'eco',
+  'CROSTACEI': 'cruelty_free',
+  'SEDANO': 'grass',
+  'SENAPE': 'science',
+  'SESAMO': 'restaurant',
+  'SOLFITI': 'local_drink',
+  'ANIDRIDE SOLFOROSA': 'local_drink',
+  'LUPINI': 'spa',
+  'MOLLUSCHI': 'waves',
+};
 
 /**
  * Componente per mostrare i badge degli allergeni per un piatto
@@ -25,7 +27,7 @@ export default function AllergenBadges({
   allergens, 
   className = '', 
   size = 'small',
-  showLabels = false,
+  showLabels = false, // forzato a false per mostrare solo icone
   maxVisible = null 
 }) {
   // Se non ci sono allergeni, non renderizzare nulla
@@ -33,9 +35,12 @@ export default function AllergenBadges({
     return null
   }
 
-  // Funzione per ottenere l'icona dell'allergene
+  // Funzione per ottenere l'icona Material Symbols (come nella modale)
   const getIcon = (allergenName) => {
-    return ALLERGEN_ICONS[allergenName] || '⚠️'
+    if (!allergenName) return 'warning';
+    // Normalizza maiuscole/minuscole e sinonimi
+    const key = allergenName.trim().toUpperCase();
+    return ALLERGEN_ICON_MAP[key] || 'warning';
   }
 
   // Preparare la lista degli allergeni da mostrare
@@ -43,25 +48,20 @@ export default function AllergenBadges({
   const hiddenCount = maxVisible && allergens.length > maxVisible ? allergens.length - maxVisible : 0
 
   return (
-    <div className={`allergen-badges ${className} size-${size}`}>
+    <div className={`allergen-badges ${className} size-${size}`}> 
       {visibleAllergens.map((allergen, index) => (
         <span 
           key={allergen.id || index}
           className="allergen-badge"
           title={allergen.name}
           aria-label={`Contiene ${allergen.name}`}
+          style={{padding:'0.18em 0.38em', background:'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)', border:'1.5px solid #efca1a', boxShadow:'0 1px 4px #efca1a22'}}
         >
-          <span className="allergen-badge-icon" aria-hidden="true">
+          <span className="allergen-badge-icon material-symbols-outlined" aria-hidden="true" style={{fontSize:'1.25em',color:'#efca1a',display:'flex',alignItems:'center',justifyContent:'center',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>
             {getIcon(allergen.name)}
           </span>
-          {showLabels && (
-            <span className="allergen-badge-label">
-              {allergen.name}
-            </span>
-          )}
         </span>
       ))}
-      
       {hiddenCount > 0 && (
         <span 
           className="allergen-badge allergen-badge-more"

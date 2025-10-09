@@ -10,18 +10,20 @@
 }
 
 /* Badge Base */
+
 .allergen-badge {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
-  background: #f3f4f6;
-  border: 1px solid #d1d5db;
+  background: linear-gradient(90deg, #fffbe6 60%, #fff7d1 100%);
+  border: 1.5px solid #efca1a;
   border-radius: 12px;
   font-family: inherit;
   font-weight: 500;
-  color: #374151;
+  color: #b89a0e;
   transition: all 0.15s ease;
   white-space: nowrap;
+  box-shadow: 0 1px 4px #efca1a22;
 }
 
 .allergen-badge:hover {
@@ -74,6 +76,8 @@
 .allergen-badge-icon {
   display: inline-block;
   line-height: 1;
+  color: #efca1a;
+  filter: drop-shadow(0 1px 0 #fff7d1);
 }
 
 .allergen-badge-label {
@@ -124,40 +128,8 @@
 }
 
 .allergen-badge[title*="Noci"],
-.allergen-badge[title*="Arachidi"] {
-  background: #fed7aa;
-  border-color: #ea580c;
-  color: #9a3412;
-}
 
-.allergen-badge[title*="Uova"] {
-  background: #fef9c3;
-  border-color: #eab308;
-  color: #a16207;
-}
-
-.allergen-badge[title*="Pesce"],
-.allergen-badge[title*="Crostacei"],
-.allergen-badge[title*="Molluschi"] {
-  background: #cffafe;
-  border-color: #06b6d4;
-  color: #0e7490;
-}
-
-.allergen-badge[title*="Soia"],
-.allergen-badge[title*="Lupini"] {
-  background: #dcfce7;
-  border-color: #22c55e;
-  color: #15803d;
-}
-
-/* Accessibility */
-.allergen-badge:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
-}
-
-/* Dark mode support */
+/* Tutti i badge allergeni hanno lo stesso stile giallo delicato */
 @media (prefers-color-scheme: dark) {
   .allergen-badge {
     background: #374151;
