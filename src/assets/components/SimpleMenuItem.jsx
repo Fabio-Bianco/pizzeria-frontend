@@ -18,41 +18,97 @@ function SimpleMenuItem({
   const hasFormatOrAlcohol = !!format || !!alcohol;
 
   return (
-    <li className="simple-menu-item" style={{
-      display:'flex',
-      flexDirection:'row',
-      alignItems:'stretch',
-      gap:'1.5em',
-      padding:'1.2em 0',
-      borderBottom:'1px solid #f3f3f3',
-      position:'relative',
-      background:'#fff',
-      minHeight:120,
-      minWidth:320,
-      boxSizing:'border-box',
-      width:'100%',
-      marginTop:'18px',
-      marginBottom:'18px'
-    }}>
-      <div style={{flexShrink:0,display:'flex',flexDirection:'column',alignItems:'flex-start',height:'100%',justifyContent:'flex-start',minWidth:64,gap:'1.5em',position:'relative'}}>
-        <div style={{width:64, height:64, position:'relative', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'flex-start'}}>
+    <li
+      className="simple-menu-item d-flex flex-row flex-wrap align-items-stretch w-100"
+      style={{
+        borderBottom: '1px solid #f3f3f3',
+        position: 'relative',
+        background: '#fff',
+        minHeight: 100,
+        minWidth: 0,
+        boxSizing: 'border-box',
+        width: '100%',
+        marginTop: '12px',
+        marginBottom: '12px',
+        padding: '1.1em 0.7em',
+        gap: '1em',
+        overflow: 'hidden',
+      }}
+    >
+      <div
+        style={{
+          flexShrink: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'flex-start',
+          height: 'auto',
+          justifyContent: 'flex-start',
+          minWidth: 54,
+          gap: '1em',
+          position: 'relative',
+        }}
+      >
+        <div
+          style={{
+            width: 54,
+            height: 54,
+            position: 'relative',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}
+        >
           {image && typeof image === 'string' && image.trim() !== '' ? (
             <LazyImage 
               src={image} 
               alt={name || 'Immagine piatto'} 
               className="qodeup-product-image" 
               placeholder="🍽️" 
-              style={{width:64,height:64,borderRadius:12,objectFit:'cover',background:'#e6fbe6'}} 
+              style={{width:'100%',height:'100%',maxWidth:54,maxHeight:54,borderRadius:12,objectFit:'cover',background:'#e6fbe6'}} 
             />
           ) : (
-            <div className="qodeup-product-placeholder" style={{width:64,height:64,borderRadius:12,background:'#f6f6f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'2em'}}>🍽️</div>
+            <div className="qodeup-product-placeholder" style={{width:'100%',height:'100%',maxWidth:54,maxHeight:54,borderRadius:12,background:'#f6f6f6',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.5em'}}>🍽️</div>
           )}
           {/* Badge gluten free spostato in alto a destra */}
         </div>
       </div>
-      <div style={{flex:1,display:'flex',flexDirection:'column',gap:'0.7em',minWidth:0,justifyContent:'flex-start',alignItems:'flex-start',height:'100%',paddingTop:0,marginTop:0,position:'relative'}}>
-        {/* Allergen icons in alto a destra */}
-  <div style={{position:'absolute',top:0,right:8,zIndex:2,display:'flex',justifyContent:'flex-end',width:'auto',maxWidth:'70%',pointerEvents:'none',gap:'0.3em',paddingTop:'0.3em'}}>
+      <div
+        style={{
+          flex: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.5em',
+          minWidth: 0,
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
+          height: 'auto',
+          paddingTop: 0,
+          marginTop: 0,
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
+        {/* Allergen/vegan icons responsive: stack verticale su mobile, gap maggiore, no overflow */}
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            right: 8,
+            zIndex: 2,
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-end',
+            alignItems: 'flex-start',
+            width: 'auto',
+            maxWidth: '90vw',
+            pointerEvents: 'none',
+            gap: '0.5em',
+            paddingTop: '0.3em',
+            wordBreak: 'break-word',
+          }}
+        >
           {is_gluten_free && (
             <span
               className="item-badge gluten-free"
@@ -82,7 +138,10 @@ function SimpleMenuItem({
               <span style={{fontSize:'0.97em',fontWeight:600,letterSpacing:'0.01em',color:'#b89a0e'}}>Gluten Free</span>
             </span>
           )}
-          <AllergenBadges allergens={allergens} size="small" />
+          {/* Badge allergeni: stack verticale su mobile, gap maggiore */}
+          <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',gap:'0.5em',maxWidth:'100%'}}>
+            <AllergenBadges allergens={allergens} size="small" />
+          </div>
         </div>
         <span
           className="qodeup-product-name"
@@ -100,13 +159,14 @@ function SimpleMenuItem({
             alignItems: 'center',
             verticalAlign: 'middle',
             gap: '0.5em',
-            marginRight: 0
+            marginRight: 0,
+            maxWidth: '100%',
           }}
         >
           {name}
           {vegan && (
-            <span style={{marginLeft:'0.3em',display:'inline-flex',alignItems:'center',verticalAlign:'middle'}}>
-              <VeganBadgeIcon size={22} color="#16a34a" withLabel={false} title="Vegan" />
+            <span style={{marginLeft:'0.3em',display:'inline-flex',alignItems:'center',verticalAlign:'middle',fontSize:'0.95em',maxWidth:'2.2em',overflow:'hidden'}}>
+              <VeganBadgeIcon size={18} color="#16a34a" withLabel={false} title="Vegan" />
             </span>
           )}
         </span>

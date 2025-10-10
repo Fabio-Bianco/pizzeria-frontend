@@ -29,31 +29,47 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
+  min-width: 0;
 }
 .qodeup-logo-text {
-  font-size: var(--fs-lg);
-  font-weight: 700;
+  font-size: 2.1rem;
+  font-weight: 800;
   color: var(--accent-green);
   letter-spacing: -0.5px;
   margin: 0;
+  line-height: 1.1;
+  font-family: 'Roboto', sans-serif;
+  text-shadow: 0 1px 0 #fff, 0 2px 8px #e6fbe6;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .qodeup-header-icons {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: 0.5em;
   margin-left: auto;
+  min-width: 0;
 }
 .qodeup-header-icon-btn {
   position: relative;
-  width: 40px; height: 40px;
+  width: 34px;
+  height: 34px;
   border-radius: 50%;
   border: 1.5px solid var(--neutral-100);
   background: var(--surface);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #bdbdbd;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   transition: box-shadow .15s, background .15s, border-color .15s;
-  margin: 0 var(--space-1);
+  margin: 0 0.2em;
+  outline: none;
+}
+.qodeup-header-icon-btn:focus {
+  border-color: #0ea5e9;
+  box-shadow: 0 0 0 2px #0ea5e9;
 }
 .qodeup-header-icon-btn:hover {
   border-color: var(--accent-yellow);
@@ -66,21 +82,57 @@
   color: #bdbdbd !important;
   stroke: #bdbdbd !important;
   fill: #bdbdbd !important;
-  font-size: 1.3rem;
+  font-size: 1.25rem;
 }
 .qodeup-header-badge {
-  position: absolute; top: -6px; right: -6px;
-  min-width: 18px; height: 18px;
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 16px;
+  height: 16px;
   background: var(--accent-yellow);
-  color: #fff; font-size: 11px; line-height: 18px; text-align: center;
-  border-radius: 999px; border: 2px solid var(--surface);
+  color: #fff;
+  font-size: 10px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 999px;
+  border: 2px solid var(--surface);
   font-family: var(--font);
+  font-weight: 700;
+  box-shadow: 0 1px 4px #fde04733;
 }
 @media (max-width: 900px) {
   .qodeup-header-container { padding: 0 var(--space-2); }
 }
 @media (max-width: 700px) {
-  .qodeup-header-container { flex-direction: column; gap: var(--space-2); }
+  .qodeup-header-container {
+    flex-direction: column;
+    gap: 0.7em;
+    align-items: center;
+    padding: 0 0.7em;
+  }
+  .qodeup-header-logo {
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 0.2em;
+  }
+  .qodeup-logo-text {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+  }
+  .qodeup-header-icons {
+    gap: 0.2em;
+    margin-left: 0;
+    justify-content: center;
+    width: 100%;
+  }
+  .qodeup-header-icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 1rem;
+    margin: 0 0.1em;
+  }
 }
 /* ==============================================
   /* === CARD PRODOTTO armonizzata, pixel-perfect, mobile-first === */

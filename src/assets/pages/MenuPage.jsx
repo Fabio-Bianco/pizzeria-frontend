@@ -79,8 +79,6 @@ export default function MenuPage() {
 		toggleVeggieFilter()
 	}
 
-
-
 	const handleResetFilters = () => {
 		resetSelection()
 		resetVeggieFilter()
@@ -89,8 +87,6 @@ export default function MenuPage() {
 	const handleAllergenSelection = (newSelection) => {
 		updateSelection(newSelection)
 	}
-
-
 
 	// Mostra errore se almeno una fetch ha fallito
 	const hasAnyError = Object.values(error).some(e => !!e);
@@ -101,53 +97,15 @@ export default function MenuPage() {
 			<header className="qodeup-header-main" role="banner">
 				<div className="qodeup-header-container">
 					{/* Logo Qodeup a sinistra */}
-					<div className="qodeup-header-logo">
-						<h1 className="qodeup-logo-text">b_bot</h1>
+					<div className="qodeup-header-logo" aria-label="Logo b_bot" tabIndex={-1}>
+						<h1 className="qodeup-logo-text" style={{fontFamily: 'Roboto, Arial, sans-serif', fontWeight: 800, letterSpacing: '-0.5px'}} aria-label="b_bot logo">b_bot</h1>
 					</div>
-					
-					{/* Icone a destra - WCAG Navigation */}
-					<nav className="qodeup-header-icons" role="navigation" aria-label="Menu azioni rapide">
-						{/* Icona Veggie */}
-						<button 
-							className={`qodeup-header-icon-btn ${veggieFilterActive ? 'active' : ''}`}
-							onClick={handleVeggieClick}
-							title={veggieFilterActive ? "Rimuovi filtro veggie" : "Filtra prodotti vegani"}
-							aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Filtra prodotti vegani"}
-							aria-pressed={veggieFilterActive}
-						>
-							<VeganBadgeIcon size={28} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
-						</button>
-						
-						{/* Icona Allergeni */}
-						<button 
-													className={`qodeup-header-icon-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
-													onClick={() => {
-														if (filterStats.hasActiveFilters) {
-															resetSelection();
-														} else {
-															handleAllergensClick();
-														}
-													}}
-													title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
-													aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
-													aria-pressed={filterStats.hasActiveFilters}
-													aria-expanded={filterStats.hasActiveFilters}
-												>
-										<AllergenIcon size={28} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
-										{filterStats.hasActiveFilters && (
-											<span className="qodeup-header-badge" aria-label={`${filterStats.activeFilterCount} filtri allergeni attivi`}>
-												{filterStats.activeFilterCount}
-											</span>
-										)}
-						</button>
-						
-
-					</nav>
 				</div>
 			</header>
 
-				{/* Sezione icone intermedie - solo filtri rapidi, senza comunicazioni extra */}
-				<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
+			{/* Sezione icone intermedie - solo filtri rapidi, senza comunicazioni extra */}
+			<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
+				<>
 					<button 
 						className={`qodeup-quick-btn ${veggieFilterActive ? 'active' : ''}`}
 						onClick={handleVeggieClick}
@@ -164,65 +122,101 @@ export default function MenuPage() {
 						<span className="qodeup-quick-label">VEGGIE</span>
 					</button>
 					<button 
-												className={`qodeup-quick-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
-												onClick={() => {
-													if (filterStats.hasActiveFilters) {
-														resetSelection();
-													} else {
-														handleAllergensClick();
-													}
-												}}
-												title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
-												aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
-												aria-pressed={filterStats.hasActiveFilters}
-												aria-expanded={filterStats.hasActiveFilters}
-											>
-									<div className="qodeup-quick-icon">
-										<AllergenIcon size={40} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
-										{filterStats.hasActiveFilters && (
-											<span className="qodeup-quick-badge" aria-label="Filtro allergeni attivo">✓</span>
-										)}
-									</div>
-									<span className="qodeup-quick-label">ALLERGENI</span>
-					</button>
-
-				</section>
-
-
-
-				{/* Linea divisoria sobria tra quick-access e tab pietanze */}
-				<div className="qodeup-divider" aria-hidden="true"></div>
-
-				{/* Avviso errori globali */}
-				{hasAnyError && (
-					<div className="qodeup-mock-warning" role="alert" style={{background:'#fffbe6',color:'#b45309',padding:'1em',border:'1px solid #facc15',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
-						Attenzione: alcuni dati del menu non sono disponibili. Controlla la connessione o la configurazione dell'API.
-					</div>
-				)}
-
-				{/* Sezioni menu collassabili - WCAG Enhanced */}
-				<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">
-					{menuSections.map((section) => (
-						<section key={section.id} aria-label={`Sezione ${section.title}`}>
-							{error[section.id] ? (
-								<div className="qodeup-section-error" role="alert" style={{background:'#fef2f2',color:'#b91c1c',padding:'1em',border:'1px solid #fca5a5',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
-									Errore nel caricamento della sezione "{section.title}". Riprova più tardi.
-								</div>
-							) : section.loading && !section.initialized ? (
-								<GridSkeleton type={section.id} count={3} />
-							) : (
-								<CollapsibleMenuSection
-									title={section.title}
-									items={section.items}
-									icon={section.icon}
-									count={section.count}
-									originalCount={section.originalCount}
-									isExpanded={false} // Tutte le sezioni chiuse di default
-								/>
+						className={`qodeup-quick-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
+						onClick={() => {
+							if (filterStats.hasActiveFilters) {
+								resetSelection();
+							} else {
+								handleAllergensClick();
+							}
+						}}
+						title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
+						aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
+						aria-pressed={filterStats.hasActiveFilters}
+						aria-expanded={filterStats.hasActiveFilters}
+					>
+						<div className="qodeup-quick-icon">
+							<AllergenIcon size={40} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
+							{filterStats.hasActiveFilters && (
+								<span className="qodeup-quick-badge" aria-label="Filtro allergeni attivo">✓</span>
 							)}
-						</section>
-					))}
-				</main>
+						</div>
+						<span className="qodeup-quick-label">ALLERGENI</span>
+					</button>
+				</>
+			</section>
+
+
+			   {/* Titolo sezione menu */}
+			   <div style={{display:'flex',alignItems:'center',gap:'1.2em',margin:'2em 0 1.2em 0'}}>
+				   <hr
+					   style={{
+						   flex:1,
+						   border:'none',
+						   borderTop:'4px dashed #10b981',
+						   margin:0,
+						   opacity:1,
+						   boxShadow:'0 2px 8px #a7f3d0',
+					   }}
+					   aria-hidden="true"
+				   />
+				   <h1
+					   style={{
+						   margin:0,
+						   fontSize:'2.2rem',
+						   fontWeight:900,
+						   letterSpacing:'0.18em',
+						   color:'var(--accent-green)',
+						   fontFamily:'inherit',
+						   textTransform:'uppercase',
+						   textShadow:'0 2px 8px #e6fbe6, 0 1px 0 #fff',
+						   lineHeight:1.1
+					   }}
+					   aria-label="Titolo menu"
+				   >MENU</h1>
+				   <hr
+					   style={{
+						   flex:1,
+						   border:'none',
+						   borderTop:'4px dashed #10b981',
+						   margin:0,
+						   opacity:1,
+						   boxShadow:'0 2px 8px #a7f3d0',
+					   }}
+					   aria-hidden="true"
+				   />
+			   </div>
+
+			{/* Avviso errori globali */}
+			{hasAnyError && (
+				<div className="qodeup-mock-warning" role="alert" style={{background:'#fffbe6',color:'#b45309',padding:'1em',border:'1px solid #facc15',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
+					Attenzione: alcuni dati del menu non sono disponibili. Controlla la connessione o la configurazione dell'API.
+				</div>
+			)}
+
+			{/* Sezioni menu collassabili - WCAG Enhanced */}
+			<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">
+				{menuSections.map((section) => (
+					<section key={section.id} aria-label={`Sezione ${section.title}`}>
+						{error[section.id] ? (
+							<div className="qodeup-section-error" role="alert" style={{background:'#fef2f2',color:'#b91c1c',padding:'1em',border:'1px solid #fca5a5',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
+								Errore nel caricamento della sezione "{section.title}". Riprova più tardi.
+							</div>
+						) : section.loading && !section.initialized ? (
+							<GridSkeleton type={section.id} count={3} />
+						) : (
+							<CollapsibleMenuSection
+								title={section.title}
+								items={section.items}
+								icon={section.icon}
+								count={section.count}
+								originalCount={section.originalCount}
+								isExpanded={false} // Tutte le sezioni chiuse di default
+							/>
+						)}
+					</section>
+				))}
+			</main>
 
 			{/* Modal Allergeni */}
 			<AllergenModal
