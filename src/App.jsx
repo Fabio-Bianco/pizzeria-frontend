@@ -8,7 +8,7 @@ function App() {
   return (
     <ErrorBoundary>
       <ToastProvider>
-        <div className="app-container">
+        <div className="app-container dark-mode-ready">
           {/* ♿ Skip to content link - WCAG AAA requirement */}
           <a href="#main-content" className="skip-to-content">
             Salta al contenuto principale

@@ -94,7 +94,7 @@ export default function MenuPage() {
 	return (
 		<div className="qodeup-layout">
 			{/* Header principale con logo e icone - Modern 2025 Design */}
-			<header className="qodeup-header-main glass-style" role="banner">
+			<header className="qodeup-header-main glass-style dark-mode-ready" role="banner">
 				<div className="qodeup-header-container">
 					{/* Logo a sinistra */}
 					<div className="qodeup-header-logo" aria-label="Logo b_bot" tabIndex={-1}>

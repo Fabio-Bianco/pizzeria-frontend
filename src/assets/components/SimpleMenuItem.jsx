@@ -93,7 +93,7 @@ function SimpleMenuItem({
       >
         <div style={{display:'flex',alignItems:'center',gap:'0.6em',flexWrap:'wrap',marginBottom:'0.3em'}}>
           <span
-            className="qodeup-product-name"
+            className="qodeup-product-name dark-mode-ready"
             title={name}
             style={{
               fontWeight: 600,
@@ -194,7 +194,7 @@ function SimpleMenuItem({
             gap: 0
           }}>
             <span
-              className="qodeup-product-description"
+              className="qodeup-product-description dark-mode-ready"
               style={{
                 color: '#000',
                 fontSize: '1.04em',

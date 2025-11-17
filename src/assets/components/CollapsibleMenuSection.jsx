@@ -25,7 +25,7 @@ export default function CollapsibleMenuSection({
   return (
     <div className="qodeup-menu-section gradient-mesh">
       <button
-        className={`qodeup-section-header gradient-header ${expanded ? 'expanded' : ''}`}
+        className={`qodeup-section-header gradient-header dark-mode-ready ${expanded ? 'expanded' : ''}`}
         onClick={toggleExpanded}
         aria-expanded={expanded}
         aria-controls={`section-${title.replace(/\s+/g, '-').toLowerCase()}`}
