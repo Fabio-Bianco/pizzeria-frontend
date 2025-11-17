@@ -1,0 +1,238 @@
+/* ====== TUO CSS (invariato) ====== */
+
+.item-badge.gluten-free {
+  background: #e0f7fa;
+  color: #009688;
+  font-weight: 600;
+  border-radius: 8px;
+  font-size: 0.93em;
+  padding: 0.13em 0.7em;
+  margin-right: 0.18em;
+  margin-bottom: 0.1em;
+  border: 1.5px solid #b2dfdb;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: background 0.18s, color 0.18s;
+}
+.simple-menu-item {
+  list-style: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #eee;
+  margin: 0;
+}
+
+.item-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.item-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #222;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 16em;
+}
+
+/* Badge group per migliore layout */
+.item-badges-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2em;
+  margin-left: 0.5em;
+  align-items: center;
+}
+
+.item-badge {
+  display: inline-block;
+  font-size: 0.85em;
+  margin: 0 0.1em;
+  vertical-align: middle;
+  padding: 0.1em 0.5em;
+  border-radius: 8px;
+  background: #f3f3f3;
+  color: #333;
+  cursor: help;
+  outline: none;
+  transition: box-shadow 0.2s;
+}
+.item-badge:focus {
+  box-shadow: 0 0 0 2px #d73527;
+  z-index: 2;
+}
+.item-badge.vegan {
+  background: #e6fbe6;
+  color: #22c55e;
+  font-weight: 600;
+}
+.item-badge.allergen {
+  background: #f9f7ed;
+  color: #b89c3a;
+  font-weight: 500;
+  border-radius: 999px;
+  border: 1.5px solid #f3e3a7;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-size: 0.93em;
+  letter-spacing: 0.01em;
+  padding: 0.13em 0.85em;
+  margin-right: 0.18em;
+  margin-bottom: 0.1em;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+  transition: background 0.18s, color 0.18s;
+}
+
+.item-price {
+  font-weight: 700;
+  color: #22c55e;
+  margin-left: 0.7rem;
+  white-space: nowrap;
+  font-size: 1.08em;
+  letter-spacing: 0.01em;
+}
+
+.item-description {
+  font-size: 1.01em;
+  color: #4a4a4a;
+  margin-top: 0.18em;
+  margin-bottom: 0.18em;
+  line-height: 1.45;
+  white-space: normal;
+  max-width: 100%;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.item-ingredients {
+  font-size: 0.92em;
+  color: #444;
+  margin-top: 0.1em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item-ingredients-label {
+  font-weight: 600;
+  color: #0b4d27;
+}
+.item-ingredient {
+  color: #333;
+}
+
+.item-note {
+  font-size: 0.9em;
+  color: #0b4d27;
+  margin-top: 0.1em;
+  font-style: italic;
+}
+
+@media (max-width: 600px) {
+  .item-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .item-price {
+    margin-left: 0;
+  }
+  .item-badges-group {
+    margin-left: 0;
+    margin-top: 0.2em;
+    gap: 0.2em;
+  }
+}
+
+/* ====== AGGIUNTE MINIME PER IMMAGINE & META ====== */
+
+/* Colonna sinistra: immagine + testi raggruppati */
+.item-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Contenitore immagine */
+.item-media {
+  flex-shrink: 0;
+}
+
+.item-thumb {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #f6f6f6;
+}
+
+.item-placeholder {
+  width: 64px;
+  height: 64px;
+  border-radius: 12px;
+  background: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+/* Testi a destra dell'immagine */
+.item-text {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+/* Riga titolo + badges */
+.item-name-row {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
+/* Metadati (formato / gradazione) */
+.item-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.15rem;
+}
+
+.item-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9em;
+  padding: 0.12em 0.6em;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  color: #374151;
+}
+
+/* Colonna destra: prezzo */
+.item-right {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
