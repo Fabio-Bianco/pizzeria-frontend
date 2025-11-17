@@ -1,12 +1,12 @@
 import axios from 'axios'
 
-// Base URL: usa VITE_API_BASE_URL se presente, altrimenti fallback a same-origin /api/v1
+// Base URL: usa VITE_API_BASE_URL se presente, altrimenti fallback a same-origin
 const BASE_URL = (import.meta.env?.VITE_API_BASE_URL ?? '').replace(/\/$/, '')
-const apiBase = BASE_URL || `${window.location.origin}/api`
+const apiBase = BASE_URL || `${window.location.origin}`
 
-// Laravel api.php usa prefix v1
+// Le API pubbliche della vetrina sono in routes/api.php con prefisso /api/v1
 const api = axios.create({
-  baseURL: `${apiBase}/v1`,
+  baseURL: `${apiBase}/api/v1`,
   headers: {
     'Content-Type': 'application/json',
     Accept: 'application/json',

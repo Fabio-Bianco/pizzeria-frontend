@@ -65,17 +65,28 @@ export function PizzeriaProvider({ children }) {
     setError((e) => ({ ...e, pizzas: null }))
     try {
       const data = await listPizzas(params)
+      console.log('[PizzeriaContext] Pizzas raw response:', data)
       // Mappo is_vegan/is_vegetarian su vegan/vegetarian per compatibilità filtri
       const mapped = extractList(data).map(item => ({
         ...item,
         vegan: item.is_vegan ?? item.vegan,
         vegetarian: item.is_vegetarian ?? item.vegetarian
       }))
+      console.log('[PizzeriaContext] Pizzas mapped:', mapped.length, 'items')
       setPizzas(mapped)
       initializedRef.current.pizzas = true
     } catch (e) {
-      console.error('Errore nel caricamento pizze:', e)
+      console.error('[PizzeriaContext] Errore nel caricamento pizze:', e)
+      console.error('[PizzeriaContext] Dettagli errore:', {
+        status: e?.response?.status,
+        message: e?.message,
+        url: e?.config?.url
+      })
       setError((err) => ({ ...err, pizzas: e }))
+      // Se errore 404, probabilmente le rotte API non sono pubbliche
+      if (e?.response?.status === 404) {
+        console.warn('[PizzeriaContext] ⚠️ API non trovata (404). Il backend potrebbe richiedere autenticazione o le rotte API pubbliche non sono configurate.')
+      }
     } finally {
       setLoading((s) => ({ ...s, pizzas: false }))
     }
