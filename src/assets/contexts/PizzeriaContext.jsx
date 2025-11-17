@@ -28,6 +28,8 @@ export function PizzeriaProvider({ children }) {
   // Tenta di estrarre una lista da varie forme di risposta comuni in Laravel (paginata/non paginata)
   const extractList = (payload) => {
     if (Array.isArray(payload)) return payload
+    // Gestisce formato { success: true, data: [...] }
+    if (payload?.success && Array.isArray(payload?.data)) return payload.data
     if (Array.isArray(payload?.data)) return payload.data
     if (Array.isArray(payload?.results)) return payload.results
     if (Array.isArray(payload?.data?.data)) return payload.data.data
