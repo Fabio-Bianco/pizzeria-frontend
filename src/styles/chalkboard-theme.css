@@ -1,0 +1,275 @@
+/* 🖍️ LAVAGNA NAPOLETANA - CHALKBOARD THEME */
+
+/* ===== TYPOGRAPHY GESSO ===== */
+.qodeup-logo-text,
+.qodeup-section-header,
+.menu-card-title {
+  font-family: 'Permanent Marker', 'Patrick Hand', cursive !important;
+  color: #f8f9fa !important;
+  text-shadow: 
+    1px 1px 0 rgba(255,255,255,0.1),
+    -1px -1px 0 rgba(0,0,0,0.3),
+    0 2px 4px rgba(0,0,0,0.5);
+  letter-spacing: 0.5px;
+}
+
+.menu-card-description,
+.menu-card-ingredients,
+.allergen-modal-disclaimer p {
+  font-family: 'Caveat', cursive !important;
+  font-size: 1.1rem !important;
+  color: #e0e0e0 !important;
+  line-height: 1.6;
+}
+
+/* ===== HEADER LAVAGNA ===== */
+.qodeup-header-main {
+  background: 
+    linear-gradient(180deg, rgba(45,52,54,0.95) 0%, rgba(30,39,46,0.98) 100%) !important;
+  border-bottom: 4px solid #efca1a !important;
+  box-shadow: 
+    0 4px 0 #d4a017,
+    0 8px 20px rgba(0,0,0,0.6) !important;
+}
+
+.qodeup-logo-text {
+  font-size: 2.8rem !important;
+  color: #fde047 !important;
+  text-shadow: 
+    2px 2px 0 #efca1a,
+    -1px -1px 0 rgba(255,255,255,0.1),
+    0 4px 8px rgba(0,0,0,0.7) !important;
+  transform: rotate(-2deg);
+}
+
+/* ===== HEADER ICONS GESSO ===== */
+.qodeup-header-icon-btn {
+  background: rgba(248,249,250,0.12) !important;
+  border: 3px solid rgba(253,224,71,0.4) !important;
+  backdrop-filter: blur(8px);
+}
+
+.qodeup-header-icon-btn:hover {
+  background: rgba(253,224,71,0.25) !important;
+  border-color: #fde047 !important;
+  transform: translateY(-3px) rotate(5deg) !important;
+  box-shadow: 
+    0 0 20px rgba(253,224,71,0.6),
+    inset 0 2px 8px rgba(255,255,255,0.2) !important;
+}
+
+.qodeup-header-icon-btn .material-symbols-outlined {
+  color: #fde047 !important;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* ===== CARDS LAVAGNA ===== */
+.menu-card-modern {
+  background: 
+    linear-gradient(135deg, rgba(52,73,94,0.85) 0%, rgba(44,62,80,0.9) 100%) !important;
+  border: 4px solid #8b7355 !important;
+  border-radius: 8px !important;
+  box-shadow: 
+    0 4px 0 #6b5742,
+    0 8px 25px rgba(0,0,0,0.6),
+    inset 0 2px 0 rgba(255,255,255,0.1) !important;
+  position: relative;
+  overflow: visible !important;
+}
+
+.menu-card-modern::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 8px;
+  background: linear-gradient(90deg, #8b7355 0%, #6b5742 50%, #8b7355 100%);
+  border-radius: 4px 4px 0 0;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.menu-card-modern:hover {
+  transform: translateY(-5px) rotate(0.5deg) !important;
+  box-shadow: 
+    0 6px 0 #6b5742,
+    0 12px 35px rgba(253,224,71,0.3),
+    inset 0 2px 0 rgba(255,255,255,0.15) !important;
+  border-color: #fde047 !important;
+}
+
+/* ===== TITOLI GESSO ===== */
+.menu-card-title {
+  font-size: 1.8rem !important;
+  color: #fde047 !important;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.5rem;
+}
+
+.menu-card-price {
+  font-family: 'Permanent Marker', cursive !important;
+  font-size: 2rem !important;
+  color: #ff6b6b !important;
+  text-shadow: 
+    2px 2px 0 #c92a2a,
+    0 0 10px rgba(255,107,107,0.6) !important;
+}
+
+/* ===== IMMAGINI PIZZA ===== */
+.menu-card-image {
+  border: 5px solid #8b7355 !important;
+  border-radius: 50% !important;
+  box-shadow: 
+    0 0 0 8px rgba(139,115,85,0.3),
+    0 8px 20px rgba(0,0,0,0.6),
+    inset 0 4px 8px rgba(255,255,255,0.1) !important;
+}
+
+/* ===== BADGES GESSO ===== */
+.badge-vegan,
+.badge-glutenfree {
+  font-family: 'Patrick Hand', cursive !important;
+  border: 3px solid currentColor !important;
+  box-shadow: 
+    2px 2px 0 rgba(0,0,0,0.3),
+    0 4px 12px rgba(0,0,0,0.4) !important;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.allergen-badge-icon-only {
+  background: rgba(45,52,54,0.9) !important;
+  border: 3px solid #fde047 !important;
+  box-shadow: 
+    0 0 15px rgba(253,224,71,0.5),
+    inset 0 2px 4px rgba(255,255,255,0.1) !important;
+}
+
+/* ===== SECTION HEADERS LAVAGNA ===== */
+.qodeup-section-header {
+  background: 
+    linear-gradient(135deg, #fde047 0%, #efca1a 100%) !important;
+  border: 5px solid #8b7355 !important;
+  border-radius: 0 !important;
+  box-shadow: 
+    0 4px 0 #6b5742,
+    0 6px 20px rgba(0,0,0,0.5),
+    inset 0 2px 0 rgba(255,255,255,0.3) !important;
+  color: #2d3436 !important;
+  position: relative;
+}
+
+.qodeup-section-header::before {
+  content: '🍕';
+  position: absolute;
+  left: -30px;
+  top: 50%;
+  transform: translateY(-50%) rotate(-15deg);
+  font-size: 2rem;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+}
+
+.qodeup-section-title {
+  color: #1e272e !important;
+  text-shadow: 
+    1px 1px 0 rgba(255,255,255,0.5),
+    -1px -1px 0 rgba(0,0,0,0.2) !important;
+}
+
+/* ===== MODAL LAVAGNA ===== */
+.allergen-modal-content {
+  background: 
+    linear-gradient(135deg, rgba(45,52,54,0.98) 0%, rgba(30,39,46,0.98) 100%) !important;
+  border: 6px solid #efca1a !important;
+  box-shadow: 
+    0 0 0 4px #8b7355,
+    0 20px 60px rgba(0,0,0,0.8) !important;
+}
+
+.allergen-modal-title {
+  font-family: 'Permanent Marker', cursive !important;
+  color: #fde047 !important;
+  font-size: 2.5rem !important;
+  text-shadow: 
+    2px 2px 0 #efca1a,
+    0 0 15px rgba(253,224,71,0.6) !important;
+}
+
+.allergen-modal-item {
+  background: rgba(52,73,94,0.7) !important;
+  border: 3px solid #8b7355 !important;
+  box-shadow: 
+    2px 2px 0 rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.1) !important;
+}
+
+.allergen-modal-item:hover {
+  background: rgba(52,73,94,0.9) !important;
+  border-color: #fde047 !important;
+  transform: translateY(-2px) rotate(1deg) !important;
+}
+
+.allergen-modal-item.selected {
+  background: rgba(253,224,71,0.2) !important;
+  border-color: #fde047 !important;
+  box-shadow: 
+    0 0 20px rgba(253,224,71,0.6),
+    inset 0 2px 8px rgba(253,224,71,0.3) !important;
+}
+
+.allergen-modal-item-name {
+  font-family: 'Caveat', cursive !important;
+  color: #f8f9fa !important;
+  font-size: 1rem !important;
+}
+
+/* ===== EFFETTO CANCELLATURA ===== */
+.filter-active .menu-card-modern {
+  animation: chalkErase 0.6s ease-out;
+}
+
+@keyframes chalkErase {
+  0% { 
+    opacity: 1;
+    filter: blur(0);
+  }
+  50% { 
+    opacity: 0.3;
+    filter: blur(4px);
+    transform: scale(0.95);
+  }
+  100% { 
+    opacity: 1;
+    filter: blur(0);
+    transform: scale(1);
+  }
+}
+
+/* ===== DECORAZIONI GESSO ===== */
+.qodeup-header-main::after {
+  content: '✨ Pizzeria Napoletana ✨';
+  position: absolute;
+  bottom: -35px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Caveat', cursive;
+  font-size: 1.2rem;
+  color: rgba(248,249,250,0.6);
+  white-space: nowrap;
+}
+
+/* ===== RESPONSIVE LAVAGNA ===== */
+@media (max-width: 768px) {
+  .qodeup-logo-text {
+    font-size: 2rem !important;
+  }
+  
+  .menu-card-title {
+    font-size: 1.4rem !important;
+  }
+  
+  .allergen-modal-title {
+    font-size: 2rem !important;
+  }
+}

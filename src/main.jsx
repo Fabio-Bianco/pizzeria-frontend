@@ -10,6 +10,7 @@ import './styles/header-labels.css'
 import './styles/menu-uniform-modern.css'
 import './styles/micro-interactions.css'
 import './styles/modern-badges.css'
+import './styles/chalkboard-theme.css'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
