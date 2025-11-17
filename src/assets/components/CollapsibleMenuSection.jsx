@@ -23,9 +23,9 @@ export default function CollapsibleMenuSection({
   };
 
   return (
-    <div className="qodeup-menu-section">
+    <div className="qodeup-menu-section gradient-mesh">
       <button
-        className={`qodeup-section-header ${expanded ? 'expanded' : ''}`}
+        className={`qodeup-section-header gradient-header ${expanded ? 'expanded' : ''}`}
         onClick={toggleExpanded}
         aria-expanded={expanded}
         aria-controls={`section-${title.replace(/\s+/g, '-').toLowerCase()}`}
@@ -51,10 +51,11 @@ export default function CollapsibleMenuSection({
           <div className="qodeup-section-empty">Nessun prodotto disponibile.</div>
         )}
         {expanded && items.length > 0 && (
-          <ul className="menu-items-list" style={{display:'flex',flexDirection:'column',gap:'0'}}>
-            {items.map((item) => (
+          <ul className="menu-items-list menu-uniform-grid">
+            {items.map((item, index) => (
               <SimpleMenuItem
                 key={item.id || item.name}
+                className="menu-card-modern animated"
                 name={item.name || item.title}
                 price={item.price}
                 description={item.description}

@@ -1,0 +1,235 @@
+/* ===== BADGE SYSTEM MODERNIZZATO 2025 ===== */
+/* Badge con gradienti, ombre e animazioni moderne */
+
+/* Badge base moderno */
+.item-badge.modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.35em 0.7em;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 
+    0 2px 8px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  position: relative;
+  overflow: hidden;
+  line-height: 1;
+}
+
+/* Effetto shine al passaggio del mouse */
+.item-badge.modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s ease;
+}
+
+.item-badge.modern:hover::before {
+  left: 100%;
+}
+
+/* Badge Vegan - Gradiente verde */
+.item-badge.modern.vegan {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: #ffffff;
+}
+
+.item-badge.modern.vegan:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(16, 185, 129, 0.3),
+    0 2px 6px rgba(16, 185, 129, 0.2);
+}
+
+/* Badge Gluten Free - Gradiente giallo/oro */
+.item-badge.modern.gluten-free {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: #ffffff;
+}
+
+.item-badge.modern.gluten-free:hover {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(251, 191, 36, 0.3),
+    0 2px 6px rgba(251, 191, 36, 0.2);
+}
+
+/* Badge Allergen - Gradiente rosso/arancione */
+.item-badge.modern.allergen {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+
+.item-badge.modern.allergen:hover {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px rgba(239, 68, 68, 0.3),
+    0 2px 6px rgba(239, 68, 68, 0.2);
+}
+
+/* Icone nei badge moderni */
+.item-badge.modern .material-symbols-outlined,
+.item-badge.modern svg {
+  flex-shrink: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+/* Container allergeni moderno */
+.allergen-badges.modern {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  align-items: center;
+}
+
+/* Badge +N altri */
+.allergen-badge-more {
+  background: linear-gradient(135deg, #6b7280 0%, #4b5563 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.7rem;
+  padding: 0.3em 0.6em;
+  border-radius: 8px;
+  cursor: help;
+}
+
+.allergen-badge-more:hover {
+  background: linear-gradient(135deg, #4b5563 0%, #374151 100%);
+  transform: scale(1.05);
+}
+
+/* Badge con effetto pulse per elementi importanti */
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+.item-badge.modern.pulse {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+/* Badge formato bevande/pizze */
+.item-badge.format {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+
+.item-badge.format:hover {
+  background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+  transform: translateY(-1px);
+}
+
+/* Badge gradazione alcolica */
+.item-badge.alcohol {
+  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+  color: #ffffff;
+  font-size: 0.75rem;
+}
+
+.item-badge.alcohol:hover {
+  background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);
+  transform: translateY(-1px);
+}
+
+/* Badge categoria (classica, bianca, speciale) */
+.item-badge.category {
+  background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+  color: #374151;
+  font-size: 0.7rem;
+  border: 1px solid #d1d5db;
+}
+
+.item-badge.category:hover {
+  background: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+  transform: translateY(-1px);
+}
+
+/* Responsive - riduce dimensioni su mobile */
+@media (max-width: 768px) {
+  .item-badge.modern {
+    font-size: 0.7rem;
+    padding: 0.3em 0.6em;
+    gap: 0.3em;
+  }
+  
+  .item-badge.modern .material-symbols-outlined {
+    font-size: 0.9em;
+  }
+  
+  .allergen-badges.modern {
+    gap: 0.4em;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .item-badge.modern {
+    box-shadow: 
+      0 2px 8px rgba(0, 0, 0, 0.3),
+      0 1px 3px rgba(0, 0, 0, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .item-badge.modern,
+  .item-badge.modern::before,
+  .allergen-badge-more {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Focus visible per accessibilità */
+.item-badge.modern:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* Animazione di ingresso per badge */
+@keyframes badgeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.item-badge.modern.animated {
+  animation: badgeSlideIn 0.3s ease-out backwards;
+}
+
+.item-badge.modern.animated:nth-child(1) { animation-delay: 0.05s; }
+.item-badge.modern.animated:nth-child(2) { animation-delay: 0.1s; }
+.item-badge.modern.animated:nth-child(3) { animation-delay: 0.15s; }
+.item-badge.modern.animated:nth-child(4) { animation-delay: 0.2s; }
+.item-badge.modern.animated:nth-child(5) { animation-delay: 0.25s; }

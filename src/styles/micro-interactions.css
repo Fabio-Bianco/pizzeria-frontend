@@ -1,0 +1,228 @@
+/* ===== MICRO-INTERAZIONI ANIMATE (NO HOVER SCALE) ===== */
+/* Animazioni fluide senza effetti hover invasivi */
+
+/* Effetto Ripple sui click - cerchio che si espande */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.ripple:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 1;
+  transition: width 0s, height 0s, opacity 0s;
+}
+
+/* Animazione immagine interattiva - solo subtle glow, NO SCALE */
+.interactive {
+  transition: filter 0.3s ease, box-shadow 0.3s ease;
+  will-change: filter;
+}
+
+.menu-card-modern:hover .interactive {
+  filter: brightness(1.05);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+/* Animazione badge al passaggio del mouse sulla card */
+.menu-card-modern:hover .item-badge {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.item-badge {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Animazione prezzo al passaggio del mouse sulla card */
+.menu-card-modern:hover .price-value {
+  color: #059669 !important;
+  transform: scale(1.05);
+}
+
+.price-value {
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Animazione stagger già presente nel menu-uniform-modern.css */
+/* Manteniamo solo il fadeInUp senza hover-scale */
+
+/* Animazione smooth per espansione sezioni */
+.qodeup-section-content {
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+  will-change: max-height, opacity;
+}
+
+.qodeup-section-content.collapsed {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.qodeup-section-content.expanded {
+  max-height: 10000px; /* Valore alto per permettere l'espansione */
+  opacity: 1;
+}
+
+/* Chevron animato */
+.qodeup-section-chevron {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+}
+
+.qodeup-section-header.expanded .qodeup-section-chevron {
+  transform: rotate(180deg);
+}
+
+/* Animazione header sezione */
+.qodeup-section-header {
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.qodeup-section-header:active {
+  transform: scale(0.98);
+}
+
+/* Pulse animation per badge attivi */
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.qodeup-header-badge {
+  animation: badgePulse 2s ease-in-out infinite;
+}
+
+/* Smooth transition per filtri attivi */
+.qodeup-header-icon-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qodeup-header-icon-btn.active {
+  animation: activeBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes activeBounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Glow effect delicato (opzionale, attiva con classe .glow-effect) */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, #10b981, #06b6d4, #8b5cf6);
+  border-radius: inherit;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.glow-effect:hover::before {
+  opacity: 0.3;
+}
+
+/* Animazione per loading skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0%,
+    #f8f8f8 50%,
+    #f0f0f0 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+/* Transizione smooth per modal/overlay */
+.modal-overlay {
+  transition: opacity 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.modal-content {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s ease;
+}
+
+/* Reduced motion - rispetta le preferenze utente */
+@media (prefers-reduced-motion: reduce) {
+  .ripple::after,
+  .interactive,
+  .item-badge,
+  .price-value,
+  .qodeup-section-content,
+  .qodeup-section-chevron,
+  .qodeup-section-header,
+  .qodeup-header-icon-btn,
+  .loading-skeleton,
+  .modal-overlay,
+  .modal-content {
+    animation: none !important;
+    transition: none !important;
+  }
+  
+  .qodeup-header-badge {
+    animation: none !important;
+  }
+}
+
+/* Focus visible per accessibilità */
+.qodeup-header-icon-btn:focus-visible,
+.qodeup-section-header:focus-visible {
+  outline: 3px solid #10b981;
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* Tap highlight per mobile */
+.qodeup-header-icon-btn,
+.qodeup-section-header,
+.menu-card-modern {
+  -webkit-tap-highlight-color: rgba(16, 185, 129, 0.1);
+}

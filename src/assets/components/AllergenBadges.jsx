@@ -28,7 +28,8 @@ export default function AllergenBadges({
   className = '', 
   size = 'small',
   showLabels = false, // forzato a false per mostrare solo icone
-  maxVisible = null 
+  maxVisible = null,
+  modern = false // supporto stile moderno
 }) {
   // Se non ci sono allergeni, non renderizzare nulla
   if (!allergens || !Array.isArray(allergens) || allergens.length === 0) {
@@ -47,19 +48,22 @@ export default function AllergenBadges({
   const visibleAllergens = maxVisible ? allergens.slice(0, maxVisible) : allergens
   const hiddenCount = maxVisible && allergens.length > maxVisible ? allergens.length - maxVisible : 0
 
+  const isModern = className.includes('modern');
+
   return (
     <div className={`allergen-badges ${className} size-${size}`}> 
       {visibleAllergens.map((allergen, index) => (
         <span 
           key={allergen.id || index}
-          className="allergen-badge"
+          className={`allergen-badge ${isModern ? 'item-badge modern allergen' : ''}`}
           title={allergen.name}
           aria-label={`Contiene ${allergen.name}`}
-          style={{padding:'0.18em 0.38em', background:'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)', border:'1.5px solid #efca1a', boxShadow:'0 1px 4px #efca1a22'}}
+          style={isModern ? {} : {padding:'0.18em 0.38em', background:'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)', border:'1.5px solid #efca1a', boxShadow:'0 1px 4px #efca1a22'}}
         >
-          <span className="allergen-badge-icon material-symbols-outlined" aria-hidden="true" style={{fontSize:'1.25em',color:'#efca1a',display:'flex',alignItems:'center',justifyContent:'center',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>
+          <span className="allergen-badge-icon material-symbols-outlined" aria-hidden="true" style={isModern ? {fontSize:'1em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"} : {fontSize:'1.25em',color:'#efca1a',display:'flex',alignItems:'center',justifyContent:'center',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>
             {getIcon(allergen.name)}
           </span>
+          {isModern && <span style={{fontSize:'0.7em',fontWeight:600}}>{allergen.name}</span>}
         </span>
       ))}
       {hiddenCount > 0 && (

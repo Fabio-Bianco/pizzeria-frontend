@@ -88,8 +88,8 @@ export default function AllergenModal({
   }
 
   return (
-    <div className="allergen-modal-overlay" onClick={onClose}>
-      <div className="allergen-modal-content" onClick={(e) => e.stopPropagation()}>
+    <div className="allergen-modal-overlay glass-overlay" onClick={onClose}>
+      <div className="allergen-modal-content glass-style" onClick={(e) => e.stopPropagation()}>
         {/* Header con titolo */}
         <div className="allergen-modal-header" style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
           <h2 className="allergen-modal-title">ALLERGICO?</h2>
@@ -136,7 +136,7 @@ export default function AllergenModal({
         </div>
 
         <div className="allergen-modal-actions">
-          <button className="allergen-modal-ok-btn" style={{background:'#fde047',color:'#333',fontWeight:'bold',border:'none',borderRadius:'8px',padding:'0.7em 2.5em',fontSize:'1.1rem',marginTop:'1.2em',boxShadow:'0 1px 4px #0001',cursor:'pointer'}} onClick={handleOK}>
+          <button className="allergen-modal-ok-btn ripple" style={{background:'#fde047',color:'#333',fontWeight:'bold',border:'none',borderRadius:'8px',padding:'0.7em 2.5em',fontSize:'1.1rem',marginTop:'1.2em',boxShadow:'0 1px 4px #0001',cursor:'pointer'}} onClick={handleOK}>
             OK
           </button>
         </div>

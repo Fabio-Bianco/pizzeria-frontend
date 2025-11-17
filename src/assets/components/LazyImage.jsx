@@ -8,7 +8,8 @@ export default function LazyImage({
   placeholder = '🍕',
   fallbackSrc = null,
   onLoad = () => {},
-  onError = () => {}
+  onError = () => {},
+  interactive = false
 }) {
   const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(false)
@@ -116,7 +117,7 @@ export default function LazyImage({
         <img
           src={src}
           alt={alt}
-          className={className}
+          className={`${className} ${interactive ? 'interactive' : ''}`}
           style={{
             ...style,
             opacity: isLoading ? 0 : 1,

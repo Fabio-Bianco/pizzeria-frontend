@@ -13,15 +13,16 @@ function SimpleMenuItem({
   ingredients,
   description,
   price,
-  vegan
+  vegan,
+  className = ''
 }) {
   const hasFormatOrAlcohol = !!format || !!alcohol;
 
   return (
     <li
-      className="simple-menu-item d-flex flex-row flex-wrap align-items-stretch w-100"
+      className={`simple-menu-item ${className}`}
       style={{
-        borderBottom: '1px solid #f3f3f3',
+        borderBottom: 'none',
         position: 'relative',
         background: '#fff',
         minHeight: 100,
@@ -65,6 +66,7 @@ function SimpleMenuItem({
               alt={name || 'Immagine piatto'} 
               className="qodeup-product-image" 
               placeholder="🍽️" 
+              interactive={true}
               style={{width:'100%',height:'100%',maxWidth:54,maxHeight:54,borderRadius:12,objectFit:'cover',background:'#e6fbe6'}} 
             />
           ) : (
@@ -89,87 +91,33 @@ function SimpleMenuItem({
           overflow: 'hidden',
         }}
       >
-        {/* Allergen/vegan icons responsive: stack verticale su mobile, gap maggiore, no overflow */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 8,
-            zIndex: 2,
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'flex-end',
-            alignItems: 'flex-start',
-            width: 'auto',
-            maxWidth: '90vw',
-            pointerEvents: 'none',
-            gap: '0.5em',
-            paddingTop: '0.3em',
-            wordBreak: 'break-word',
-          }}
-        >
-          {is_gluten_free && (
-            <span
-              className="item-badge gluten-free"
-              aria-label="Senza glutine"
-              title="Gluten Free"
-              style={{
-                background: 'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)',
-                color: '#b89a0e',
-                borderRadius: '12px',
-                padding: '0.13em 0.7em',
-                fontWeight: 700,
-                fontSize: '0.97em',
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.38em',
-                boxShadow: '0 1px 4px #efca1a22',
-                letterSpacing: '0.01em',
-                lineHeight: 1.1,
-                minWidth: 0,
-                whiteSpace: 'nowrap',
-                verticalAlign: 'middle',
-                border: '1.5px solid #efca1a',
-                margin: 0
-              }}
-            >
-              <span className="material-symbols-outlined" style={{fontSize:'1.13em',marginRight:'0.13em',color:'#efca1a',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
-              <span style={{fontSize:'0.97em',fontWeight:600,letterSpacing:'0.01em',color:'#b89a0e'}}>Gluten Free</span>
-            </span>
-          )}
-          {/* Badge allergeni: stack verticale su mobile, gap maggiore */}
-          <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap',gap:'0.5em',maxWidth:'100%'}}>
-            <AllergenBadges allergens={allergens} size="small" />
-          </div>
-        </div>
-        <span
-          className="qodeup-product-name"
-          title={name}
-          style={{
-            fontWeight: 600,
-            fontSize: '1.13em',
-            color: '#333',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            letterSpacing: '0.01em',
-            lineHeight: 1.2,
-            display: 'inline-flex',
-            alignItems: 'center',
-            verticalAlign: 'middle',
-            gap: '0.5em',
-            marginRight: 0,
-            maxWidth: '100%',
-          }}
-        >
-          {name}
+        <div style={{display:'flex',alignItems:'center',gap:'0.6em',flexWrap:'wrap',marginBottom:'0.3em'}}>
+          <span
+            className="qodeup-product-name"
+            title={name}
+            style={{
+              fontWeight: 600,
+              fontSize: '1.13em',
+              color: '#333',
+              letterSpacing: '0.01em',
+              lineHeight: 1.2,
+            }}
+          >
+            {name}
+          </span>
           {vegan && (
-            <span style={{marginLeft:'0.3em',display:'inline-flex',alignItems:'center',verticalAlign:'middle',fontSize:'0.95em',maxWidth:'2.2em',overflow:'hidden'}}>
-              <VeganBadgeIcon size={18} color="#16a34a" withLabel={false} title="Vegan" />
+            <span className="item-badge modern vegan" title="Vegano">
+              <VeganBadgeIcon size={14} color="#ffffff" withLabel={false} />
+              <span style={{fontSize:'0.75em',fontWeight:600}}>VEGAN</span>
             </span>
           )}
-        </span>
+          {is_gluten_free && (
+            <span className="item-badge modern gluten-free" title="Senza Glutine">
+              <span className="material-symbols-outlined" style={{fontSize:'1em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
+              <span style={{fontSize:'0.75em',fontWeight:600}}>GLUTEN FREE</span>
+            </span>
+          )}
+        </div>
         {/* Formato e gradazione alcolica subito sotto il titolo */}
         {hasFormatOrAlcohol && (
           <div style={{
@@ -239,7 +187,7 @@ function SimpleMenuItem({
         {description && (
           <div style={{
             width: '100%',
-            margin: '0.18em 0 2.7em 0',
+            margin: '0.18em 0 0.8em 0',
             display: 'flex',
             flexDirection: 'row',
             alignItems: 'flex-start',
@@ -263,6 +211,12 @@ function SimpleMenuItem({
             >
               {description}
             </span>
+          </div>
+        )}
+        {/* Badge allergeni in basso */}
+        {allergens && allergens.length > 0 && (
+          <div style={{marginTop:'0.5em',marginBottom:'2em'}}>
+            <AllergenBadges allergens={allergens} size="small" className="modern" />
           </div>
         )}
         {/* Prezzo unità in basso a destra */}
