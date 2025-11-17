@@ -1,275 +1,213 @@
-/* 🖍️ LAVAGNA NAPOLETANA - CHALKBOARD THEME */
+/* 🖍️ LAVAGNA PROFESSIONALE */
 
-/* ===== TYPOGRAPHY GESSO ===== */
+/* ===== TIPOGRAFIA PULITA ===== */
 .qodeup-logo-text,
-.qodeup-section-header,
 .menu-card-title {
-  font-family: 'Permanent Marker', 'Patrick Hand', cursive !important;
-  color: #f8f9fa !important;
-  text-shadow: 
-    1px 1px 0 rgba(255,255,255,0.1),
-    -1px -1px 0 rgba(0,0,0,0.3),
-    0 2px 4px rgba(0,0,0,0.5);
-  letter-spacing: 0.5px;
+  font-family: 'Roboto', sans-serif !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 1px;
+  font-weight: 500;
 }
 
 .menu-card-description,
-.menu-card-ingredients,
-.allergen-modal-disclaimer p {
-  font-family: 'Caveat', cursive !important;
-  font-size: 1.1rem !important;
-  color: #e0e0e0 !important;
+.menu-card-ingredients {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #ecf0f1 !important;
   line-height: 1.6;
+  font-weight: 300;
 }
 
-/* ===== HEADER LAVAGNA ===== */
+/* ===== HEADER PROFESSIONALE ===== */
 .qodeup-header-main {
-  background: 
-    linear-gradient(180deg, rgba(45,52,54,0.95) 0%, rgba(30,39,46,0.98) 100%) !important;
-  border-bottom: 4px solid #efca1a !important;
-  box-shadow: 
-    0 4px 0 #d4a017,
-    0 8px 20px rgba(0,0,0,0.6) !important;
+  background: rgba(34,47,62,0.95) !important;
+  border-bottom: 1px solid rgba(236,240,241,0.1) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+  backdrop-filter: blur(10px);
 }
 
 .qodeup-logo-text {
-  font-size: 2.8rem !important;
-  color: #fde047 !important;
-  text-shadow: 
-    2px 2px 0 #efca1a,
-    -1px -1px 0 rgba(255,255,255,0.1),
-    0 4px 8px rgba(0,0,0,0.7) !important;
-  transform: rotate(-2deg);
+  font-size: 2rem !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+  transform: none;
+  animation: fadeIn 0.6s ease-out;
+  letter-spacing: 2px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase;
 }
 
-/* ===== HEADER ICONS GESSO ===== */
+/* ===== HEADER ICONS MINIMAL ===== */
 .qodeup-header-icon-btn {
-  background: rgba(248,249,250,0.12) !important;
-  border: 3px solid rgba(253,224,71,0.4) !important;
+  background: rgba(236,240,241,0.08) !important;
+  border: 1px solid rgba(236,240,241,0.2) !important;
   backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
 }
 
 .qodeup-header-icon-btn:hover {
-  background: rgba(253,224,71,0.25) !important;
-  border-color: #fde047 !important;
-  transform: translateY(-3px) rotate(5deg) !important;
-  box-shadow: 
-    0 0 20px rgba(253,224,71,0.6),
-    inset 0 2px 8px rgba(255,255,255,0.2) !important;
+  background: rgba(236,240,241,0.15) !important;
+  border-color: rgba(236,240,241,0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
 }
 
 .qodeup-header-icon-btn .material-symbols-outlined {
-  color: #fde047 !important;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  color: #ecf0f1 !important;
 }
 
-/* ===== CARDS LAVAGNA ===== */
+/* ===== CARDS ELEGANTI ===== */
 .menu-card-modern {
-  background: 
-    linear-gradient(135deg, rgba(52,73,94,0.85) 0%, rgba(44,62,80,0.9) 100%) !important;
-  border: 4px solid #8b7355 !important;
-  border-radius: 8px !important;
-  box-shadow: 
-    0 4px 0 #6b5742,
-    0 8px 25px rgba(0,0,0,0.6),
-    inset 0 2px 0 rgba(255,255,255,0.1) !important;
+  background: rgba(52,73,94,0.4) !important;
+  border: 1px solid rgba(236,240,241,0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+  backdrop-filter: blur(10px);
   position: relative;
-  overflow: visible !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease;
 }
 
 .menu-card-modern::before {
   content: '';
   position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 8px;
-  background: linear-gradient(90deg, #8b7355 0%, #6b5742 50%, #8b7355 100%);
-  border-radius: 4px 4px 0 0;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(236,240,241,0.05) 0%, transparent 100%);
+  pointer-events: none;
 }
 
 .menu-card-modern:hover {
-  transform: translateY(-5px) rotate(0.5deg) !important;
-  box-shadow: 
-    0 6px 0 #6b5742,
-    0 12px 35px rgba(253,224,71,0.3),
-    inset 0 2px 0 rgba(255,255,255,0.15) !important;
-  border-color: #fde047 !important;
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+  border-color: rgba(236,240,241,0.3) !important;
 }
 
-/* ===== TITOLI GESSO ===== */
+/* ===== TITOLI PULITI ===== */
 .menu-card-title {
-  font-size: 1.8rem !important;
-  color: #fde047 !important;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 0.5rem;
+  font-size: 1.5rem !important;
+  color: #ffffff !important;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 
 .menu-card-price {
-  font-family: 'Permanent Marker', cursive !important;
-  font-size: 2rem !important;
-  color: #ff6b6b !important;
-  text-shadow: 
-    2px 2px 0 #c92a2a,
-    0 0 10px rgba(255,107,107,0.6) !important;
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 1.4rem !important;
+  color: #3498db !important;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
 }
 
 /* ===== IMMAGINI PIZZA ===== */
 .menu-card-image {
-  border: 5px solid #8b7355 !important;
-  border-radius: 50% !important;
-  box-shadow: 
-    0 0 0 8px rgba(139,115,85,0.3),
-    0 8px 20px rgba(0,0,0,0.6),
-    inset 0 4px 8px rgba(255,255,255,0.1) !important;
+  border: 2px solid rgba(236,240,241,0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
 }
 
-/* ===== BADGES GESSO ===== */
+/* ===== BADGES MINIMAL ===== */
 .badge-vegan,
 .badge-glutenfree {
-  font-family: 'Patrick Hand', cursive !important;
-  border: 3px solid currentColor !important;
-  box-shadow: 
-    2px 2px 0 rgba(0,0,0,0.3),
-    0 4px 12px rgba(0,0,0,0.4) !important;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  font-family: 'Roboto', sans-serif !important;
+  border: 1px solid currentColor !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  font-weight: 400;
 }
 
 .allergen-badge-icon-only {
-  background: rgba(45,52,54,0.9) !important;
-  border: 3px solid #fde047 !important;
-  box-shadow: 
-    0 0 15px rgba(253,224,71,0.5),
-    inset 0 2px 4px rgba(255,255,255,0.1) !important;
+  background: rgba(52,73,94,0.6) !important;
+  border: 1px solid rgba(251,191,36,0.4) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  backdrop-filter: blur(8px);
 }
 
-/* ===== SECTION HEADERS LAVAGNA ===== */
+/* ===== SECTION HEADERS MINIMAL ===== */
 .qodeup-section-header {
-  background: 
-    linear-gradient(135deg, #fde047 0%, #efca1a 100%) !important;
-  border: 5px solid #8b7355 !important;
-  border-radius: 0 !important;
-  box-shadow: 
-    0 4px 0 #6b5742,
-    0 6px 20px rgba(0,0,0,0.5),
-    inset 0 2px 0 rgba(255,255,255,0.3) !important;
-  color: #2d3436 !important;
-  position: relative;
-}
-
-.qodeup-section-header::before {
-  content: '🍕';
-  position: absolute;
-  left: -30px;
-  top: 50%;
-  transform: translateY(-50%) rotate(-15deg);
-  font-size: 2rem;
-  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.5));
+  background: rgba(52,73,94,0.5) !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(236,240,241,0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
 }
 
 .qodeup-section-title {
-  color: #1e272e !important;
-  text-shadow: 
-    1px 1px 0 rgba(255,255,255,0.5),
-    -1px -1px 0 rgba(0,0,0,0.2) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
-/* ===== MODAL LAVAGNA ===== */
+/* ===== MODAL PROFESSIONALE ===== */
 .allergen-modal-content {
-  background: 
-    linear-gradient(135deg, rgba(45,52,54,0.98) 0%, rgba(30,39,46,0.98) 100%) !important;
-  border: 6px solid #efca1a !important;
-  box-shadow: 
-    0 0 0 4px #8b7355,
-    0 20px 60px rgba(0,0,0,0.8) !important;
+  background: rgba(44,62,80,0.95) !important;
+  border: 1px solid rgba(236,240,241,0.2) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important;
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
 }
 
 .allergen-modal-title {
-  font-family: 'Permanent Marker', cursive !important;
-  color: #fde047 !important;
-  font-size: 2.5rem !important;
-  text-shadow: 
-    2px 2px 0 #efca1a,
-    0 0 15px rgba(253,224,71,0.6) !important;
+  font-family: 'Roboto', sans-serif !important;
+  color: #ffffff !important;
+  font-size: 1.8rem !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+  font-weight: 400;
+  letter-spacing: 1px;
 }
 
 .allergen-modal-item {
-  background: rgba(52,73,94,0.7) !important;
-  border: 3px solid #8b7355 !important;
-  box-shadow: 
-    2px 2px 0 rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.1) !important;
+  background: rgba(52,73,94,0.5) !important;
+  border: 1px solid rgba(236,240,241,0.15) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
 }
 
 .allergen-modal-item:hover {
-  background: rgba(52,73,94,0.9) !important;
-  border-color: #fde047 !important;
-  transform: translateY(-2px) rotate(1deg) !important;
+  background: rgba(52,73,94,0.7) !important;
+  border-color: rgba(236,240,241,0.3) !important;
+  transform: translateY(-2px) !important;
 }
 
 .allergen-modal-item.selected {
-  background: rgba(253,224,71,0.2) !important;
-  border-color: #fde047 !important;
-  box-shadow: 
-    0 0 20px rgba(253,224,71,0.6),
-    inset 0 2px 8px rgba(253,224,71,0.3) !important;
+  background: rgba(52,152,219,0.3) !important;
+  border-color: rgba(52,152,219,0.6) !important;
+  box-shadow: 0 4px 12px rgba(52,152,219,0.3) !important;
 }
 
 .allergen-modal-item-name {
-  font-family: 'Caveat', cursive !important;
-  color: #f8f9fa !important;
-  font-size: 1rem !important;
+  font-family: 'Roboto', sans-serif !important;
+  color: #ecf0f1 !important;
+  font-size: 0.9rem !important;
+  font-weight: 400;
 }
 
-/* ===== EFFETTO CANCELLATURA ===== */
-.filter-active .menu-card-modern {
-  animation: chalkErase 0.6s ease-out;
+/* ===== TRANSIZIONI FLUIDE ===== */
+.menu-card-modern,
+.allergen-modal-item,
+.qodeup-header-icon-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes chalkErase {
-  0% { 
-    opacity: 1;
-    filter: blur(0);
-  }
-  50% { 
-    opacity: 0.3;
-    filter: blur(4px);
-    transform: scale(0.95);
-  }
-  100% { 
-    opacity: 1;
-    filter: blur(0);
-    transform: scale(1);
-  }
-}
-
-/* ===== DECORAZIONI GESSO ===== */
-.qodeup-header-main::after {
-  content: '✨ Pizzeria Napoletana ✨';
-  position: absolute;
-  bottom: -35px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: 'Caveat', cursive;
-  font-size: 1.2rem;
-  color: rgba(248,249,250,0.6);
-  white-space: nowrap;
-}
-
-/* ===== RESPONSIVE LAVAGNA ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .qodeup-logo-text {
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
   }
   
   .menu-card-title {
-    font-size: 1.4rem !important;
+    font-size: 1.3rem !important;
   }
   
   .allergen-modal-title {
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
   }
 }

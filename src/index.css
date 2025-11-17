@@ -2,30 +2,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=Permanent+Marker&display=swap');
 
-/* 🖍️ LAVAGNA NAPOLETANA THEME */
+/* 🖍️ LAVAGNA NAPOLETANA PROFESSIONALE */
 body {
   background: 
-    /* Texture gesso orizzontale */
-    repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.025) 2px, rgba(255,255,255,0.025) 4px),
-    /* Texture gesso verticale */
-    repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.025) 2px, rgba(255,255,255,0.025) 4px),
-    /* Macchie gesso sparse */
-    radial-gradient(circle at 15% 20%, rgba(255,255,255,0.08) 0%, transparent 3%),
-    radial-gradient(circle at 85% 30%, rgba(255,255,255,0.06) 0%, transparent 4%),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.05) 0%, transparent 5%),
-    radial-gradient(circle at 25% 60%, rgba(255,255,255,0.09) 0%, transparent 2.5%),
-    radial-gradient(circle at 70% 15%, rgba(255,255,255,0.04) 0%, transparent 6%),
-    /* Colore base lavagna scura */
-    linear-gradient(135deg, #2d3436 0%, #1e272e 50%, #2d3436 100%) !important;
+    /* Texture lavagna fine */
+    repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.012) 1px, rgba(255,255,255,0.012) 2px),
+    repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(255,255,255,0.012) 1px, rgba(255,255,255,0.012) 2px),
+    /* Sfumatura sottile ai bordi */
+    radial-gradient(ellipse at center, transparent 60%, rgba(0,0,0,0.3) 100%),
+    /* Colore base ardesia */
+    #2c3e50 !important;
   background-attachment: fixed;
   min-height: 100vh;
-  font-family: 'Patrick Hand', 'Caveat', cursive !important;
+  font-family: 'Roboto', sans-serif !important;
+  position: relative;
 }
 
-/* Effetto cancellino animato */
-@keyframes chalkErase {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 0.3; }
+/* Animazioni sottili */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Import layout styles */
