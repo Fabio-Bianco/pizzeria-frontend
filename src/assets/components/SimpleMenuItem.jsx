@@ -1,7 +1,8 @@
 import React from 'react';
-import LazyImage from './LazyImage';
-import AllergenBadges from './AllergenBadges';
-import { VeganBadgeIcon } from './Icons';
+import { useState, useEffect } from 'react'
+import LazyImage from './LazyImage'
+import AllergenBadges from './AllergenBadges'
+import { VeganBadgeIcon } from './Icons'
 
 function SimpleMenuItem({
   name,
@@ -17,6 +18,18 @@ function SimpleMenuItem({
   className = ''
 }) {
   const hasFormatOrAlcohol = !!format || !!alcohol;
+  
+  // Rileva se siamo su mobile per mostrare iconOnly
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   return (
     <li className={`simple-menu-item ${className}`}>
@@ -35,20 +48,20 @@ function SimpleMenuItem({
       </div>
       <div style={{ flex: 1, minWidth: 0, position: 'relative', display: 'flex', flexDirection: 'column' }}>
         {/* Titolo con badge inline */}
-        <div style={{display:'flex',alignItems:'center',gap:'0.6rem',flexWrap:'wrap'}}>
+        <div style={{display:'flex',alignItems:'center',gap:'0.5rem',flexWrap:'wrap',marginBottom:'0.1rem'}}>
           <h3 className="qodeup-product-name dark-mode-ready" title={name}>
             {name}
           </h3>
           {vegan && (
             <span className="item-badge modern vegan" title="Vegano">
-              <VeganBadgeIcon size={14} color="#ffffff" withLabel={false} />
-              <span style={{fontSize:'0.75em',fontWeight:600}}>VEGAN</span>
+              <VeganBadgeIcon size={12} color="#ffffff" withLabel={false} />
+              <span style={{fontSize:'0.7em',fontWeight:600}}>VEGAN</span>
             </span>
           )}
           {is_gluten_free && (
             <span className="item-badge modern gluten-free" title="Senza Glutine">
-              <span className="material-symbols-outlined" style={{fontSize:'1em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
-              <span style={{fontSize:'0.75em',fontWeight:600}}>GLUTEN FREE</span>
+              <span className="material-symbols-outlined" style={{fontSize:'0.9em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
+              <span style={{fontSize:'0.7em',fontWeight:600}}>GLUTEN FREE</span>
             </span>
           )}
         </div>
@@ -127,10 +140,16 @@ function SimpleMenuItem({
             {description}
           </p>
         )}
-        {/* Badge allergeni in basso */}
+        {/* Badge allergeni in basso - iconOnly su mobile, con testo su tablet+ */}
         {allergens && allergens.length > 0 && (
-          <div style={{marginTop:'0.8rem'}}>
-            <AllergenBadges allergens={allergens} size="small" className="modern" />
+          <div className="allergen-container-responsive">
+            <AllergenBadges 
+              allergens={allergens} 
+              size="small" 
+              className={isMobile ? "" : "modern"}
+              iconOnly={isMobile}
+              maxVisible={isMobile ? 5 : null}
+            />
           </div>
         )}
         {/* Prezzo unità in basso a destra */}
