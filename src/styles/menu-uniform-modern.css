@@ -1,5 +1,5 @@
-/* ===== LAYOUT MENU UNIFORME MODERNO 2025 ===== */
-/* Design professionale per menu ristorante con card uniformi */
+/* ===== LAYOUT MENU UNIFORME MODERNO 2025 - MOBILE FIRST ===== */
+/* Design professionale per menu ristorante con approccio mobile-first */
 
 /* Grid uniforme verticale - tutte le card uguali */
 .menu-uniform-grid {
@@ -12,34 +12,41 @@
   width: 100%;
 }
 
-/* Card moderna uniforme per ogni pietanza */
+/* ===== MOBILE BASE (320px-767px) ===== */
+/* Card moderna uniforme - Layout VERTICALE per mobile */
 .menu-card-modern {
+  /* Layout & Spacing - Mobile ottimizzato */
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(8px);
-  border-radius: 18px;
-  padding: 1.5rem 1.3rem;
-  margin: 0.75rem 0;
+  border-radius: 16px;
+  padding: 1rem;
+  margin: 0.5rem 0;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  
+  /* Visual Effects */
   box-shadow: 
-    0 2px 12px rgba(0, 0, 0, 0.2),
-    0 1px 4px rgba(0, 0, 0, 0.15);
+    0 2px 8px rgba(0, 0, 0, 0.2),
+    0 1px 3px rgba(0, 0, 0, 0.15);
   transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Flexbox Layout VERTICALE */
   display: flex;
-  flex-direction: row;
-  gap: 1.3rem;
-  align-items: flex-start;
+  flex-direction: column;
+  gap: 0;
+  align-items: center;
   width: 100%;
   position: relative;
   overflow: hidden;
+  text-align: center;
 }
 
-/* Hover effect uniforme e professionale - NO TRANSFORM */
+/* Hover effect mobile */
 .menu-card-modern:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.11);
   box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.3),
-    0 4px 10px rgba(0, 0, 0, 0.2);
-  border-color: rgba(255, 255, 255, 0.2);
+    0 4px 16px rgba(0, 0, 0, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Animazione ingresso staggered (una dopo l'altra) */
@@ -69,7 +76,8 @@
   }
 }
 
-/* Immagine prodotto uniforme - NO TRANSFORM HOVER */
+/* ===== IMMAGINI - Mobile First VERTICALE ===== */
+/* Immagini prodotto - più grandi per layout verticale */
 .menu-card-modern .qodeup-product-image,
 .menu-card-modern .qodeup-product-placeholder {
   width: 90px !important;
@@ -78,63 +86,73 @@
   min-height: 90px;
   max-width: 90px;
   max-height: 90px;
-  border-radius: 16px !important;
+  border-radius: 14px !important;
   object-fit: cover;
   flex-shrink: 0;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
 }
 
 .menu-card-modern .qodeup-product-placeholder {
-  background: #f3f4f6;
+  background: rgba(243, 244, 246, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 2.5rem;
 }
 
-/* Layout interno card */
+/* Layout interno card - VERTICALE MOBILE */
 .menu-card-modern > div:first-child {
   flex-shrink: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
   background: transparent !important;
+  width: 100%;
+  margin-bottom: 0.8rem;
 }
 
 .menu-card-modern > div:last-child {
   flex: 1;
-  min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
   position: relative;
-  align-items: flex-start;
+  align-items: center;
   background: transparent !important;
 }
 
-/* Nome prodotto */
+/* ===== TIPOGRAFIA - Mobile First VERTICALE ===== */
+/* Nome prodotto - Mobile ottimizzato centrato */
 .menu-card-modern .qodeup-product-name {
-  font-size: 1.3rem !important;
+  font-size: 1.15rem !important;
   font-weight: 700 !important;
   color: rgba(255, 255, 255, 0.95) !important;
-  margin: 0 !important;
+  margin: 0 0 0.5rem 0 !important;
   padding: 0 !important;
-  line-height: 1.4;
-  letter-spacing: -0.02em;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   background: transparent !important;
+  word-break: keep-all;
+  overflow-wrap: normal;
+  hyphens: none;
+  text-align: center;
+  width: 100%;
 }
 
-/* Descrizione */
+/* Descrizione - Mobile ottimizzata centrata */
 .menu-card-modern .qodeup-product-description {
-  font-size: 1rem !important;
-  color: rgba(255, 255, 255, 0.75) !important;
-  line-height: 1.6;
+  font-size: 0.85rem !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  line-height: 1.5;
   margin: 0 !important;
   padding: 0 !important;
   font-weight: 400;
   background: transparent !important;
-  /* Multi-line clamping per card uniformi */
+  text-align: center;
+  width: 100%;
+  /* Multi-line clamping per card uniformi - 3 linee su mobile */
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -142,17 +160,18 @@
   text-overflow: ellipsis;
 }
 
-/* Prezzo */
+/* Prezzo - Mobile VERTICALE */
 .menu-card-modern .price-value {
-  font-size: 1.4rem !important;
+  font-size: 1.3rem !important;
   font-weight: 800 !important;
-  color: rgba(255, 255, 255, 0.9) !important;
-  padding: 0.4rem 0.7rem !important;
-  margin-top: 1.5rem !important;
+  color: rgba(255, 255, 255, 0.95) !important;
+  padding: 0.5rem 1rem !important;
+  margin-top: 0.8rem !important;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08) !important;
+  background: rgba(255, 255, 255, 0.1) !important;
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
-  align-self: flex-end;
+  align-self: center;
+  text-align: center;
 }
 
 /* Badge uniformi e puliti */
@@ -166,18 +185,20 @@
   gap: 0.4rem;
 }
 
-/* Ingredienti */
+/* Ingredienti - Mobile First VERTICALE */
 .menu-card-modern .item-ingredients {
   color: rgba(255, 255, 255, 0.65) !important;
-  font-size: 0.95rem !important;
+  font-size: 0.8rem !important;
   font-style: italic;
-  margin: 0.5rem 0 !important;
+  margin: 0 0 0.5rem 0 !important;
   padding: 0 !important;
-  line-height: 1.5;
+  line-height: 1.4;
   background: transparent !important;
-  /* Multi-line clamping per ingredienti lunghi */
+  text-align: center;
+  width: 100%;
+  /* Multi-line clamping per ingredienti lunghi - 3 linee su mobile */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -188,36 +209,231 @@
   background: transparent !important;
 }
 
-/* Responsive mobile */
-@media (max-width: 768px) {
+/* Badge allergeni centrati nel layout mobile verticale */
+.menu-card-modern .allergen-badges,
+.menu-card-modern .qodeup-product-allergens {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  width: 100%;
+  margin: 0.5rem 0;
+}
+
+/* Container responsive per badge allergeni */
+.allergen-container-responsive {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.6rem;
+}
+
+/* Badge allergeni icon-only su mobile */
+.allergen-badges.icon-only {
+  gap: 0.5rem;
+}
+
+.allergen-badge.icon-only-badge:hover {
+  transform: scale(1.1);
+  box-shadow: 0 3px 10px rgba(239, 202, 26, 0.3);
+}
+
+/* ===== FLOATING BADGES (Vegan/Gluten-Free) ===== */
+/* Container floating badges - top right dell'immagine */
+.floating-badges-container {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+/* Badge floating icon-only */
+.floating-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: help;
+  transition: all 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.floating-badge:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Badge Vegan floating */
+.floating-badge.vegan {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.floating-badge.vegan:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 1) 0%, rgba(5, 150, 105, 1) 100%);
+  box-shadow: 0 3px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Badge Gluten-Free floating */
+.floating-badge.gluten-free {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.9) 0%, rgba(245, 158, 11, 0.9) 100%);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #ffffff;
+}
+
+.floating-badge.gluten-free:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%);
+  box-shadow: 0 3px 12px rgba(251, 191, 36, 0.4);
+}
+
+/* ===== TABLET BREAKPOINT (768px+) ===== */
+@media (min-width: 768px) {
+  /* Card torna a layout ORIZZONTALE */
   .menu-card-modern {
-    padding: 1.2rem 1rem;
-    margin: 0.6rem 0;
+    flex-direction: row;
+    padding: 1.2rem 1.1rem;
     border-radius: 16px;
-    gap: 1rem;
+    gap: 1.2rem;
+    text-align: left;
+    align-items: flex-start;
   }
   
-  .menu-card-modern .qodeup-product-image,
-  .menu-card-modern .qodeup-product-placeholder {
-    width: 75px !important;
-    height: 75px !important;
-    min-width: 75px;
-    min-height: 75px;
-    max-width: 75px;
-    max-height: 75px;
-    border-radius: 14px !important;
+  /* Reset container per layout orizzontale */
+  .menu-card-modern > div:first-child {
+    margin-bottom: 0;
+    width: auto;
   }
   
+  .menu-card-modern > div:last-child {
+    align-items: flex-start;
+    text-align: left;
+  }
+  
+  /* Reset testi a sinistra */
+  .menu-card-modern .qodeup-product-name,
+  .menu-card-modern .qodeup-product-description,
+  .menu-card-modern .item-ingredients {
+    text-align: left;
+  }
+  
+  /* Reset badge a sinistra */
+  .menu-card-modern .allergen-badges,
+  .menu-card-modern .qodeup-product-allergens {
+    justify-content: flex-start;
+  }
+  
+  .allergen-container-responsive {
+    justify-content: flex-start;
+  }
+  
+  /* Prezzo torna a flex-end */
+  .menu-card-modern .price-value {
+    align-self: flex-end;
+  }
+  
+  /* Floating badges più grandi su tablet */
+  .floating-badge {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .floating-badge .material-symbols-outlined {
+    font-size: 16px !important;
+  }
+
+  /* Immagini più grandi */
+  .menu-card-modern .product-image-wrapper {
+    width: 80px;
+    height: 80px;
+    border-radius: 14px;
+  }
+
+  .menu-card-modern .product-image-wrapper .fallback-icon {
+    font-size: 2.2rem;
+  }
+
+  /* Tipografia tablet */
   .menu-card-modern .qodeup-product-name {
-    font-size: 1.15rem !important;
+    font-size: 1.2rem !important;
+    letter-spacing: -0.015em;
   }
-  
+
   .menu-card-modern .qodeup-product-description {
     font-size: 0.95rem !important;
+    line-height: 1.55;
   }
-  
+
+  .menu-card-modern .item-ingredients {
+    font-size: 0.9rem !important;
+    line-height: 1.45;
+  }
+
   .menu-card-modern .price-value {
-    font-size: 1.25rem !important;
+    font-size: 1.3rem !important;
+    padding: 0.35rem 0.65rem !important;
+    margin-top: 1.4rem !important;
+    border-radius: 9px;
+  }
+}
+
+/* ===== DESKTOP BREAKPOINT (1024px+) ===== */
+@media (min-width: 1024px) {
+  /* Card desktop full */
+  .menu-card-modern {
+    padding: 1.5rem 1.3rem;
+    border-radius: 18px;
+    gap: 1.3rem;
+  }
+
+  /* Immagini desktop */
+  .menu-card-modern .product-image-wrapper {
+    width: 90px;
+    height: 90px;
+    border-radius: 16px;
+  }
+
+  .menu-card-modern .product-image-wrapper .fallback-icon {
+    font-size: 2.5rem;
+  }
+
+  /* Tipografia desktop */
+  .menu-card-modern .qodeup-product-name {
+    font-size: 1.3rem !important;
+    letter-spacing: -0.02em;
+    line-height: 1.4;
+  }
+
+  .menu-card-modern .qodeup-product-description {
+    font-size: 1rem !important;
+    line-height: 1.6;
+  }
+
+  .menu-card-modern .item-ingredients {
+    font-size: 0.95rem !important;
+    line-height: 1.5;
+    margin: 0.6rem 0 !important;
+  }
+
+  .menu-card-modern .price-value {
+    font-size: 1.4rem !important;
+    padding: 0.4rem 0.7rem !important;
+    margin-top: 1.5rem !important;
+    border-radius: 10px;
+  }
+}
+
+/* ===== LARGE DESKTOP (1440px+) ===== */
+@media (min-width: 1440px) {
+  /* Layout centrato per schermi grandi */
+  .menu-uniform-grid {
+    max-width: 1400px;
+    margin: 0 auto;
   }
 }
 

@@ -172,17 +172,23 @@
 /* Responsive - riduce dimensioni su mobile */
 @media (max-width: 768px) {
   .item-badge.modern {
-    font-size: 0.7rem;
-    padding: 0.3em 0.6em;
-    gap: 0.3em;
+    font-size: 0.65rem;
+    padding: 0.25em 0.5em;
+    gap: 0.25em;
+    border-radius: 6px;
   }
   
   .item-badge.modern .material-symbols-outlined {
-    font-size: 0.9em;
+    font-size: 0.85em;
   }
   
   .allergen-badges.modern {
-    gap: 0.4em;
+    gap: 0.35em;
+  }
+  
+  .allergen-badge-more {
+    font-size: 0.6rem;
+    padding: 0.25em 0.5em;
   }
 }
 

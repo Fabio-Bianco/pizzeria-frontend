@@ -29,7 +29,8 @@ export default function AllergenBadges({
   size = 'small',
   showLabels = false, // forzato a false per mostrare solo icone
   maxVisible = null,
-  modern = false // supporto stile moderno
+  modern = false, // supporto stile moderno
+  iconOnly = false // solo icone circolari (per mobile)
 }) {
   // Se non ci sono allergeni, non renderizzare nulla
   if (!allergens || !Array.isArray(allergens) || allergens.length === 0) {
@@ -51,26 +52,59 @@ export default function AllergenBadges({
   const isModern = className.includes('modern');
 
   return (
-    <div className={`allergen-badges ${className} size-${size}`}> 
+    <div className={`allergen-badges ${className} ${iconOnly ? 'icon-only' : ''} size-${size}`}> 
       {visibleAllergens.map((allergen, index) => (
         <span 
           key={allergen.id || index}
-          className={`allergen-badge ${isModern ? 'item-badge modern allergen' : ''}`}
+          className={`allergen-badge ${isModern ? 'item-badge modern allergen' : ''} ${iconOnly ? 'icon-only-badge' : ''}`}
           title={allergen.name}
           aria-label={`Contiene ${allergen.name}`}
-          style={isModern ? {} : {padding:'0.18em 0.38em', background:'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)', border:'1.5px solid #efca1a', boxShadow:'0 1px 4px #efca1a22'}}
+          style={iconOnly ? {
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            background: 'rgba(255, 255, 255, 0.12)',
+            border: '1.5px solid rgba(239, 202, 26, 0.5)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: 0,
+            boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
+            cursor: 'help',
+            transition: 'all 0.2s ease'
+          } : (isModern ? {} : {padding:'0.18em 0.38em', background:'linear-gradient(90deg,#fffbe6 60%,#fff7d1 100%)', border:'1.5px solid #efca1a', boxShadow:'0 1px 4px #efca1a22'})}
+          onMouseEnter={iconOnly ? (e) => e.currentTarget.style.transform = 'scale(1.1)' : undefined}
+          onMouseLeave={iconOnly ? (e) => e.currentTarget.style.transform = 'scale(1)' : undefined}
         >
-          <span className="allergen-badge-icon material-symbols-outlined" aria-hidden="true" style={isModern ? {fontSize:'1em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"} : {fontSize:'1.25em',color:'#efca1a',display:'flex',alignItems:'center',justifyContent:'center',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>
+          <span className="allergen-badge-icon material-symbols-outlined" aria-hidden="true" style={iconOnly ? {
+            fontSize: '20px',
+            color: '#fbbf24',
+            fontVariationSettings: "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"
+          } : (isModern ? {fontSize:'1em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"} : {fontSize:'1.25em',color:'#efca1a',display:'flex',alignItems:'center',justifyContent:'center',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"})}>
             {getIcon(allergen.name)}
           </span>
-          {isModern && <span style={{fontSize:'0.7em',fontWeight:600}}>{allergen.name}</span>}
+          {!iconOnly && isModern && <span style={{fontSize:'0.7em',fontWeight:600}}>{allergen.name}</span>}
         </span>
       ))}
       {hiddenCount > 0 && (
         <span 
-          className="allergen-badge allergen-badge-more"
+          className={`allergen-badge allergen-badge-more ${iconOnly ? 'icon-only-badge' : ''}`}
           title={`+${hiddenCount} altri allergeni`}
           aria-label={`e altri ${hiddenCount} allergeni`}
+          style={iconOnly ? {
+            width: '32px',
+            height: '32px',
+            borderRadius: '50%',
+            background: 'rgba(107, 114, 128, 0.2)',
+            border: '1.5px solid rgba(107, 114, 128, 0.4)',
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '0.75rem',
+            fontWeight: 700,
+            color: 'rgba(255, 255, 255, 0.8)',
+            padding: 0
+          } : {}}
         >
           <span className="allergen-badge-icon" aria-hidden="true">+{hiddenCount}</span>
         </span>
