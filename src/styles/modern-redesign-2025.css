@@ -1,0 +1,505 @@
+/* 🎨 ============================================
+   MODERN REDESIGN 2025 - PIZZERIA MENU
+   Design Trends: Glassmorphism, Bento Grid, 
+   Micro-interactions, Dynamic Colors
+   ============================================ */
+
+/* ---------- 1️⃣ GLASSMORPHISM HEADER ---------- */
+.qodeup-header-main.glass-style {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.qodeup-header-main.glass-style .qodeup-logo-text {
+  background: linear-gradient(135deg, #10b981 0%, #06b6d4 50%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-size: 2.8rem;
+  font-weight: 900;
+  letter-spacing: -1px;
+  filter: drop-shadow(0 2px 4px rgba(16, 185, 129, 0.3));
+}
+
+/* Header Icons Enhancement */
+.qodeup-header-main.glass-style .qodeup-header-icon-btn {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.qodeup-header-main.glass-style .qodeup-header-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.qodeup-header-main.glass-style .qodeup-header-icon-btn.active {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+
+.qodeup-header-main.glass-style .qodeup-header-icon-btn.active svg,
+.qodeup-header-main.glass-style .qodeup-header-icon-btn.active path {
+  color: #10b981 !important;
+  stroke: #10b981 !important;
+  fill: #10b981 !important;
+}
+
+.qodeup-header-main.glass-style .qodeup-header-badge {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.4);
+  animation: badgePop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes badgePop {
+  0% {
+    opacity: 0;
+    transform: scale(0) rotate(180deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+/* ---------- 2️⃣ BENTO GRID MENU LAYOUT ---------- */
+.menu-items-list.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+/* Effetto "Featured" - alcune card più grandi */
+.simple-menu-item.featured {
+  grid-column: span 2;
+  background: linear-gradient(135deg, #fff 0%, #f0fdf4 100%);
+  border: 2px solid #10b981;
+}
+
+/* Stile Bento - Card arrotondata con ombra soft */
+.simple-menu-item.bento-card {
+  border-radius: 24px !important;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.05),
+    0 2px 4px -1px rgba(0, 0, 0, 0.03),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  position: relative;
+}
+
+.simple-menu-item.bento-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.simple-menu-item.bento-card:hover::before {
+  opacity: 1;
+}
+
+.simple-menu-item.bento-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(16, 185, 129, 0.1);
+}
+
+/* ---------- 3️⃣ GRADIENT MESH BACKGROUNDS ---------- */
+.qodeup-menu-section.gradient-mesh {
+  background: 
+    radial-gradient(at 0% 0%, rgba(16, 185, 129, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(6, 182, 212, 0.08) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
+    radial-gradient(at 0% 100%, rgba(236, 72, 153, 0.08) 0px, transparent 50%);
+  background-color: #ffffff;
+  border-radius: 32px;
+  padding: 2rem;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* Header sezione con gradient dinamico */
+.qodeup-section-header.gradient-header {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 1.25rem 1.75rem;
+  box-shadow: 
+    0 10px 15px -3px rgba(16, 185, 129, 0.3),
+    0 4px 6px -2px rgba(16, 185, 129, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.qodeup-section-header.gradient-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.qodeup-section-header.gradient-header:hover::before {
+  left: 100%;
+}
+
+/* ---------- 4️⃣ MICRO-INTERAZIONI ANIMATE ---------- */
+
+/* Animazione smooth per le card */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.simple-menu-item.animated {
+  animation: cardEntrance 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* Stagger effect per le card (ritardo progressivo) */
+.simple-menu-item.animated:nth-child(1) { animation-delay: 0.05s; }
+.simple-menu-item.animated:nth-child(2) { animation-delay: 0.1s; }
+.simple-menu-item.animated:nth-child(3) { animation-delay: 0.15s; }
+.simple-menu-item.animated:nth-child(4) { animation-delay: 0.2s; }
+.simple-menu-item.animated:nth-child(5) { animation-delay: 0.25s; }
+.simple-menu-item.animated:nth-child(6) { animation-delay: 0.3s; }
+
+/* Hover effect con scala e glow */
+.qodeup-product-image.interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.qodeup-product-image.interactive:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 20px 25px -5px rgba(16, 185, 129, 0.4);
+}
+
+/* Pulsanti con effetto ripple */
+.qodeup-quick-btn.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.qodeup-quick-btn.ripple::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(16, 185, 129, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.qodeup-quick-btn.ripple:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* ---------- 5️⃣ DARK MODE SUPPORT ---------- */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-ready {
+    background: #0f172a;
+    color: #f1f5f9;
+  }
+  
+  .qodeup-header-main.dark-mode-ready {
+    background: rgba(15, 23, 42, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .simple-menu-item.dark-mode-ready {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+  }
+  
+  .qodeup-product-name.dark-mode-ready {
+    color: #f1f5f9 !important;
+  }
+  
+  .qodeup-product-description.dark-mode-ready {
+    color: #cbd5e1 !important;
+  }
+  
+  .qodeup-section-header.dark-mode-ready {
+    background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  }
+}
+
+/* ---------- 6️⃣ BADGE SYSTEM MODERNIZZATO ---------- */
+.item-badge.modern {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  box-shadow: 
+    0 1px 3px 0 rgba(0, 0, 0, 0.1),
+    0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.item-badge.modern.vegan {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+}
+
+.item-badge.modern.gluten-free {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  color: white;
+}
+
+.item-badge.modern.allergen {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+}
+
+.item-badge.modern:hover {
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ---------- 7️⃣ FLOATING ACTION BUTTON (FAB) ---------- */
+.fab-menu {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+.fab-button {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  color: white;
+  border: none;
+  box-shadow: 
+    0 20px 25px -5px rgba(16, 185, 129, 0.4),
+    0 10px 10px -5px rgba(16, 185, 129, 0.3);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.fab-button:hover {
+  transform: scale(1.1) rotate(90deg);
+  box-shadow: 
+    0 25px 50px -12px rgba(16, 185, 129, 0.5);
+}
+
+.fab-button:active {
+  transform: scale(0.95) rotate(90deg);
+}
+
+/* ---------- 8️⃣ SKELETON LOADING MODERNIZZATO ---------- */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.skeleton-card {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 0px,
+    #f8f8f8 40px,
+    #f0f0f0 80px
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+  border-radius: 24px;
+  height: 200px;
+}
+
+/* ---------- 9️⃣ PARALLAX SCROLL EFFECT ---------- */
+.parallax-section {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.1s ease-out;
+}
+
+.parallax-section:hover {
+  transform: translateZ(20px);
+}
+
+/* ---------- 🔟 NEUMORPHISM ALTERNATIVE ---------- */
+.neumorphic-card {
+  background: #f0f0f0;
+  border-radius: 24px;
+  box-shadow: 
+    20px 20px 60px #d1d1d1,
+    -20px -20px 60px #ffffff;
+  padding: 2rem;
+  border: none;
+}
+
+.neumorphic-card:hover {
+  box-shadow: 
+    inset 20px 20px 60px #d1d1d1,
+    inset -20px -20px 60px #ffffff;
+}
+
+/* ---------- 🎯 FILTRI CON GLASSMORPHISM ---------- */
+.qodeup-quick-access.glass-filters {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
+  border-radius: 24px;
+  padding: 1.5rem;
+}
+
+.qodeup-quick-btn.glass-style {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.qodeup-quick-btn.glass-style:hover {
+  background: rgba(255, 255, 255, 0.8);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+}
+
+/* ---------- 📱 MOBILE OPTIMIZATIONS ---------- */
+@media (max-width: 768px) {
+  .menu-items-list.bento-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .simple-menu-item.featured {
+    grid-column: span 1;
+  }
+  
+  .fab-menu {
+    bottom: 1rem;
+    right: 1rem;
+  }
+  
+  .fab-button {
+    width: 56px;
+    height: 56px;
+    font-size: 1.5rem;
+  }
+}
+
+/* ---------- ✨ SCROLL ANIMATIONS ---------- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scroll-reveal {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* ---------- 🎨 COLOR PALETTE 2025 ---------- */
+:root {
+  /* Primary */
+  --color-primary-50: #f0fdf4;
+  --color-primary-100: #dcfce7;
+  --color-primary-500: #10b981;
+  --color-primary-600: #059669;
+  --color-primary-700: #047857;
+  
+  /* Secondary */
+  --color-secondary-500: #06b6d4;
+  --color-secondary-600: #0891b2;
+  
+  /* Accent */
+  --color-accent-500: #8b5cf6;
+  --color-accent-600: #7c3aed;
+  
+  /* Neutral */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-900: #0f172a;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  
+  /* Glassmorphism */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* ---------- 🎭 HOVER SCALE CARDS ---------- */
+.hover-scale {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* ---------- 💫 GLOW EFFECT ---------- */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.6);
+  }
+}
+
+.glow-effect {
+  animation: glow 2s ease-in-out infinite;
+}

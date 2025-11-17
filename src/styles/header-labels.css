@@ -1,0 +1,62 @@
+/* ===== HEADER ACTION LABELS STYLES ===== */
+/* Layout per wrapper icona + label */
+.qodeup-header-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+/* Label sotto l'icona */
+.qodeup-header-label {
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #777777;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  user-select: none;
+  line-height: 1;
+}
+
+/* Label quando il pulsante è attivo */
+.qodeup-header-action .qodeup-header-icon-btn.active ~ .qodeup-header-label {
+  color: #10b981;
+  font-weight: 600;
+}
+
+/* Label al hover del wrapper */
+.qodeup-header-action:hover .qodeup-header-label {
+  color: #10b981;
+  transform: translateY(-1px);
+}
+
+/* Responsive: nascondi label su schermi piccoli */
+@media (max-width: 768px) {
+  .qodeup-header-label {
+    display: none;
+  }
+  
+  .qodeup-header-action {
+    gap: 0;
+  }
+}
+
+/* Animazione label all'apparizione */
+.qodeup-header-label {
+  animation: fadeInUp 0.3s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

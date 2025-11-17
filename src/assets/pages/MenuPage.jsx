@@ -93,59 +93,84 @@ export default function MenuPage() {
 
 	return (
 		<div className="qodeup-layout">
-			{/* Header principale con logo e icone - WCAG AAA Enhanced */}
-			<header className="qodeup-header-main" role="banner">
+			{/* Header principale con logo e icone - Modern 2025 Design */}
+			<header className="qodeup-header-main glass-style" role="banner">
 				<div className="qodeup-header-container">
-					{/* Logo Qodeup a sinistra */}
+					{/* Logo a sinistra */}
 					<div className="qodeup-header-logo" aria-label="Logo b_bot" tabIndex={-1}>
 						<h1 className="qodeup-logo-text" style={{fontFamily: 'Roboto, Arial, sans-serif', fontWeight: 800, letterSpacing: '-0.5px'}} aria-label="b_bot logo">b_bot</h1>
 					</div>
+					
+					{/* Icone azioni rapide a destra */}
+					<div className="qodeup-header-icons">
+						{/* Search */}
+						<div className="qodeup-header-action">
+							<button 
+								className="qodeup-header-icon-btn" 
+								aria-label="Cerca nel menu"
+								title="Cerca pizza o prodotto"
+								onClick={() => {/* TODO: Implementa ricerca */}}
+							>
+								<span className="material-symbols-outlined">search</span>
+							</button>
+							<span className="qodeup-header-label">Cerca</span>
+						</div>
+						
+						{/* Filtro Veggie */}
+						<div className="qodeup-header-action">
+							<button 
+								className={`qodeup-header-icon-btn ${veggieFilterActive ? 'active' : ''}`}
+								onClick={handleVeggieClick}
+								title={veggieFilterActive ? "Rimuovi filtro veggie" : "Solo prodotti vegani"}
+								aria-label={veggieFilterActive ? "Rimuovi filtro veggie" : "Filtra prodotti vegani"}
+								aria-pressed={veggieFilterActive}
+							>
+								<VeganBadgeIcon size={20} color={veggieFilterActive ? "#22c55e" : "#bdbdbd"} withLabel={false} />
+								{veggieFilterActive && (
+									<span className="qodeup-header-badge">✓</span>
+								)}
+							</button>
+							<span className="qodeup-header-label">Veggie</span>
+						</div>
+						
+						{/* Filtro Allergeni */}
+						<div className="qodeup-header-action">
+							<button 
+								className={`qodeup-header-icon-btn ${filterStats.hasActiveFilters ? 'active' : ''}`}
+								onClick={() => {
+									if (filterStats.hasActiveFilters) {
+										resetSelection();
+									} else {
+										openAllergensModal();
+									}
+								}}
+								title={filterStats.hasActiveFilters ? `Allergeni attivi (${filterStats.activeFilterCount})` : "Filtra allergeni"}
+								aria-label={filterStats.hasActiveFilters ? `Allergeni attivi (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
+								aria-pressed={filterStats.hasActiveFilters}
+							>
+								<AllergenIcon size={20} color={filterStats.hasActiveFilters ? "#fbbf24" : "#bdbdbd"} />
+								{filterStats.hasActiveFilters && (
+									<span className="qodeup-header-badge">{filterStats.activeFilterCount}</span>
+								)}
+							</button>
+							<span className="qodeup-header-label">Allergeni</span>
+						</div>
+						
+						{/* Language Selector */}
+						<div className="qodeup-header-action">
+							<button 
+								className="qodeup-header-icon-btn" 
+								aria-label="Cambia lingua"
+								title="Lingua: Italiano"
+								onClick={() => {/* TODO: Implementa cambio lingua */}}
+							>
+								<span className="qodeup-flag-icon">🇮🇹</span>
+							</button>
+							<span className="qodeup-header-label">Lingua</span>
+						</div>
+					</div>
 				</div>
 			</header>
-
-			{/* Sezione icone intermedie - solo filtri rapidi, senza comunicazioni extra */}
-			<section className="qodeup-quick-access" role="navigation" aria-label="Accesso rapido funzioni">
-				<>
-					<button 
-						className={`qodeup-quick-btn ${veggieFilterActive ? 'active' : ''}`}
-						onClick={handleVeggieClick}
-						title={veggieFilterActive ? "Rimuovi filtro veggie" : "Visualizza prodotti vegani"}
-						aria-label={veggieFilterActive ? "Rimuovi filtro prodotti vegani" : "Visualizza solo prodotti vegani"}
-						aria-pressed={veggieFilterActive}
-					>
-						<div className="qodeup-quick-icon">
-							<VeganBadgeIcon size={40} color={veggieFilterActive ? "#22c55e" : "#777777"} withLabel={false} />
-							{veggieFilterActive && (
-								<span className="qodeup-quick-badge" aria-label="Filtro veggie attivo">✓</span>
-							)}
-						</div>
-						<span className="qodeup-quick-label">VEGGIE</span>
-					</button>
-					<button 
-						className={`qodeup-quick-btn${filterStats.hasActiveFilters ? ' active' : ''}`}
-						onClick={() => {
-							if (filterStats.hasActiveFilters) {
-								resetSelection();
-							} else {
-								handleAllergensClick();
-							}
-						}}
-						title={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
-						aria-label={filterStats.hasActiveFilters ? `Rimuovi filtri allergeni (${filterStats.activeFilterCount})` : "Visualizza solo piatti senza allergeni"}
-						aria-pressed={filterStats.hasActiveFilters}
-						aria-expanded={filterStats.hasActiveFilters}
-					>
-						<div className="qodeup-quick-icon">
-							<AllergenIcon size={40} color={filterStats.hasActiveFilters ? "#eab308" : "#777777"} />
-							{filterStats.hasActiveFilters && (
-								<span className="qodeup-quick-badge" aria-label="Filtro allergeni attivo">✓</span>
-							)}
-						</div>
-						<span className="qodeup-quick-label">ALLERGENI</span>
-					</button>
-				</>
-			</section>
-
 
 			   {/* Titolo sezione menu */}
 			   <div style={{display:'flex',alignItems:'center',gap:'1.2em',margin:'2em 0 1.2em 0'}}>

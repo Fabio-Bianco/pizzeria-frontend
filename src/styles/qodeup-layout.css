@@ -12,7 +12,7 @@
   background: #fff;
   border-bottom: 1px solid #e9ecef;
   box-shadow: none;
-  padding: 0.35rem 0 0.35rem 0;
+  padding: 1.5rem 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -24,7 +24,7 @@
 .qodeup-header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 0.5rem;
+  padding: 0 1.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,7 +37,7 @@
 }
 
 .qodeup-logo-text {
-  font-size: 1.3rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #777777;
   text-decoration: none;
@@ -47,16 +47,16 @@
 .qodeup-header-icons {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
+  gap: 1rem;
   margin-left: auto;
 }
 
 .qodeup-header-icon-btn {
   position: relative;
-  width: 32px;
-  height: 32px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  border: 1.5px solid #e9ecef;
+  border: 2px solid #e9ecef;
   background: white;
   display: flex;
   align-items: center;
@@ -64,10 +64,10 @@
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   color: #777777;
-  font-size: 1rem;
+  font-size: 1.5rem;
   overflow: hidden;
-  margin-left: 0.1rem;
-  margin-right: 0.1rem;
+  margin-left: 0.2rem;
+  margin-right: 0.2rem;
 }
 
 .qodeup-header-icon-btn::before {
@@ -107,7 +107,7 @@
 }
 
 .qodeup-header-icon-btn .material-symbols-outlined {
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   color: #777777;
   font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
 }
@@ -118,12 +118,12 @@
   right: -6px;
   background: linear-gradient(135deg, #efca1a 0%, #e5ad3e 100%);
   color: white;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  padding: 2px 6px;
-  border-radius: 12px;
-  min-width: 18px;
-  height: 18px;
+  padding: 3px 8px;
+  border-radius: 14px;
+  min-width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -135,7 +135,7 @@
 }
 
 .qodeup-flag-icon {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
@@ -214,33 +214,6 @@
 .qodeup-logo:hover {
   color: #d73527;
   text-decoration: none;
-}
-
-.qodeup-header-icons {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-left: auto;
-}
-
-.qodeup-icon-btn {
-  width: 45px;
-  height: 45px;
-  border-radius: 8px;
-  border: 2px solid #e9ecef;
-  background: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.qodeup-icon-btn:hover {
-  border-color: #d73527;
-  background: #fff5f5;
-  transform: translateY(-2px);
 }
 
 /* ===== QODEUP LAYOUT SECTIONS ===== */
