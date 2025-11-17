@@ -33,7 +33,7 @@ function SimpleMenuItem({
 
   return (
     <li className={`simple-menu-item ${className}`}>
-      <div style={{ flexShrink: 0 }}>
+      <div style={{ flexShrink: 0, position: 'relative' }}>
         {image && typeof image === 'string' && image.trim() !== '' ? (
           <LazyImage 
             src={image} 
@@ -45,26 +45,28 @@ function SimpleMenuItem({
         ) : (
           <div className="qodeup-product-placeholder">🍽️</div>
         )}
+        
+        {/* Badge floating icon-only su immagine */}
+        {(vegan || is_gluten_free) && (
+          <div className="floating-badges-container">
+            {vegan && (
+              <span className="floating-badge vegan" title="Vegano" aria-label="Vegano">
+                <VeganBadgeIcon size={14} color="#ffffff" withLabel={false} />
+              </span>
+            )}
+            {is_gluten_free && (
+              <span className="floating-badge gluten-free" title="Senza Glutine" aria-label="Senza Glutine">
+                <span className="material-symbols-outlined" style={{fontSize:'14px',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
+              </span>
+            )}
+          </div>
+        )}
       </div>
       <div style={{ flex: 1, minWidth: 0, position: 'relative', display: 'flex', flexDirection: 'column' }}>
-        {/* Titolo con badge inline */}
-        <div style={{display:'flex',alignItems:'center',gap:'0.5rem',flexWrap:'wrap',marginBottom:'0.1rem'}}>
-          <h3 className="qodeup-product-name dark-mode-ready" title={name}>
-            {name}
-          </h3>
-          {vegan && (
-            <span className="item-badge modern vegan" title="Vegano">
-              <VeganBadgeIcon size={12} color="#ffffff" withLabel={false} />
-              <span style={{fontSize:'0.7em',fontWeight:600}}>VEGAN</span>
-            </span>
-          )}
-          {is_gluten_free && (
-            <span className="item-badge modern gluten-free" title="Senza Glutine">
-              <span className="material-symbols-outlined" style={{fontSize:'0.9em',fontVariationSettings:"'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24"}}>spa</span>
-              <span style={{fontSize:'0.7em',fontWeight:600}}>GLUTEN FREE</span>
-            </span>
-          )}
-        </div>
+        {/* Titolo pulito senza badge */}
+        <h3 className="qodeup-product-name dark-mode-ready" title={name}>
+          {name}
+        </h3>
         
         {/* Ingredienti subito sotto il titolo */}
         {Array.isArray(ingredients) && ingredients.length > 0 && (

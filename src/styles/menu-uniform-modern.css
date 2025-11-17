@@ -238,6 +238,60 @@
   box-shadow: 0 3px 10px rgba(239, 202, 26, 0.3);
 }
 
+/* ===== FLOATING BADGES (Vegan/Gluten-Free) ===== */
+/* Container floating badges - top right dell'immagine */
+.floating-badges-container {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: flex;
+  gap: 4px;
+  z-index: 10;
+}
+
+/* Badge floating icon-only */
+.floating-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  cursor: help;
+  transition: all 0.2s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.floating-badge:hover {
+  transform: scale(1.15);
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.35);
+}
+
+/* Badge Vegan floating */
+.floating-badge.vegan {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(5, 150, 105, 0.9) 100%);
+  border-color: rgba(16, 185, 129, 0.5);
+}
+
+.floating-badge.vegan:hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 1) 0%, rgba(5, 150, 105, 1) 100%);
+  box-shadow: 0 3px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Badge Gluten-Free floating */
+.floating-badge.gluten-free {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 0.9) 0%, rgba(245, 158, 11, 0.9) 100%);
+  border-color: rgba(251, 191, 36, 0.5);
+  color: #ffffff;
+}
+
+.floating-badge.gluten-free:hover {
+  background: linear-gradient(135deg, rgba(251, 191, 36, 1) 0%, rgba(245, 158, 11, 1) 100%);
+  box-shadow: 0 3px 12px rgba(251, 191, 36, 0.4);
+}
+
 /* ===== TABLET BREAKPOINT (768px+) ===== */
 @media (min-width: 768px) {
   /* Card torna a layout ORIZZONTALE */
@@ -281,6 +335,16 @@
   /* Prezzo torna a flex-end */
   .menu-card-modern .price-value {
     align-self: flex-end;
+  }
+  
+  /* Floating badges più grandi su tablet */
+  .floating-badge {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .floating-badge .material-symbols-outlined {
+    font-size: 16px !important;
   }
 
   /* Immagini più grandi */

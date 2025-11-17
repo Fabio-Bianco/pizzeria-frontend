@@ -139,52 +139,154 @@
 
 
 .qodeup-section-header {
-  background: #0f6d4f; /* deep green */
-  color: #ffffff;
-  padding: 0.85rem 1.5rem;
-  border-radius: 16px; /* look più "pill" come nello screenshot */
+  /* Gradiente uniforme per tutte le sezioni */
+  background: linear-gradient(135deg, #14b8a6 0%, #0891b2 100%) !important;
+  color: #ffffff !important;
+  /* Padding MOBILE ottimizzato (senza contatori) */
+  padding: 1rem 1.2rem !important;
+  border-radius: 16px !important;
   cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: box-shadow 0.16s, background 0.16s, border-color 0.16s, transform 0.12s ease-out;
-  border: 1.5px solid #0b5d41;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  gap: 0.8rem !important;
+  /* Altezza mobile ottimizzata */
+  min-height: 56px !important;
+  height: auto !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
   width: 100%;
-  font-size: 1.06rem;
-  font-weight: 800;
-  box-shadow: 0 2px 8px rgba(15,109,79,0.15);
+  /* Tipografia uniforme */
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  /* Shadow uniforme */
+  box-shadow: 0 4px 12px rgba(8, 145, 178, 0.2);
   margin-bottom: 0;
-  letter-spacing: 0.02em;
+  position: relative;
+  overflow: hidden;
+}
+
+.qodeup-section-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.qodeup-section-header:hover::before {
+  left: 100%;
 }
 
 .qodeup-section-header:hover,
 .qodeup-section-header:focus {
-  background: #128860; /* hover green più chiaro */
-  border-color: #0f6d4f;
+  background: linear-gradient(135deg, #0891b2 0%, #06b6d4 100%);
   outline: none;
-  box-shadow: 0 4px 16px rgba(18,136,96,0.22);
-  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(8, 145, 178, 0.3);
+  transform: translateY(-2px);
 }
 
 .qodeup-section-count {
-  background: #e8f5ec; /* soft green chip */
-  color: #0f6d4f;
-  padding: 0.28rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  border: 1px solid #cbeadf;
-  margin-left: 0.7em;
+  /* NASCOSTO su mobile per layout pulito */
+  display: none !important;
+}
+
+/* Contatori VISIBILI solo da tablet in su */
+@media (min-width: 768px) {
+  .qodeup-section-count {
+    /* Colore giallo IDENTICO per tutti i contatori */
+    background: rgba(251, 191, 36, 0.25) !important;
+    color: rgb(251, 191, 36) !important;
+    /* Padding uniforme FORZATO */
+    padding: 0.45rem 0.9rem !important;
+    border-radius: 999px !important;
+    /* Tipografia uniforme */
+    font-size: 0.95rem !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
+    /* Border uniforme */
+    border: 2px solid rgba(251, 191, 36, 0.5) !important;
+    margin: 0 !important;
+    /* Shadow leggera */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15) !important;
+    flex-shrink: 0 !important;
+    /* Dimensioni fisse garantite */
+    min-width: 50px !important;
+    height: 32px !important;
+    max-height: 32px !important;
+    text-align: center !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    vertical-align: middle !important;
+  }
+  
+  /* Specificità extra per sovrascrivere tutto */
+  .qodeup-section-header .qodeup-section-count {
+    background: rgba(251, 191, 36, 0.25) !important;
+    color: rgb(251, 191, 36) !important;
+    border: 2px solid rgba(251, 191, 36, 0.5) !important;
+  }
 }
 
 .qodeup-section-chevron {
-  font-size: 1.15rem;
-  color: #ffffff;
-  transition: transform 0.22s;
+  /* Dimensioni MOBILE - più grande senza contatori */
+  font-size: 1.5rem !important;
+  color: #ffffff !important;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  flex-shrink: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  line-height: 1 !important;
+  /* Garantisce rendering corretto */
+  min-width: 36px !important;
+  max-width: 36px !important;
+  min-height: 36px !important;
+  max-height: 36px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+@media (min-width: 768px) {
+  .qodeup-section-chevron {
+    /* Tablet+ - dimensioni normali */
+    font-size: 1.4rem !important;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    max-width: 32px !important;
+    min-height: 32px !important;
+    max-height: 32px !important;
+  }
 }
 
 .qodeup-section-header.expanded .qodeup-section-chevron {
   transform: rotate(180deg);
+}
+
+/* Container per contatore + chevron - gap fisso */
+.qodeup-section-header > div:last-child {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.65rem !important;
+  flex-shrink: 0 !important;
+}
+
+/* TABLET+ (768px+) - Header con contatori */
+@media (min-width: 768px) {
+  .qodeup-section-header {
+    padding: 1rem 1.3rem !important;
+    gap: 1rem !important;
+    min-height: 64px !important;
+  }
 }
 
 

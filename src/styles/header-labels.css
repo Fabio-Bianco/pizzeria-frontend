@@ -11,9 +11,9 @@
 /* Label sotto l'icona */
 .qodeup-header-label {
   font-family: 'Roboto', sans-serif;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   font-weight: 500;
-  color: #777777;
+  color: #999999;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   white-space: nowrap;

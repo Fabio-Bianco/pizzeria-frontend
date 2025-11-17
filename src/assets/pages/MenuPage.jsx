@@ -97,8 +97,8 @@ export default function MenuPage() {
 			<header className="qodeup-header-main glass-style dark-mode-ready" role="banner">
 				<div className="qodeup-header-container">
 					{/* Logo a sinistra */}
-					<div className="qodeup-header-logo" aria-label="Logo b_bot" tabIndex={-1}>
-						<h1 className="qodeup-logo-text" style={{fontFamily: 'Roboto, Arial, sans-serif', fontWeight: 800, letterSpacing: '-0.5px'}} aria-label="b_bot logo">b_bot</h1>
+					<div className="qodeup-header-logo" aria-label="Logo MENU" tabIndex={-1}>
+						<h1 className="qodeup-logo-text" style={{fontFamily: 'Roboto, Arial, sans-serif', fontWeight: 800, letterSpacing: '-0.5px'}} aria-label="MENU logo">MENU</h1>
 					</div>
 					
 					{/* Icone azioni rapide a destra */}
@@ -125,7 +125,7 @@ export default function MenuPage() {
 								aria-label={veggieFilterActive ? "Rimuovi filtro veggie" : "Filtra prodotti vegani"}
 								aria-pressed={veggieFilterActive}
 							>
-								<VeganBadgeIcon size={20} color={veggieFilterActive ? "#22c55e" : "#bdbdbd"} withLabel={false} />
+								<VeganBadgeIcon size={24} color={veggieFilterActive ? "#22c55e" : "white"} withLabel={false} />
 								{veggieFilterActive && (
 									<span className="qodeup-header-badge">✓</span>
 								)}
@@ -148,7 +148,7 @@ export default function MenuPage() {
 								aria-label={filterStats.hasActiveFilters ? `Allergeni attivi (${filterStats.activeFilterCount})` : "Filtra per allergeni"}
 								aria-pressed={filterStats.hasActiveFilters}
 							>
-								<AllergenIcon size={20} color={filterStats.hasActiveFilters ? "#fbbf24" : "#bdbdbd"} />
+								<AllergenIcon size={24} color={filterStats.hasActiveFilters ? "#fbbf24" : "white"} />
 								{filterStats.hasActiveFilters && (
 									<span className="qodeup-header-badge">{filterStats.activeFilterCount}</span>
 								)}
@@ -164,7 +164,7 @@ export default function MenuPage() {
 								title="Lingua: Italiano"
 								onClick={() => {/* TODO: Implementa cambio lingua */}}
 							>
-								<span className="qodeup-flag-icon">🇮🇹</span>
+								<span className="qodeup-flag-icon" style={{color: 'white', fontWeight: 700, fontSize: '1.2rem'}}>IT</span>
 							</button>
 							<span className="qodeup-header-label">Lingua</span>
 						</div>
@@ -172,52 +172,7 @@ export default function MenuPage() {
 				</div>
 			</header>
 
-			   {/* Titolo sezione menu */}
-			   <div style={{display:'flex',alignItems:'center',gap:'1.2em',margin:'2em 0 1.2em 0'}}>
-				   <hr
-					   style={{
-						   flex:1,
-						   border:'none',
-						   borderTop:'4px dashed #10b981',
-						   margin:0,
-						   opacity:1,
-						   boxShadow:'0 2px 8px #a7f3d0',
-					   }}
-					   aria-hidden="true"
-				   />
-				   <h1
-					   style={{
-						   margin:0,
-						   fontSize:'2.2rem',
-						   fontWeight:900,
-						   letterSpacing:'0.18em',
-						   color:'var(--accent-green)',
-						   fontFamily:'inherit',
-						   textTransform:'uppercase',
-						   textShadow:'0 2px 8px #e6fbe6, 0 1px 0 #fff',
-						   lineHeight:1.1
-					   }}
-					   aria-label="Titolo menu"
-				   >MENU</h1>
-				   <hr
-					   style={{
-						   flex:1,
-						   border:'none',
-						   borderTop:'4px dashed #10b981',
-						   margin:0,
-						   opacity:1,
-						   boxShadow:'0 2px 8px #a7f3d0',
-					   }}
-					   aria-hidden="true"
-				   />
-			   </div>
-
-			{/* Avviso errori globali */}
-			{hasAnyError && (
-				<div className="qodeup-mock-warning" role="alert" style={{background:'#fffbe6',color:'#b45309',padding:'1em',border:'1px solid #facc15',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
-					Attenzione: alcuni dati del menu non sono disponibili. Controlla la connessione o la configurazione dell'API.
-				</div>
-			)}
+			{/* Sezione menu direttamente sotto header */}
 
 			{/* Sezioni menu collassabili - WCAG Enhanced */}
 			<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">

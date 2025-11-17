@@ -24,10 +24,12 @@
     padding: 0.8rem 1rem;
   }
   
+  /* DISABILITATO - causa conflitti uniformità
   .qodeup-section-header {
     padding: 0.8rem 1.5rem;
     font-size: 1rem;
   }
+  */
   
   .qodeup-product-card {
     flex-direction: column;

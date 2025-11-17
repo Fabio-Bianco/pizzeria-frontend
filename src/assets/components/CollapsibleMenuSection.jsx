@@ -34,9 +34,9 @@ export default function CollapsibleMenuSection({
         <div className="qodeup-section-title">
           <span>{title}</span>
         </div>
-        <div className="d-flex align-items-center gap-2">
+        <div style={{display:'flex',alignItems:'center',gap:'0.65rem',flexShrink:0}}>
           <span className="qodeup-section-count" aria-label={`${displayCount} prodotti disponibili`}>
-            ({displayCount})
+            {displayCount}
           </span>
           <span className="qodeup-section-chevron" aria-hidden="true">▼</span>
         </div>

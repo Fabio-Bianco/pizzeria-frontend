@@ -8,7 +8,8 @@ const ALLERGEN_ICON_MAP = {
   'LATTOSIO': 'icecream',
   'FRUTTA A GUSCIO': 'nutrition',
   'UOVA': 'egg',
-  'PESCE': 'fish',
+  'PESCE': 'set_meal',
+  'FISH': 'set_meal',
   'ARACHIDI': 'spa',
   'SOIA': 'eco',
   'CROSTACEI': 'cruelty_free',
@@ -18,6 +19,7 @@ const ALLERGEN_ICON_MAP = {
   'SOLFITI': 'local_drink',
   'LUPINI': 'spa',
   'MOLLUSCHI': 'waves',
+  'ANIDRIDE SOLFOROSA': 'air',
 };
 const ALLERGEN_CONFIG = [
   { id: 2, name: 'LATTOSIO' },
@@ -32,7 +34,8 @@ const ALLERGEN_CONFIG = [
   { id: 11, name: 'SESAMO' },
   { id: 12, name: 'SOLFITI' },
   { id: 13, name: 'LUPINI' },
-  { id: 14, name: 'MOLLUSCHI' }
+  { id: 14, name: 'MOLLUSCHI' },
+  { id: 15, name: 'ANIDRIDE SOLFOROSA' }
 ]
 
 /**
