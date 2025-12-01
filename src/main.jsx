@@ -13,11 +13,19 @@ import './styles/modern-badges.css'
 import './styles/chalkboard-theme.css'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  import.meta.env.DEV ? (
+    <StrictMode>
+      <BrowserRouter>
+        <PizzeriaProvider>
+          <App />
+        </PizzeriaProvider>
+      </BrowserRouter>
+    </StrictMode>
+  ) : (
     <BrowserRouter>
       <PizzeriaProvider>
         <App />
       </PizzeriaProvider>
     </BrowserRouter>
-  </StrictMode>,
+  ),
 )

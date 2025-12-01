@@ -50,6 +50,7 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento categorie:', e)
       setError((err) => ({ ...err, categories: e }))
+      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, categories: false }))
     }
@@ -107,6 +108,7 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento ingredienti:', e)
       setError((err) => ({ ...err, ingredients: e }))
+      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, ingredients: false }))
     }
@@ -125,6 +127,7 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento allergeni:', e)
       setError((err) => ({ ...err, allergens: e }))
+      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, allergens: false }))
     }
@@ -156,6 +159,8 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento antipasti:', e)
       setError((err) => ({ ...err, appetizers: e }))
+      // NON resettare lo stato se già abbiamo dei dati
+      // In caso di errore durante un re-fetch, manteniamo i dati precedenti
     } finally {
       setLoading((s) => ({ ...s, appetizers: false }))
     }
@@ -177,6 +182,7 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento bevande:', e)
       setError((err) => ({ ...err, beverages: e }))
+      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, beverages: false }))
     }
@@ -198,6 +204,7 @@ export function PizzeriaProvider({ children }) {
     } catch (e) {
       console.error('Errore nel caricamento dolci:', e)
       setError((err) => ({ ...err, desserts: e }))
+      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, desserts: false }))
     }
@@ -250,8 +257,8 @@ export function PizzeriaProvider({ children }) {
         desserts: fetchDesserts,
       },
     }),
-    [categories, pizzas, ingredients, allergens, appetizers, beverages, desserts, loading, error]
-    // Rimuovo le fetch functions dalle dipendenze per evitare re-render infiniti
+    [categories, pizzas, ingredients, allergens, appetizers, beverages, desserts, loading, error, 
+     fetchCategories, fetchPizzas, fetchIngredients, fetchAllergens, fetchAppetizers, fetchBeverages, fetchDesserts]
   )
 
   return <PizzeriaContext.Provider value={value}>{children}</PizzeriaContext.Provider>
