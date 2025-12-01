@@ -24,6 +24,11 @@ export function PizzeriaProvider({ children }) {
   
   // Uso useRef per i flag di inizializzazione per evitare re-render
   const initializedRef = useRef({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false, desserts: false })
+  
+  // Cache per evitare chiamate duplicate durante StrictMode
+  const fetchingRef = useRef({ categories: false, pizzas: false, ingredients: false, allergens: false, appetizers: false, beverages: false, desserts: false })
+  const cacheTimestamp = useRef({ categories: 0, pizzas: 0, ingredients: 0, allergens: 0, appetizers: 0, beverages: 0, desserts: 0 })
+  const CACHE_DURATION = 30000 // 30 secondi di cache
 
   // Tenta di estrarre una lista da varie forme di risposta comuni in Laravel (paginata/non paginata)
   const extractList = (payload) => {
@@ -38,8 +43,15 @@ export function PizzeriaProvider({ children }) {
   }
 
   const fetchCategories = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.categories && !force) return
+    // Cache check: se abbiamo dati recenti, non ricaricare
+    const now = Date.now()
+    if (!force && initializedRef.current.categories && (now - cacheTimestamp.current.categories) < CACHE_DURATION) {
+      return
+    }
+    
+    // Lock: previene chiamate duplicate simultanee
+    if (fetchingRef.current.categories) return
+    fetchingRef.current.categories = true
     
     setLoading((s) => ({ ...s, categories: true }))
     setError((e) => ({ ...e, categories: null }))
@@ -47,20 +59,28 @@ export function PizzeriaProvider({ children }) {
       const data = await listCategories()
       setCategories(extractList(data))
       initializedRef.current.categories = true
+      cacheTimestamp.current.categories = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento categorie:', e)
       setError((err) => ({ ...err, categories: e }))
       // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, categories: false }))
+      fetchingRef.current.categories = false
     }
   }, []) // Rimuovo la dipendenza da initialized.categories
 
   const fetchPizzas = useCallback(async (params = {}, force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.pizzas && !force) return
+    // Cache check
+    const now = Date.now()
+    if (!force && initializedRef.current.pizzas && (now - cacheTimestamp.current.pizzas) < CACHE_DURATION) {
+      return
+    }
     
-    // Non mostrare loader se abbiamo già dei dati e non è forzato
+    // Lock: previene chiamate duplicate simultanee
+    if (fetchingRef.current.pizzas) return
+    fetchingRef.current.pizzas = true
+    
     const shouldShowLoader = force || !initializedRef.current.pizzas
     if (shouldShowLoader) {
       setLoading((s) => ({ ...s, pizzas: true }))
@@ -69,7 +89,6 @@ export function PizzeriaProvider({ children }) {
     try {
       const data = await listPizzas(params)
       console.log('[PizzeriaContext] Pizzas raw response:', data)
-      // Mappo is_vegan/is_vegetarian su vegan/vegetarian per compatibilità filtri
       const mapped = extractList(data).map(item => ({
         ...item,
         vegan: item.is_vegan ?? item.vegan,
@@ -78,26 +97,24 @@ export function PizzeriaProvider({ children }) {
       console.log('[PizzeriaContext] Pizzas mapped:', mapped.length, 'items')
       setPizzas(mapped)
       initializedRef.current.pizzas = true
+      cacheTimestamp.current.pizzas = Date.now()
     } catch (e) {
       console.error('[PizzeriaContext] Errore nel caricamento pizze:', e)
-      console.error('[PizzeriaContext] Dettagli errore:', {
-        status: e?.response?.status,
-        message: e?.message,
-        url: e?.config?.url
-      })
       setError((err) => ({ ...err, pizzas: e }))
-      // Se errore 404, probabilmente le rotte API non sono pubbliche
       if (e?.response?.status === 404) {
         console.warn('[PizzeriaContext] ⚠️ API non trovata (404). Il backend potrebbe richiedere autenticazione o le rotte API pubbliche non sono configurate.')
       }
     } finally {
       setLoading((s) => ({ ...s, pizzas: false }))
+      fetchingRef.current.pizzas = false
     }
   }, []) // Rimuovo dipendenza
 
   const fetchIngredients = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.ingredients && !force) return
+    const now = Date.now()
+    if (!force && initializedRef.current.ingredients && (now - cacheTimestamp.current.ingredients) < CACHE_DURATION) return
+    if (fetchingRef.current.ingredients) return
+    fetchingRef.current.ingredients = true
     
     setLoading((s) => ({ ...s, ingredients: true }))
     setError((e) => ({ ...e, ingredients: null }))
@@ -105,18 +122,21 @@ export function PizzeriaProvider({ children }) {
       const data = await listIngredients()
       setIngredients(extractList(data))
       initializedRef.current.ingredients = true
+      cacheTimestamp.current.ingredients = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento ingredienti:', e)
       setError((err) => ({ ...err, ingredients: e }))
-      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, ingredients: false }))
+      fetchingRef.current.ingredients = false
     }
   }, []) // Rimuovo dipendenza
 
   const fetchAllergens = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.allergens && !force) return
+    const now = Date.now()
+    if (!force && initializedRef.current.allergens && (now - cacheTimestamp.current.allergens) < CACHE_DURATION) return
+    if (fetchingRef.current.allergens) return
+    fetchingRef.current.allergens = true
     
     setLoading((s) => ({ ...s, allergens: true }))
     setError((e) => ({ ...e, allergens: null }))
@@ -124,18 +144,21 @@ export function PizzeriaProvider({ children }) {
       const data = await listAllergens()
       setAllergens(extractList(data))
       initializedRef.current.allergens = true
+      cacheTimestamp.current.allergens = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento allergeni:', e)
       setError((err) => ({ ...err, allergens: e }))
-      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, allergens: false }))
+      fetchingRef.current.allergens = false
     }
   }, []) // Rimuovo dipendenza
 
   const fetchAppetizers = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.appetizers && !force) return
+    const now = Date.now()
+    if (!force && initializedRef.current.appetizers && (now - cacheTimestamp.current.appetizers) < CACHE_DURATION) return
+    if (fetchingRef.current.appetizers) return
+    fetchingRef.current.appetizers = true
     
     const shouldShowLoader = force || !initializedRef.current.appetizers
     if (shouldShowLoader) {
@@ -145,7 +168,6 @@ export function PizzeriaProvider({ children }) {
     try {
       const data = await listAppetizers()
       const extracted = extractList(data)
-      // Normalizza is_gluten_free e gluten_free per compatibilità badge
       const mapped = extracted.map(item => ({
         ...item,
         is_gluten_free: item.is_gluten_free ?? item.gluten_free,
@@ -156,19 +178,21 @@ export function PizzeriaProvider({ children }) {
       }
       setAppetizers(mapped)
       initializedRef.current.appetizers = true
+      cacheTimestamp.current.appetizers = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento antipasti:', e)
       setError((err) => ({ ...err, appetizers: e }))
-      // NON resettare lo stato se già abbiamo dei dati
-      // In caso di errore durante un re-fetch, manteniamo i dati precedenti
     } finally {
       setLoading((s) => ({ ...s, appetizers: false }))
+      fetchingRef.current.appetizers = false
     }
   }, []) // Rimuovo dipendenza
 
   const fetchBeverages = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.beverages && !force) return
+    const now = Date.now()
+    if (!force && initializedRef.current.beverages && (now - cacheTimestamp.current.beverages) < CACHE_DURATION) return
+    if (fetchingRef.current.beverages) return
+    fetchingRef.current.beverages = true
     
     const shouldShowLoader = force || !initializedRef.current.beverages
     if (shouldShowLoader) {
@@ -179,18 +203,21 @@ export function PizzeriaProvider({ children }) {
       const data = await listBeverages()
       setBeverages(extractList(data))
       initializedRef.current.beverages = true
+      cacheTimestamp.current.beverages = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento bevande:', e)
       setError((err) => ({ ...err, beverages: e }))
-      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, beverages: false }))
+      fetchingRef.current.beverages = false
     }
   }, []) // Rimuovo dipendenza
 
   const fetchDesserts = useCallback(async (force = false) => {
-    // Non fare fetch se già inizializzato e non forzato
-    if (initializedRef.current.desserts && !force) return
+    const now = Date.now()
+    if (!force && initializedRef.current.desserts && (now - cacheTimestamp.current.desserts) < CACHE_DURATION) return
+    if (fetchingRef.current.desserts) return
+    fetchingRef.current.desserts = true
     
     const shouldShowLoader = force || !initializedRef.current.desserts
     if (shouldShowLoader) {
@@ -201,12 +228,13 @@ export function PizzeriaProvider({ children }) {
       const data = await listDesserts()
       setDesserts(extractList(data))
       initializedRef.current.desserts = true
+      cacheTimestamp.current.desserts = Date.now()
     } catch (e) {
       console.error('Errore nel caricamento dolci:', e)
       setError((err) => ({ ...err, desserts: e }))
-      // NON resettare lo stato se già abbiamo dei dati
     } finally {
       setLoading((s) => ({ ...s, desserts: false }))
+      fetchingRef.current.desserts = false
     }
   }, []) // Rimuovo dipendenza
 

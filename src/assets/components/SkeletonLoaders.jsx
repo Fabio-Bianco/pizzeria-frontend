@@ -1,8 +1,14 @@
 export function CardSkeleton({ type = 'pizza' }) {
   const getIcon = () => {
     switch(type) {
-      case 'appetizer': return '🥗'
-      case 'beverage': return '🥤'
+      case 'appetizer':
+      case 'appetizers': return '🥗'
+      case 'beverage':
+      case 'beverages': return '🥤'
+      case 'dessert':
+      case 'desserts': return '🍰'
+      case 'pizza':
+      case 'pizzas':
       default: return '🍕'
     }
   }

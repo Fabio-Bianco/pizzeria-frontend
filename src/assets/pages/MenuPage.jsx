@@ -156,7 +156,7 @@ export default function MenuPage() {
 							<div className="qodeup-section-error" role="alert" style={{background:'#fef2f2',color:'#b91c1c',padding:'1em',border:'1px solid #fca5a5',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
 								Errore nel caricamento della sezione "{section.title}". Riprova più tardi.
 							</div>
-						) : section.loading && !section.initialized ? (
+						) : section.loading && (!section.items || section.items.length === 0) ? (
 							<GridSkeleton type={section.id} count={3} />
 						) : (
 							<CollapsibleMenuSection
