@@ -103,19 +103,6 @@ export default function MenuPage() {
 					
 					{/* Icone azioni rapide a destra */}
 					<div className="qodeup-header-icons">
-						{/* Search */}
-						<div className="qodeup-header-action">
-							<button 
-								className="qodeup-header-icon-btn" 
-								aria-label="Cerca nel menu"
-								title="Cerca pizza o prodotto"
-								onClick={() => {/* TODO: Implementa ricerca */}}
-							>
-								<span className="material-symbols-outlined">search</span>
-							</button>
-							<span className="qodeup-header-label">Cerca</span>
-						</div>
-						
 						{/* Filtro Veggie */}
 						<div className="qodeup-header-action">
 							<button 
@@ -155,19 +142,6 @@ export default function MenuPage() {
 							</button>
 							<span className="qodeup-header-label">Allergeni</span>
 						</div>
-						
-						{/* Language Selector */}
-						<div className="qodeup-header-action">
-							<button 
-								className="qodeup-header-icon-btn" 
-								aria-label="Cambia lingua"
-								title="Lingua: Italiano"
-								onClick={() => {/* TODO: Implementa cambio lingua */}}
-							>
-								<span className="qodeup-flag-icon" style={{color: 'white', fontWeight: 700, fontSize: '1.2rem'}}>IT</span>
-							</button>
-							<span className="qodeup-header-label">Lingua</span>
-						</div>
 					</div>
 				</div>
 			</header>
@@ -178,7 +152,7 @@ export default function MenuPage() {
 			<main className="qodeup-menu-sections" role="main" aria-label="Menu del ristorante">
 				{menuSections.map((section) => (
 					<section key={section.id} aria-label={`Sezione ${section.title}`}>
-						{error[section.id] ? (
+						{error[section.id] && (!section.items || section.items.length === 0) ? (
 							<div className="qodeup-section-error" role="alert" style={{background:'#fef2f2',color:'#b91c1c',padding:'1em',border:'1px solid #fca5a5',borderRadius:'8px',margin:'1em 0',fontWeight:'bold'}}>
 								Errore nel caricamento della sezione "{section.title}". Riprova più tardi.
 							</div>

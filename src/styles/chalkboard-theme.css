@@ -1,0 +1,213 @@
+/* 🖍️ LAVAGNA PROFESSIONALE */
+
+/* ===== TIPOGRAFIA PULITA ===== */
+.qodeup-logo-text,
+.menu-card-title {
+  font-family: 'Roboto', sans-serif !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+.menu-card-description,
+.menu-card-ingredients {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 0.95rem !important;
+  color: #ecf0f1 !important;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* ===== HEADER PROFESSIONALE ===== */
+.qodeup-header-main {
+  background: rgba(34,47,62,0.95) !important;
+  border-bottom: 1px solid rgba(236,240,241,0.1) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4) !important;
+  backdrop-filter: blur(10px);
+}
+
+.qodeup-logo-text {
+  font-size: 2rem !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+  transform: none;
+  animation: fadeIn 0.6s ease-out;
+  letter-spacing: 2px !important;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+}
+
+/* ===== HEADER ICONS MINIMAL ===== */
+.qodeup-header-icon-btn {
+  background: rgba(236,240,241,0.08) !important;
+  border: 1px solid rgba(236,240,241,0.2) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.qodeup-header-icon-btn:hover {
+  background: rgba(236,240,241,0.15) !important;
+  border-color: rgba(236,240,241,0.4) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+}
+
+.qodeup-header-icon-btn .material-symbols-outlined {
+  color: #ecf0f1 !important;
+}
+
+/* ===== CARDS ELEGANTI ===== */
+.menu-card-modern {
+  background: rgba(52,73,94,0.4) !important;
+  border: 1px solid rgba(236,240,241,0.15) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden !important;
+  transition: all 0.3s ease;
+}
+
+.menu-card-modern::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(236,240,241,0.05) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.menu-card-modern:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4) !important;
+  border-color: rgba(236,240,241,0.3) !important;
+}
+
+/* ===== TITOLI PULITI ===== */
+.menu-card-title {
+  font-size: 1.5rem !important;
+  color: #ffffff !important;
+  text-transform: none;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.menu-card-price {
+  font-family: 'Roboto', sans-serif !important;
+  font-size: 1.4rem !important;
+  color: #3498db !important;
+  font-weight: 500;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+}
+
+/* ===== IMMAGINI PIZZA ===== */
+.menu-card-image {
+  border: 2px solid rgba(236,240,241,0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3) !important;
+}
+
+/* ===== BADGES MINIMAL ===== */
+.badge-vegan,
+.badge-glutenfree {
+  font-family: 'Roboto', sans-serif !important;
+  border: 1px solid currentColor !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  font-weight: 400;
+}
+
+.allergen-badge-icon-only {
+  background: rgba(52,73,94,0.6) !important;
+  border: 1px solid rgba(251,191,36,0.4) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  backdrop-filter: blur(8px);
+}
+
+/* ===== SECTION HEADERS MINIMAL ===== */
+.qodeup-section-header {
+  background: rgba(52,73,94,0.5) !important;
+  border: none !important;
+  border-bottom: 2px solid rgba(236,240,241,0.2) !important;
+  border-radius: 8px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  color: #ffffff !important;
+  backdrop-filter: blur(10px);
+}
+
+.qodeup-section-title {
+  color: #ffffff !important;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+/* ===== MODAL PROFESSIONALE ===== */
+.allergen-modal-content {
+  background: rgba(44,62,80,0.95) !important;
+  border: 1px solid rgba(236,240,241,0.2) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important;
+  backdrop-filter: blur(20px);
+  border-radius: 16px;
+}
+
+.allergen-modal-title {
+  font-family: 'Roboto', sans-serif !important;
+  color: #ffffff !important;
+  font-size: 1.8rem !important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.5) !important;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.allergen-modal-item {
+  background: rgba(52,73,94,0.5) !important;
+  border: 1px solid rgba(236,240,241,0.15) !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease;
+}
+
+.allergen-modal-item:hover {
+  background: rgba(52,73,94,0.7) !important;
+  border-color: rgba(236,240,241,0.3) !important;
+  transform: translateY(-2px) !important;
+}
+
+.allergen-modal-item.selected {
+  background: rgba(52,152,219,0.3) !important;
+  border-color: rgba(52,152,219,0.6) !important;
+  box-shadow: 0 4px 12px rgba(52,152,219,0.3) !important;
+}
+
+.allergen-modal-item-name {
+  font-family: 'Roboto', sans-serif !important;
+  color: #ecf0f1 !important;
+  font-size: 0.9rem !important;
+  font-weight: 400;
+}
+
+/* ===== TRANSIZIONI FLUIDE ===== */
+.menu-card-modern,
+.allergen-modal-item,
+.qodeup-header-icon-btn {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .qodeup-logo-text {
+    font-size: 1.5rem !important;
+  }
+  
+  .menu-card-title {
+    font-size: 1.3rem !important;
+  }
+  
+  .allergen-modal-title {
+    font-size: 1.5rem !important;
+  }
+}
