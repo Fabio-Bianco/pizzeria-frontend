@@ -1,6 +1,6 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState, useRef, useEffect, useCallback } from 'react'
-import { useKeyboardNavigation, useFocusManagement } from './AccessibilityComponentsWCAG'
+import { useKeyboardNavigation, useFocusManagement } from './AccessibilityUnified'
 
 /**
  * 🔍 Search Icon SVG - Icona ricerca accessibile

@@ -5,8 +5,8 @@ import { useAllergeni, useLanguage } from '../../hooks/useMenuFeatures'
 import { useAllergenFilter } from '../../hooks/useAllergenFilter'
 
 // Import WCAG AAA Enhanced Components
-import { SkipLinks, useKeyboardNavigation } from '../components/AccessibilityComponentsWCAG'
-import { PremiumPizzeriaLogo, BrandHeader } from '../components/BrandComponentsWCAG'
+import { SkipLinks, useKeyboardNavigation } from '../components/AccessibilityUnified'
+import { PremiumPizzeriaLogo, BrandHeader } from '../components/BrandUnified'
 import { 
   EnhancedBreadcrumb, 
   AdvancedSearchBar, 
