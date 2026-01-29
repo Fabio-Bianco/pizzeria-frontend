@@ -51,13 +51,11 @@ export default function AllergenFilter({ selectedAllergens, onSelectionChange, c
     setIsOpen(!isOpen)
   }
 
-  // Preparazione lista allergeni con icone
-  const allergensWithIcons = useMemo(() => {
-    return allergens.map(allergen => ({
-      ...allergen,
-      icon: getIcon(allergen.name)
-    }))
-  }, [allergens])
+  // Lista allergeni con icone
+  const allergensWithIcons = allergens.map(allergen => ({
+    ...allergen,
+    icon: getIcon(allergen.name)
+  }))
 
   if (loading.allergens) {
     return (

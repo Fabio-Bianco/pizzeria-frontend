@@ -9,26 +9,16 @@ export const useAllergenFilter = (persistSelection = true) => {
   // Carica la selezione salvata da localStorage
   const loadSavedSelection = useCallback(() => {
     if (!persistSelection) return []
-    
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY)
-      return saved ? JSON.parse(saved) : []
-    } catch (error) {
-      console.warn('Errore nel caricamento della selezione allergeni salvata:', error)
-      return []
-    }
+    const saved = localStorage.getItem(STORAGE_KEY)
+    return saved ? JSON.parse(saved) : []
   }, [persistSelection])
 
   const [selectedAllergens, setSelectedAllergens] = useState(loadSavedSelection)
 
   // Salva la selezione in localStorage quando cambia
   useEffect(() => {
-    if (!persistSelection) return
-    
-    try {
+    if (persistSelection) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(selectedAllergens))
-    } catch (error) {
-      console.warn('Errore nel salvataggio della selezione allergeni:', error)
     }
   }, [selectedAllergens, persistSelection])
 

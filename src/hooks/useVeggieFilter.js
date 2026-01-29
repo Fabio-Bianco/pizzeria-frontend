@@ -19,26 +19,13 @@ export function useVeggieFilter() {
 
   // Filtra solo i piatti veggie
   const filterItems = (items) => {
-    if (!veggieFilterActive) return items;
-    const filtered = items.filter(isVeggie);
-    // DEBUG: logga cosa viene filtrato
-    if (typeof window !== 'undefined') {
-      console.log('[VeggieFilter] Items ricevuti:', items);
-      console.log('[VeggieFilter] Items filtrati:', filtered);
-    }
-    return filtered;
-  };
-
-  // Statistiche filtro (opzionale)
-  const filterStats = {
-    active: veggieFilterActive
+    return veggieFilterActive ? items.filter(isVeggie) : items;
   };
 
   return {
     veggieFilterActive,
     toggleVeggieFilter,
     resetVeggieFilter,
-    filterItems,
-    filterStats
+    filterItems
   };
 }

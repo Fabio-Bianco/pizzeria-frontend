@@ -32,51 +32,17 @@ export function PizzeriaProvider({ children }) {
     appetizers: null, beverages: null, desserts: null
   })
 
-  // Helper per estrarre liste dalla risposta API
-  const extractList = (payload) => {
-    if (Array.isArray(payload)) return payload
-    if (payload?.success && Array.isArray(payload?.data)) return payload.data
-    if (Array.isArray(payload?.data)) return payload.data
-    if (Array.isArray(payload?.results)) return payload.results
-    return []
-  }
-
   // Funzione generica per creare fetcher
   const createFetcher = (key, apiFunction) => {
     return useCallback(async (params = {}) => {
       try {
         setError(prev => ({ ...prev, [key]: null }))
         const response = await apiFunction(params)
-        let processed = extractList(response)
-        
-        // Mapping speciale per pizzas
-        if (key === 'pizzas') {
-          processed = processed.map(item => ({
-            ...item,
-            vegan: item.is_vegan ?? item.vegan,
-            vegetarian: item.is_vegetarian ?? item.vegetarian
-          }))
-        }
-        
-        // Mapping speciale per appetizers
-        if (key === 'appetizers') {
-          processed = processed.map(item => ({
-            ...item,
-            is_gluten_free: item.is_gluten_free ?? item.gluten_free,
-            gluten_free: item.is_gluten_free ?? item.gluten_free
-          }))
-        }
+        let processed = Array.isArray(response) ? response : response?.data || []
         
         setData(prev => ({ ...prev, [key]: processed }))
-        if (typeof window !== 'undefined') {
-          console.log(`[PizzeriaContext] ${key} loaded:`, processed.length, 'items')
-        }
       } catch (e) {
-        console.error(`Errore nel caricamento ${key}:`, e)
         setError(prev => ({ ...prev, [key]: e }))
-        if (e?.response?.status === 404) {
-          console.warn('⚠️ API non trovata. Il backend potrebbe richiedere configurazione.')
-        }
       } finally {
         setLoading(prev => ({ ...prev, [key]: false }))
       }
